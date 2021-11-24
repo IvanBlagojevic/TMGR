@@ -1,0 +1,35 @@
+{
+	"projectAttributes":[
+		{
+			"attributeName":"custom",
+			"attributeType":{
+				"value":"0"
+			},
+			"attributeLevelEnum":{
+				"value":"1"
+			},
+			"inputFieldTypeEnum":{
+				"value":"0"
+			},
+			"comboValues":"sdadasda",
+			"multiplicity":true,
+			"required":false
+		},
+		{
+			"attributeName":"context",
+			"renameValue":"$renameValue",
+			"attributeType":{
+				"value":"0"
+			},
+			"attributeLevelEnum":{
+				"value":"0"
+			},
+			"inputFieldTypeEnum":{
+				"value":"0"
+			},
+			"comboValues":"sdadasda",
+			"multiplicity":true,
+			"required":false
+		}
+	]
+}

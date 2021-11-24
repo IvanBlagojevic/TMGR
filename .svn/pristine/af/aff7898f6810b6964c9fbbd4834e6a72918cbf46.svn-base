@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="one-step" entity-type="TERM">
+
+	<swimlane name="translation swimlane">
+		<assignment
+			class="org.gs4tr.foundation.modules.workflow.ContextRolesAssignmentHandler"
+			config-type="bean">
+			<roles>
+				term_translator,super_user
+			</roles>
+		</assignment>
+	</swimlane>
+
+	<start-state name="start-state1">
+		<transition to="claim task">
+			<action
+				class="org.gs4tr.foundation.modules.workflow.actions.WorkflowItemStatusNotifier">
+				<status>ready</status>
+			</action>
+			<action
+				class="org.gs4tr.foundation.modules.workflow.actions.WorkflowItemIdNotifier" />
+			<action
+				class="org.gs4tr.foundation.modules.workflow.actions.PhaseCreationNotifier">
+				<phaseDurations>translation swimlane:100</phaseDurations>
+			</action>
+		</transition>
+	</start-state>
+
+	<task-node name="claim task" signal="first" end-tasks="true">
+		<task name="claim term" swimlane="translation swimlane">
+			<event type="task-assign">
+				<action
+					class="org.gs4tr.foundation.modules.workflow.actions.NotificationAction">
+					<type>
+						termReadyNotificationProcessor
+					</type>
+				</action>
+			</event>
+			<event type="task-end">
+				<action
+					class="org.gs4tr.termmanager.service.workflow.actions.NotificationCleanUpHandler">
+					<types>
+						termReadyNotificationProcessor
+					</types>
+				</action>
+				<action
+					class="org.gs4tr.termmanager.service.workflow.actions.ItemStatusAuditHandler">
+					<status>claimed</status>
+				</action>
+			</event>
+		</task>
+		<transition to="translation task">
+			<action
+				class="org.gs4tr.foundation.modules.workflow.actions.WorkflowItemStatusNotifier">
+				<status>in_process</status>
+			</action>
+		</transition>
+	</task-node>
+
+	<task-node name="translation task" signal="first" end-tasks="true">
+		<task name="release term" swimlane="translation swimlane">
+			<event type="task-start">
+				<script>
+					<expression>
+						path=taskInstance.name
+					</expression>
+					<variable name="path" access="write" />
+				</script>
+			</event>
+		</task>
+		<task name="translate term" swimlane="translation swimlane">
+			<event type="task-start">
+				<script>
+					<expression>
+						path=taskInstance.name
+					</expression>
+					<variable name="path" access="write" />
+				</script>
+			</event>
+		</task>
+		<transition to="translate-claim decision">
+		</transition>
+	</task-node>
+
+	<decision name="translate-claim decision">
+		<transition to="end-state1">
+			<condition expression="${path eq 'translate term'}">
+			</condition>
+			<action
+				class="org.gs4tr.foundation.modules.workflow.actions.WorkflowItemStatusNotifier">
+				<status>processed</status>
+			</action>
+			<action
+				class="org.gs4tr.termmanager.service.workflow.actions.ItemStatusAuditHandler">
+				<status>translated</status>
+			</action>
+			<action
+				class="org.gs4tr.foundation.modules.workflow.actions.PhaseFinishNotifier">
+				<swimlaneName>
+					translation swimlane
+				</swimlaneName>
+			</action>
+		</transition>
+		<transition name="to claim" to="claim task">
+			<condition expression="${path eq 'release term'}">
+			</condition>
+			<action
+				class="org.gs4tr.termmanager.service.workflow.actions.ItemStatusAuditHandler">
+				<status>released</status>
+			</action>
+		</transition>
+	</decision>
+
+	<end-state name="end-state1" />
+</process-definition>

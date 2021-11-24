@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b3145b50-2834-4c3e-ba67-2700c24e9542" name="Default Changelist" comment="TERII-6047&#10;SQL command to remove &quot;OPE_user&quot;">
+      <change afterPath="$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/java/org/gs4tr/termmanager/webservice/controllers/MyThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/java/org/gs4tr/termmanager/webservice/controllers/Test.java" afterDir="false" />
+    </list>
+    <list id="8e487e8a-9e61-4ee8-8a01-41fed1979c47" name="Ivan" comment="">
+      <change beforePath="$PROJECT_DIR$/gs4tr-termmanager-service/src/test/java/org/gs4tr/termmanager/service/AbstractRecodeOrCloneTermsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gs4tr-termmanager-service/src/test/java/org/gs4tr/termmanager/service/AbstractRecodeOrCloneTermsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gs4tr-termmanager-service/src/test/java/org/gs4tr/termmanager/service/CloneTermsServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gs4tr-termmanager-service/src/test/java/org/gs4tr/termmanager/service/CloneTermsServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gs4tr-termmanager-service/src/test/java/org/gs4tr/termmanager/service/MultilingualViewModelServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gs4tr-termmanager-service/src/test/java/org/gs4tr/termmanager/service/MultilingualViewModelServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gs4tr-termmanager-service/src/test/java/org/gs4tr/termmanager/service/RecodeOrCloneProjectLanguageUserDetailTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gs4tr-termmanager-service/src/test/java/org/gs4tr/termmanager/service/RecodeOrCloneProjectLanguageUserDetailTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gs4tr-termmanager-service/src/test/java/org/gs4tr/termmanager/service/RecodeTermsServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gs4tr-termmanager-service/src/test/java/org/gs4tr/termmanager/service/RecodeTermsServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gs4tr-termmanager-tests/src/test/java/org/gs4tr/termmanager/tests/webservices/rest/RestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/gs4tr-termmanager-tests/src/test/java/org/gs4tr/termmanager/tests/webservices/rest/RestClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gs4tr-termmanager-tests/src/test/java/org/gs4tr/termmanager/tests/webservices/rest/RestRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/gs4tr-termmanager-tests/src/test/java/org/gs4tr/termmanager/tests/webservices/rest/RestRun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gs4tr-termmanager-tests/src/test/java/org/gs4tr/termmanager/tests/webservices/restV2/RestV2Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/gs4tr-termmanager-tests/src/test/java/org/gs4tr/termmanager/tests/webservices/restV2/RestV2Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gs4tr-termmanager-tests/src/test/java/org/gs4tr/termmanager/tests/webservices/restV2/RestV2Run.java" beforeDir="false" afterPath="$PROJECT_DIR$/gs4tr-termmanager-tests/src/test/java/org/gs4tr/termmanager/tests/webservices/restV2/RestV2Run.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/trunk$InitializeUserControllerTest_initializeAdminTest.ic" NAME="InitializeUserControllerTest.initializeAdminTest Coverage Results" MODIFIED="1553261533750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.gs4tr.termmanager.webmvc.jetty.junit.runner.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/trunk$Test.ic" NAME="Test Coverage Results" MODIFIED="1553761519057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.gs4tr.termmanager.webservice.controllers.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="enabledProfiles">
+      <list>
+        <option value="impersonate" />
+        <option value="solrTests" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hBGoGlD2OOhSQXfGb1XrFwnObc" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="TODO_SCOPE" value="All Places" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554127095561" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../TMGR" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="vcs.patch.path" value="$PROJECT_DIR$/../../../Patches" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/gs4tr-termmanager-webmvc/src/test/resources" />
+      <recent name="$PROJECT_DIR$/gs4tr-termmanager-webmvc/src/test/java/org/gs4tr/termmanager/webmvc/controllers" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Test">
+    <configuration name="Test" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.gs4tr.termmanager.webservice.controllers.Test" />
+      <module name="gs4tr-termmanager-webservice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.gs4tr.termmanager.webservice.controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InitializeSearchBarControllerTest.initializeSearchBarTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="gs4tr-termmanager-webmvc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.gs4tr.termmanager.webmvc.controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.gs4tr.termmanager.webmvc.controllers" />
+      <option name="MAIN_CLASS_NAME" value="org.gs4tr.termmanager.webmvc.controllers.InitializeSearchBarControllerTest" />
+      <option name="METHOD_NAME" value="initializeSearchBarTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InitializeUserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="gs4tr-termmanager-webmvc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.gs4tr.termmanager.webmvc.jetty.junit.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.gs4tr.termmanager.webmvc.jetty.junit.runner" />
+      <option name="MAIN_CLASS_NAME" value="org.gs4tr.termmanager.webmvc.jetty.junit.runner.InitializeUserControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InitializeUserControllerTest.initializeAdminTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="gs4tr-termmanager-webmvc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.gs4tr.termmanager.webmvc.jetty.junit.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.gs4tr.termmanager.webmvc.jetty.junit.runner" />
+      <option name="MAIN_CLASS_NAME" value="org.gs4tr.termmanager.webmvc.jetty.junit.runner.InitializeUserControllerTest" />
+      <option name="METHOD_NAME" value="initializeAdminTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InitializeUserControllerTest.initializeUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="gs4tr-termmanager-webmvc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.gs4tr.termmanager.webmvc.controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.gs4tr.termmanager.webmvc.controllers" />
+      <option name="MAIN_CLASS_NAME" value="org.gs4tr.termmanager.webmvc.controllers.InitializeUserControllerTest" />
+      <option name="METHOD_NAME" value="initializeUserTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Impersonate" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="install" />
+                <option value="-DskipTests=true" />
+                <option value="-Pimpersonate" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="MAVEN" type="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="8000" />
+      <option name="AUTO_RESTART" value="false" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="8000" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="Surefire" type="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <option name="AUTO_RESTART" value="false" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="5005" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="TMGR" type="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="8001" />
+      <option name="AUTO_RESTART" value="false" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="8001" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Test" />
+      <item itemvalue="JUnit.InitializeSearchBarControllerTest.initializeSearchBarTest" />
+      <item itemvalue="JUnit.InitializeUserControllerTest" />
+      <item itemvalue="JUnit.InitializeUserControllerTest.initializeAdminTest" />
+      <item itemvalue="JUnit.InitializeUserControllerTest.initializeUserTest" />
+      <item itemvalue="Maven.Impersonate" />
+      <item itemvalue="Remote JVM Debug.MAVEN" />
+      <item itemvalue="Remote JVM Debug.Surefire" />
+      <item itemvalue="Remote JVM Debug.TMGR" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.InitializeUserControllerTest" />
+        <item itemvalue="JUnit.InitializeUserControllerTest.initializeAdminTest" />
+        <item itemvalue="JUnit.InitializeSearchBarControllerTest.initializeSearchBarTest" />
+        <item itemvalue="JUnit.InitializeUserControllerTest.initializeUserTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\iblagoj\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b3145b50-2834-4c3e-ba67-2700c24e9542" name="Default Changelist" comment="" />
+      <changelist id="8e487e8a-9e61-4ee8-8a01-41fed1979c47" name="Ivan" comment="" />
+      <created>1551175499622</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1551175499622</updated>
+    </task>
+    <task id="LOCAL-00001" summary="TERII-6018&#10;Term List | Submitting Term List folder after disabling project causes application error">
+      <created>1551192154153</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1551192154153</updated>
+    </task>
+    <task id="LOCAL-00002" summary="ReviewFix">
+      <created>1551256949464</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1551256949464</updated>
+    </task>
+    <task id="LOCAL-00003" summary="ReviewFix">
+      <created>1551267053517</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1551267053517</updated>
+    </task>
+    <task id="LOCAL-00004" summary="TERII-6040">
+      <created>1551699063780</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1551699063780</updated>
+    </task>
+    <task id="LOCAL-00005" summary="TERII-6040">
+      <created>1551779583930</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1551779583930</updated>
+    </task>
+    <task id="LOCAL-00006" summary="TERII-6047&#10;SQL command to remove &quot;OPE_user&quot;">
+      <created>1552308104932</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1552308104933</updated>
+    </task>
+    <task id="LOCAL-00007" summary="TERII-6056&#10;Update readme.txt">
+      <created>1552394100881</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1552394100881</updated>
+    </task>
+    <task id="LOCAL-00008" summary="ReviewFix">
+      <created>1552396818115</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1552396818115</updated>
+    </task>
+    <task id="LOCAL-00009" summary="RebuildIndex">
+      <created>1552490697738</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1552490697739</updated>
+    </task>
+    <task id="LOCAL-00010" summary="TERII-6049">
+      <created>1552491459034</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1552491459034</updated>
+    </task>
+    <task id="LOCAL-00011" summary="TERII-6060&#10;Rebuild index should start automatically only when TMGR is started for the first time">
+      <created>1552578798908</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1552578798908</updated>
+    </task>
+    <task id="LOCAL-00012" summary="ReviewFix">
+      <created>1552653226800</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1552653226801</updated>
+    </task>
+    <task id="LOCAL-00013" summary="TERII-6049&#10;Server - Filters initializeUser searchBar missing fields update">
+      <created>1553252161573</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1553252161573</updated>
+    </task>
+    <task id="LOCAL-00014" summary="ReviewFix">
+      <created>1553263276063</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1553263276063</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="InitializeUserControllerTest_initializeAdminTest - 2019.03.22 at 14h 50m 18s.xml">
+      <configuration name="InitializeUserControllerTest.initializeAdminTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializeUserControllerTest_initializeAdminTest - 2019.03.22 at 14h 51m 05s.xml">
+      <configuration name="InitializeUserControllerTest.initializeAdminTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializeUserControllerTest_initializeAdminTest - 2019.03.22 at 14h 51m 47s.xml">
+      <configuration name="InitializeUserControllerTest.initializeAdminTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializeUserControllerTest_initializeAdminTest - 2019.03.22 at 14h 52m 32s.xml">
+      <configuration name="InitializeUserControllerTest.initializeAdminTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializeUserControllerTest_initializeAdminTest - 2019.03.22 at 14h 52m 57s.xml">
+      <configuration name="InitializeUserControllerTest.initializeAdminTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializeUserControllerTest_initializeAdminTest - 2019.03.22 at 14h 53m 26s.xml">
+      <configuration name="InitializeUserControllerTest.initializeAdminTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializeUserControllerTest_initializeAdminTest - 2019.03.22 at 14h 56m 17s.xml">
+      <configuration name="InitializeUserControllerTest.initializeAdminTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializeUserControllerTest_initializeAdminTest - 2019.03.22 at 14h 56m 33s.xml">
+      <configuration name="InitializeUserControllerTest.initializeAdminTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializeUserControllerTest_initializeAdminTest - 2019.03.22 at 14h 58m 09s.xml">
+      <configuration name="InitializeUserControllerTest.initializeAdminTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializeUserControllerTest - 2019.03.22 at 15h 00m 50s.xml">
+      <configuration name="InitializeUserControllerTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="TERII-6018&#10;Term List | Submitting Term List folder after disabling project causes application error" />
+    <MESSAGE value="TERII-6040" />
+    <MESSAGE value="TERII-6047&#10;SQL command to remove &quot;OPE_user&quot;" />
+    <MESSAGE value="TERII-6056&#10;Update readme.txt" />
+    <MESSAGE value="RebuildIndex" />
+    <MESSAGE value="TERII-6049" />
+    <MESSAGE value="TERII-6060&#10;Rebuild index should start automatically only when TMGR is started for the first time" />
+    <MESSAGE value="TERII-6049&#10;Server - Filters initializeUser searchBar missing fields update" />
+    <MESSAGE value="ReviewFix" />
+    <option name="LAST_COMMIT_MESSAGE" value="ReviewFix" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-persistence/src/test/java/org/gs4tr/termmanager/persistence/solr/TmgrGlossaryConcordanceSearch.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="248" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-solr-plugin/src/main/java/org/gs4tr/termmanager/solr/plugin/utils/ChecksumHelper.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="249" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-solr-plugin/src/main/java/org/gs4tr/termmanager/solr/plugin/utils/ChecksumHelper.java</url>
+          <line>14</line>
+          <option name="timeStamp" value="251" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-service/src/main/java/org/gs4tr/termmanager/service/solr/restore/RecodeOrCloneTermsProcessorImpl.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="253" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-service/src/main/java/org/gs4tr/termmanager/service/solr/restore/RecodeOrCloneTermsProcessorImpl.java</url>
+          <line>357</line>
+          <option name="timeStamp" value="255" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-service/src/main/java/org/gs4tr/termmanager/service/solr/restore/RecodeOrCloneTermsProcessorImpl.java</url>
+          <line>124</line>
+          <option name="timeStamp" value="256" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-service/src/main/java/org/gs4tr/termmanager/service/solr/restore/RecodeOrCloneTermsProcessorImpl.java</url>
+          <line>248</line>
+          <option name="timeStamp" value="257" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/test/java/org/gs4tr/termmanager/webservice/controllers/GetProjectDataControllerTest.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="265" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/test/java/org/gs4tr/termmanager/webservice/controllers/GetProjectDataControllerTest.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="266" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/java/org/gs4tr/termmanager/webservice/controllers/Test.java</url>
+          <line>135</line>
+          <option name="timeStamp" value="272" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/java/org/gs4tr/termmanager/webservice/controllers/Test.java</url>
+          <line>112</line>
+          <option name="timeStamp" value="277" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/java/org/gs4tr/termmanager/webservice/controllers/Test.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="279" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webmvc/src/test/java/org/gs4tr/termmanager/webmvc/controllers/InitializeUserControllerTest.java</url>
+          <line>184</line>
+          <option name="timeStamp" value="280" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webmvc/src/test/java/org/gs4tr/termmanager/webmvc/controllers/InitializeSearchBarControllerTest.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="282" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webmvc/src/test/java/org/gs4tr/termmanager/webmvc/jetty/junit/runner/InitializeUserControllerTest.java</url>
+          <line>170</line>
+          <option name="timeStamp" value="283" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webmvc/src/test/java/org/gs4tr/termmanager/webmvc/jetty/junit/runner/InitializeUserControllerTest.java</url>
+          <line>419</line>
+          <option name="timeStamp" value="289" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-service/src/main/java/org/gs4tr/termmanager/service/impl/ProjectLanguageDetailServiceImpl.java</url>
+          <line>112</line>
+          <option name="timeStamp" value="290" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-service/src/main/java/org/gs4tr/termmanager/service/impl/ProjectLanguageDetailServiceImpl.java</url>
+          <line>109</line>
+          <option name="timeStamp" value="291" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-dao/src/main/java/org/gs4tr/termmanager/dao/hibernate/ProjectLanguageDetailDAOImpl.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="292" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/java/org/gs4tr/termmanager/webservice/controllers/Test.java</url>
+          <line>141</line>
+          <option name="timeStamp" value="295" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/java/org/gs4tr/termmanager/webservice/controllers/MyThread.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="297" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/java/org/gs4tr/termmanager/webservice/controllers/MyThread.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="298" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/java/org/gs4tr/termmanager/webservice/controllers/MyThread.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="299" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="mavenExecuteGoalHistory">
+    <option value="" />
+  </component>
+</project>

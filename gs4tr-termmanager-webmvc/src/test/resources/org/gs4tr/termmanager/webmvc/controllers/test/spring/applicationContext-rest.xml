@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <context:component-scan base-package="org.gs4tr.termmanager.webmvc.rest.interceptors"/>
+
+    <bean class="org.gs4tr.termmanager.webmvc.rest.AddTermController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.rest.DetailedExportDocumentController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.rest.FindProjectByShortcodeController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.rest.FindUserProjectsController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.rest.ImportTbxDocumentController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.rest.ExportDocumentController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.rest.RestLoginController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.rest.RestLogoutController"/>
+
+    <bean id="internalRestAuthenticationFilter"
+          class="org.gs4tr.foundation.modules.webmvc.rest.filters.InternalRestAuthenticationFilter">
+    </bean>
+
+</beans>

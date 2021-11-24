@@ -1,0 +1,21 @@
+{
+"userInfo":{
+	"firstName":"jocker",
+	"lastName":"superment",
+	"emailAddress":"adassd@adsa.com",
+	"timeZone":"IndianKerguelen",
+	"emailNotification":true,
+	"enabled":true,
+	"userName":"$userName",
+	"password":"",
+	"userType":"ORGANIZATION",
+	"accountNonExpired":true,
+	"accountLocked":false,
+	"credentialsNonExpired":true,
+	"dateLastLogin":0,
+	"unsuccessfulAuthCount":0
+	},
+	
+"createLdapUser":false
+	
+}

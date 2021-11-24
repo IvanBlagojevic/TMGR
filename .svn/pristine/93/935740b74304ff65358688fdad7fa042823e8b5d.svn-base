@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<TM_USER_PROFILE USER_PROFILE_ID="1" EMAIL_ADDRESS="foo@yahoo.com"
+		FIRSTNAME="Bob" LASTNAME="MacJones" USERNAME="bob_jones" ENABLED="true"
+		ACCOUNT_NON_EXPIRED="true" CREDENTIALS_NON_EXPIRED="true"
+		ACCOUNT_NON_LOCKED="true" />
+
+	<TM_USER_PROFILE USER_PROFILE_ID="2"
+		EMAIL_ADDRESS="john.johnson@yahoo.com" FIRSTNAME="John" LASTNAME="Johnson"
+		USERNAME="joe_jones" ACCOUNT_NON_EXPIRED="true" ENABLED="true"
+		CREDENTIALS_NON_EXPIRED="true" ACCOUNT_NON_LOCKED="true" />
+
+	<TM_USER_PROFILE USER_PROFILE_ID="3"
+		EMAIL_ADDRESS="donnie.brasko@yahoo.com" FIRSTNAME="Donnie" LASTNAME="Brasko"
+		USERNAME="donnie_B" ACCOUNT_NON_EXPIRED="true" ENABLED="true"
+		CREDENTIALS_NON_EXPIRED="true" ACCOUNT_NON_LOCKED="true" />
+
+	<TM_USER_PROFILE USER_PROFILE_ID="4" EMAIL_ADDRESS="giga@yahoo.com"
+		FIRSTNAME="Giga" LASTNAME="Moravac" USERNAME="giga"
+		ACCOUNT_NON_EXPIRED="true" ENABLED="true" CREDENTIALS_NON_EXPIRED="true"
+		ACCOUNT_NON_LOCKED="true" />
+</dataset>

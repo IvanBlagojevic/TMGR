@@ -1,0 +1,48 @@
+{
+	"submissionMarkerId":"$submissionMarkerId",
+	"submissionName":"$submissionName",
+	"reviewRequired":"true",
+	"projectTicket":"$projectTicket",
+	"sourceLanguage":"en-US",
+	"sourceTermTickets":[
+		"$sourceTicket1"
+	],
+	"translationUnits":[
+		{
+			"updateCommands":[
+				{
+					"command":"translate",
+					"markerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b660",
+					"type":"term",
+					"value":"nex",
+					"languageId":"de-DE",
+					"assignee":"generic1"
+				},
+				{
+					"command":"translate",
+					"markerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b666",
+					"type":"comment",
+					"value":"translate this term",
+					"parentMarkerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b660"
+				},
+				{
+					"command":"translate",
+					"markerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b665",
+					"type":"comment",
+					"value":"hey this new job",
+					"parentMarkerId":"$submissionMarkerId"
+				},
+				{
+					"command":"review",
+					"markerId":"c502608e-52fa-4e60-bd40-9aa63408f922",
+					"type":"term",
+					"assignee":"generic1"
+				}
+				
+			],
+			"projectTicket":"$projectTicket",
+			"termEntryTicket":"$termEntryTicket"
+		}
+		
+	]
+}

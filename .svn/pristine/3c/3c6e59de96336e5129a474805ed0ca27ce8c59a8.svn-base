@@ -1,0 +1,439 @@
+package org.gs4tr.termmanager.webmvc.controllers;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.gs4tr.foundation.locale.Locale;
+import org.gs4tr.foundation.modules.entities.model.UserProfileContext;
+import org.gs4tr.foundation.modules.entities.model.UserTypeEnum;
+import org.gs4tr.foundation.modules.security.model.Policy;
+import org.gs4tr.foundation.modules.security.model.Role;
+import org.gs4tr.termmanager.model.FolderPolicy;
+import org.gs4tr.termmanager.model.Preferences;
+import org.gs4tr.termmanager.model.ProjectUserLanguage;
+import org.gs4tr.termmanager.model.Submission;
+import org.gs4tr.termmanager.model.TmUserProfile;
+import org.gs4tr.termmanager.model.UserCustomSearch;
+import org.gs4tr.termmanager.service.RoleService;
+import org.gs4tr.termmanager.service.SubmissionService;
+import org.gs4tr.termmanager.service.utils.JsonUtils;
+import org.gs4tr.termmanager.webmvc.model.TestCase;
+import org.gs4tr.termmanager.webmvc.model.TestSuite;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.TextNode;
+
+import edu.emory.mathcs.backport.java.util.Collections;
+
+@TestSuite("controllers")
+public class InitializeUserControllerTest extends AbstractControllerTest {
+
+    private static final boolean GRID_FEATURE = false;
+
+    private static final String URL = "initializeUser.ter";
+
+    private MockHttpSession _mockHttpSession;
+
+    @Autowired
+    private RoleService _roleService;
+
+    @Autowired
+    private SubmissionService _submissionService;
+
+    /*
+     * TERII-5929 Default source improvement is not working
+     */
+    @Test
+    @TestCase("initializeUser")
+    public void initializeUserLanguagesSortEnglishFirstTest() throws Exception {
+	mockObjects();
+	mockPolicies();
+	mockCustomFolders();
+
+	// Get userProfile
+	TmUserProfile userProfile = (TmUserProfile) UserProfileContext.getCurrentUserProfile();
+	userProfile.getProjectUserLanguages().clear();
+	UserProfileContext.clearContext();
+	UserProfileContext.setCurrentUserProfile(userProfile);
+
+	// Set languages for user profile
+	Locale[] locales = Locale.getAvailableLocales();
+
+	Set<String> localesString = new HashSet<>();
+
+	for (Locale locale : locales) {
+	    localesString.add(locale.getCode());
+	}
+
+	List<String> localesForTest = new ArrayList<>(localesString);
+
+	userProfile.getProjectUserLanguages().put(1L, localesString);
+
+	MockHttpServletRequestBuilder get = MockMvcRequestBuilders.post("/" + URL).session(getMockHttpSession());
+
+	ResultActions resultActions = _mockMvc.perform(get);
+
+	resultActions.andExpect(status().isOk());
+
+	MockHttpServletResponse response = resultActions.andReturn().getResponse();
+	String result = response.getContentAsString();
+
+	Assert.assertNotNull(result);
+
+	JsonNode resultNode = JsonUtils.readValue(result, JsonNode.class);
+	Assert.assertNotNull(resultNode);
+
+	JsonNode languageDirectionNode = resultNode.get("searchBar").get("LANGUAGE_DIRECTION").get("values");
+	String languagesString = languageDirectionNode.toString();
+	ObjectMapper objectMapper = new ObjectMapper();
+
+	List<LinkedHashMap> allSortedLocales = objectMapper.readValue(languagesString, List.class);
+
+	// Assert length (length should be the same)
+	Assert.assertEquals(localesForTest.size(), allSortedLocales.size());
+
+	// Get and sort all en languages for test
+	List<String> enLocalesForTest = localesForTest.stream().filter(locale -> locale.startsWith("en"))
+		.collect(Collectors.toList());
+
+	List<String> englishDisplayNames = new ArrayList<>();
+	for (String enLocale : enLocalesForTest) {
+	    englishDisplayNames.add(Locale.get(enLocale).getDisplayName());
+	}
+
+	edu.emory.mathcs.backport.java.util.Collections.sort(englishDisplayNames);
+
+	Iterator<LinkedHashMap> iteratorSortedLocales = allSortedLocales.iterator();
+
+	// Assert order of all en languages
+	for (String displayName : englishDisplayNames) {
+	    String sortedDisplayName = (String) iteratorSortedLocales.next().get("name");
+	    Assert.assertEquals(displayName, sortedDisplayName);
+	}
+
+	// Remove all en languages and sort
+	localesForTest.removeAll(enLocalesForTest);
+
+	List<String> localeDisplayNames = new ArrayList<>();
+	for (String locale : localesForTest) {
+	    localeDisplayNames.add(Locale.get(locale).getDisplayName());
+	}
+
+	Collections.sort(localeDisplayNames);
+
+	// Assert order of all non en languages
+	for (String locale : localeDisplayNames) {
+	    String sortedLocale = (String) iteratorSortedLocales.next().get("name");
+	    Assert.assertEquals(locale, sortedLocale);
+	}
+    }
+
+    @Test
+    @TestCase("initializeUser")
+    public void initializeUserTest() throws Exception {
+	mockObjects();
+	mockPolicies();
+	mockCustomFolders();
+
+	MockHttpServletRequestBuilder get = MockMvcRequestBuilders.post("/" + URL).session(getMockHttpSession());
+
+	ResultActions resultActions = _mockMvc.perform(get);
+
+	verifyMockingObject();
+	verifyPolicies();
+	verifyCustomFolders();
+
+	resultActions.andExpect(status().isOk());
+
+	MockHttpServletResponse response = resultActions.andReturn().getResponse();
+	String result = response.getContentAsString();
+
+	Assert.assertNotNull(result);
+
+	JsonNode resultNode = JsonUtils.readValue(result, JsonNode.class);
+	Assert.assertNotNull(resultNode);
+
+	validateUserProfile(resultNode);
+	validateResults(resultNode);
+
+	if (GRID_FEATURE) {
+	    validateMenuConfigFields(resultNode);
+	}
+    }
+
+    @Test
+    @TestCase("initializeUser")
+    public void initializeUserWithNewPreferencesTest() throws Exception {
+	mockObjects();
+	mockPolicies();
+
+	TmUserProfile userProfile = (TmUserProfile) UserProfileContext.getCurrentUserProfile();
+	UserProfileContext.clearContext();
+	Preferences preferences = new Preferences();
+	preferences.setItemsPerPage(null);
+	userProfile.setPreferences(preferences);
+	userProfile.getUserInfo().setTimeZone(null);
+	UserProfileContext.setCurrentUserProfile(userProfile);
+
+	MockHttpServletRequestBuilder get = MockMvcRequestBuilders.post("/" + URL).session(getMockHttpSession());
+
+	ResultActions resultActions = _mockMvc.perform(get);
+
+	verifyMockingObject();
+	verifyPolicies();
+
+	resultActions.andExpect(status().isOk());
+
+	MockHttpServletResponse response = resultActions.andReturn().getResponse();
+	String result = response.getContentAsString();
+
+	Assert.assertNotNull(result);
+
+	JsonNode resultNode = JsonUtils.readValue(result, JsonNode.class);
+	Assert.assertNotNull(resultNode);
+
+	validateUserProfile(resultNode);
+	validateResults(resultNode);
+    }
+
+    @Test
+    @TestCase("initializeUser")
+    public void powerUserTest() throws Exception {
+	mockObjects();
+
+	TmUserProfile userProfile = (TmUserProfile) UserProfileContext.getCurrentUserProfile();
+	UserProfileContext.clearContext();
+
+	userProfile.getUserInfo().setUserType(UserTypeEnum.POWER_USER);
+
+	UserProfileContext.setCurrentUserProfile(userProfile);
+
+	MockHttpServletRequestBuilder get = MockMvcRequestBuilders.post("/" + URL).session(getMockHttpSession());
+
+	ResultActions resultActions = _mockMvc.perform(get);
+
+	verifyMockingObject();
+
+	resultActions.andExpect(status().isOk());
+
+	MockHttpServletResponse response = resultActions.andReturn().getResponse();
+	String result = response.getContentAsString();
+
+	Assert.assertNotNull(result);
+
+	JsonNode resultNode = JsonUtils.readValue(result, JsonNode.class);
+	Assert.assertNotNull(resultNode);
+
+	validateUserProfile(resultNode);
+	validateResults(resultNode);
+    }
+
+    @Before
+    public void setUp() throws Exception {
+	_mockHttpSession = new MockHttpSession();
+    }
+
+    private MockHttpSession getMockHttpSession() {
+	return _mockHttpSession;
+    }
+
+    private RoleService getRoleService() {
+	return _roleService;
+    }
+
+    private SubmissionService getSubmissionService() {
+	return _submissionService;
+    }
+
+    private void mockCustomFolders() {
+	UserCustomSearch folderCustomSearch = getModelObject("userCustomSearch", UserCustomSearch.class);
+	folderCustomSearch.setSearchJsonData(getJsonData("folderCustomSearch.json"));
+	List<UserCustomSearch> folderCustomSearchList = new ArrayList<UserCustomSearch>();
+	folderCustomSearchList.add(folderCustomSearch);
+
+	UserCustomSearch adminFolderCustomSearch = getModelObject("adminCustomSearch", UserCustomSearch.class);
+	adminFolderCustomSearch.setSearchJsonData(getJsonData("folderCustomSearch.json"));
+	List<UserCustomSearch> adminCustomSearchList = new ArrayList<UserCustomSearch>();
+	adminCustomSearchList.add(adminFolderCustomSearch);
+
+	when(getUserProfileService().getCustomSearchFolders(any(TmUserProfile.class), eq(false)))
+		.thenReturn(folderCustomSearchList);
+	when(getUserProfileService().getCustomSearchFolders(any(TmUserProfile.class), eq(true)))
+		.thenReturn(adminCustomSearchList);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void mockObjects() {
+	UserProfileContext.clearContext();
+
+	List<Role> roles = getModelObject("roles", List.class);
+
+	Map<Long, List<Role>> rolesMap = new HashMap<Long, List<Role>>();
+	rolesMap.put(1L, roles);
+
+	List<FolderPolicy> foldersPolicies = getModelObject("foldersPolicies", List.class);
+	List<FolderPolicy> adminFoldersPolicies = getModelObject("adminFolderPolocies", List.class);
+	List<ProjectUserLanguage> projectUserLanguages = getModelObject("projectUserLanguages", List.class);
+	List<Submission> submissions = new ArrayList<Submission>();
+
+	TmUserProfile userProfile = getModelObject("userProfile", TmUserProfile.class);
+	Set<String> languageSet = getModelObject("languageSet", HashSet.class);
+
+	Map<Long, Set<String>> data = new HashMap<Long, Set<String>>();
+	data.put(1L, languageSet);
+
+	userProfile.setProjectUserLanguages(data);
+
+	userProfile.initializeOrganizationUser(rolesMap, foldersPolicies, adminFoldersPolicies, projectUserLanguages,
+		submissions);
+
+	UserProfileContext.clearContext();
+	UserProfileContext.setCurrentUserProfile(userProfile);
+
+	Map<String, Set<String>> submissionUserMap = getModelObject("submissionUsersMap", Map.class);
+	when(getSubmissionService().findSubmissionUsers(any(ArrayList.class))).thenReturn(submissionUserMap);
+    }
+
+    private void mockPolicies() {
+	@SuppressWarnings("unchecked")
+	List<Policy> allPolicies = getModelObject("allPolicies", List.class);
+	when(getRoleService().findAllPolicies()).thenReturn(allPolicies);
+    }
+
+    private void validateMenuConfigFields(JsonNode resultNode) throws JsonProcessingException {
+	JsonNode menuConfig = resultNode.get("menuConfig");
+	Assert.assertNotNull(menuConfig);
+
+	JsonNode userMenu = menuConfig.get("userMenu");
+
+	JsonNode node = userMenu.get(1);
+
+	JsonNode searchCriteriaNodes = node.get("searchCriterias");
+
+	List<String> listFields = new ArrayList<>();
+	listFields.add("TL_CREATION_USERS");
+	listFields.add("TL_DATE_CREATED_RANGE");
+	listFields.add("TL_DATE_MODIFIED_RANGE");
+	listFields.add("DATE_CREATED_RANGE");
+	listFields.add("DATE_MODIFIED_RANGE");
+	listFields.add("TL_ENTITY_TYPE");
+	listFields.add("ENTITY_TYPE");
+	listFields.add("TL_HIDE_BLANKS");
+	listFields.add("TL_LANGUAGE_DIRECTION");
+	listFields.add("TL_MODIFICATION_USERS");
+	listFields.add("TL_PROJECT_LIST");
+	listFields.add("TL_TERM_NAME");
+	listFields.add("TL_TERM_STATUSES");
+	listFields.add("TERM_NAME");
+	listFields.add("TERM_STATUSES");
+
+	for (Object aSearchCriteriaNode : searchCriteriaNodes) {
+	    TextNode fieldName = (TextNode) aSearchCriteriaNode;
+	    String stringFieldName = fieldName.textValue();
+	    listFields.remove(stringFieldName);
+	}
+
+	Assert.assertEquals(listFields.size(), 0);
+    }
+
+    private void validateResults(JsonNode resultNode) {
+	JsonNode successNode = resultNode.get("success");
+	Assert.assertNotNull(successNode);
+	Assert.assertTrue(successNode.asBoolean());
+
+	Assert.assertNotNull(resultNode.findValue("project"));
+	Assert.assertNotNull(resultNode.findValue("system"));
+	Assert.assertNotNull(resultNode.findValue("canSwitchUser"));
+	// Assert.assertNotNull(resultNode.findValue("samlSsoApplications"));
+	Assert.assertNotNull(resultNode.findValue("isSwitch"));
+	Assert.assertNotNull(resultNode.findValue("canEditTerm"));
+	Assert.assertNotNull(resultNode.findValue("canAutoSave"));
+	Assert.assertNotNull(resultNode.findValue("success"));
+	Assert.assertNotNull(resultNode.findValue("preferences"));
+
+	JsonNode preferencesNode = resultNode.get("preferences");
+	Assert.assertNotNull(preferencesNode);
+
+	Assert.assertNotNull(preferencesNode.findValue("language"));
+	Assert.assertNotNull(preferencesNode.findValue("actionSize"));
+	Assert.assertNotNull(preferencesNode.findValue("itemsPerPage"));
+	Assert.assertNotNull(preferencesNode.findValue("refreshPeriod"));
+	Assert.assertNotNull(preferencesNode.findValue("timezone"));
+	Assert.assertNotNull(preferencesNode.findValue("actionTextVisible"));
+
+    }
+
+    private void validateUserProfile(JsonNode resultNode) {
+	JsonNode userProfileNode = resultNode.get("userProfile");
+	Assert.assertNotNull(userProfileNode);
+
+	Assert.assertNotNull(userProfileNode.findValue("ticket"));
+	Assert.assertNotNull(userProfileNode.findValue("systemRoles"));
+	Assert.assertNotNull(userProfileNode.findValue("organizationName"));
+	Assert.assertNotNull(userProfileNode.findValue("tasks"));
+	Assert.assertNotNull(userProfileNode.findValue("generic"));
+	Assert.assertNotNull(userProfileNode.findValue("availableTasks"));
+
+	JsonNode userInfoNode = userProfileNode.get("userInfo");
+	Assert.assertNotNull(userInfoNode);
+
+	Assert.assertNotNull(userInfoNode.findValue("autoClaimMultipleTasks"));
+	Assert.assertNotNull(userInfoNode.findValue("claimMultipleJobTasks"));
+	Assert.assertNotNull(userInfoNode.findValue("unsuccessfulAuthCount"));
+	Assert.assertNotNull(userInfoNode.findValue("dateLastLogin"));
+	Assert.assertNotNull(userInfoNode.findValue("emailAddress"));
+	Assert.assertNotNull(userInfoNode.findValue("emailNotification"));
+	Assert.assertNotNull(userInfoNode.findValue("firstName"));
+	Assert.assertNotNull(userInfoNode.findValue("lastName"));
+	Assert.assertNotNull(userInfoNode.findValue("accountNonExpired"));
+	Assert.assertNotNull(userInfoNode.findValue("credentialsNonExpired"));
+	Assert.assertNotNull(userInfoNode.findValue("enabled"));
+	Assert.assertNotNull(userInfoNode.findValue("password"));
+	Assert.assertNotNull(userInfoNode.findValue("userName"));
+	Assert.assertNotNull(userInfoNode.findValue("userType"));
+	Assert.assertNotNull(userInfoNode.findValue("timeZone"));
+	Assert.assertNotNull(userInfoNode.findValue("accountLocked"));
+
+    }
+
+    private void verifyCustomFolders() {
+	verify(getUserProfileService(), times(1)).getCustomSearchFolders(any(TmUserProfile.class), eq(false));
+	verify(getUserProfileService(), times(1)).getCustomSearchFolders(any(TmUserProfile.class), eq(true));
+    }
+
+    @SuppressWarnings("unchecked")
+    private void verifyMockingObject() {
+	verify(getSubmissionService(), atLeastOnce()).findSubmissionUsers(any(ArrayList.class));
+    }
+
+    private void verifyPolicies() {
+	verify(getRoleService(), atLeastOnce()).findAllPolicies();
+    }
+
+}

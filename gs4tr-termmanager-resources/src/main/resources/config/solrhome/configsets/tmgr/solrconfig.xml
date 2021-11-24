@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config>
+    <luceneMatchVersion>5.5.4</luceneMatchVersion>
+
+    <directoryFactory name="DirectoryFactory"
+                      class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
+
+    <dataDir>${solr.core.data.dir:}</dataDir>
+    <codecFactory class="solr.SchemaCodecFactory"/>
+    <schemaFactory class="ClassicIndexSchemaFactory"/>
+    <query>
+        <enableLazyFieldLoading>true</enableLazyFieldLoading>
+        <slowQueryThresholdMillis>3000</slowQueryThresholdMillis>
+    </query>
+
+    <!--
+    <indexConfig>
+        <mergeScheduler class="org.apache.lucene.index.ConcurrentMergeScheduler">
+            <int name="maxMergeCount">2</int>
+            <int name="maxThreadCount">1</int>
+        </mergeScheduler>
+        <infoStream>true</infoStream>
+    </indexConfig>
+    -->
+
+    <updateHandler class="solr.DirectUpdateHandler2">
+        <updateLog>
+            <str name="dir">${solr.core.data.dir:}</str>
+        </updateLog>
+        <autoCommit>
+            <maxDocs>5000</maxDocs>
+            <maxTime>300000</maxTime><!-- 5 minutes -->
+            <!--<maxTime>30000</maxTime>-->
+            <openSearcher>false</openSearcher>
+        </autoCommit>
+    </updateHandler>
+
+    <updateRequestProcessorChain name="tmgrUpdateChain">
+        <processor
+                class="org.gs4tr.termmanager.solr.plugin.TmgrFieldsCorrectorProcessorFactory"/>
+        <processor
+                class="org.gs4tr.termmanager.solr.plugin.TmgrPreUpdateProcessorFactory"/>
+        <processor
+                class="org.gs4tr.foundation3.solr.plugin.ContextInitializerUpdateProcessorFactory"/>
+        <processor class="solr.DistributedUpdateProcessorFactory"/>
+        <processor
+                class="org.gs4tr.foundation3.solr.plugin.RevisionHistoryUpdateProcessorFactory"/>
+        <processor
+                class="org.gs4tr.termmanager.solr.plugin.TmgrAdditionalFieldsUpdateProcessorFactory"/>
+        <processor
+                class="org.gs4tr.foundation3.solr.plugin.ContextRemoveUpdateProcessorFactory"/>
+        <processor class="solr.RunUpdateProcessorFactory"/>
+    </updateRequestProcessorChain>
+
+    <updateRequestProcessorChain name="tmgrRebuildChain">
+        <processor
+                class="org.gs4tr.termmanager.solr.plugin.TmgrFieldsCorrectorProcessorFactory"/>
+        <processor
+                class="org.gs4tr.termmanager.solr.plugin.TmgrPreUpdateProcessorFactory"/>
+        <processor
+                class="org.gs4tr.foundation3.solr.plugin.ContextInitializerUpdateProcessorFactory"/>
+        <processor class="solr.DistributedUpdateProcessorFactory"/>
+        <processor
+                class="org.gs4tr.termmanager.solr.plugin.TmgrAdditionalFieldsUpdateProcessorFactory"/>
+        <processor
+                class="org.gs4tr.foundation3.solr.plugin.ContextRemoveUpdateProcessorFactory"/>
+        <processor class="solr.RunUpdateProcessorFactory"/>
+    </updateRequestProcessorChain>
+
+    <requestHandler name="/replication" class="solr.ReplicationHandler"
+                    startup="lazy"/>
+
+    <requestDispatcher handleSelect="true">
+        <requestParsers enableRemoteStreaming="false"
+                        multipartUploadLimitInKB="4048" formdataUploadLimitInKB="4048"
+                        addHttpRequestToContext="false"/>
+    </requestDispatcher>
+
+    <requestHandler name="/search" class="solr.SearchHandler">
+        <arr name="components">
+            <str>query</str>
+            <str>facet</str>
+            <str>debug</str>
+            <str>stats</str>
+        </arr>
+    </requestHandler>
+    <requestHandler name="/update" class="solr.UpdateRequestHandler">
+        <lst name="defaults">
+            <str name="update.chain">tmgrUpdateChain</str>
+        </lst>
+    </requestHandler>
+
+    <requestHandler name="/get" class="solr.RealTimeGetHandler"/>
+
+    <!-- for debug only -->
+    <requestHandler name="/admin/"
+                    class="org.apache.solr.handler.admin.SolrInfoMBeanHandler"/>
+
+    <jmx/>
+
+
+    <queryParser name="cqp"
+                 class="org.gs4tr.foundation3.solr.plugin.ConcordanceQueryPlugin"/>
+    <queryParser name="sdqp"
+                 class="org.gs4tr.foundation3.solr.plugin.SubdocumentSearchQueryPlugin"/>
+
+    <transformer name="history"
+                 class="org.gs4tr.foundation3.solr.plugin.ContextHistoryDocTransformerFactory"/>
+
+    <admin>
+        <defaultQuery>*:*</defaultQuery>
+    </admin>
+
+</config>
+

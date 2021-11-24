@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-cache/gs4tr-termmanager-cache.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-cache/gs4tr-termmanager-cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-dao/gs4tr-termmanager-dao.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-dao/gs4tr-termmanager-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-glossary/gs4tr-termmanager-glossary.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-glossary/gs4tr-termmanager-glossary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-io/gs4tr-termmanager-io.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-io/gs4tr-termmanager-io.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-migration/gs4tr-termmanager-migration.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-migration/gs4tr-termmanager-migration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-model/gs4tr-termmanager-model.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-model/gs4tr-termmanager-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-persistence/gs4tr-termmanager-persistence.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-persistence/gs4tr-termmanager-persistence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-resources/gs4tr-termmanager-resources.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-resources/gs4tr-termmanager-resources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-service/gs4tr-termmanager-service.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-service/gs4tr-termmanager-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-solr-plugin/gs4tr-termmanager-solr-plugin.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-solr-plugin/gs4tr-termmanager-solr-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-tests/gs4tr-termmanager-tests.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-tests/gs4tr-termmanager-tests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-webapp/gs4tr-termmanager-webapp.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-webapp/gs4tr-termmanager-webapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-webmvc/gs4tr-termmanager-webmvc.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-webmvc/gs4tr-termmanager-webmvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gs4tr-termmanager-webservice/gs4tr-termmanager-webservice.iml" filepath="$PROJECT_DIR$/gs4tr-termmanager-webservice/gs4tr-termmanager-webservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/trunk.iml" filepath="$PROJECT_DIR$/.idea/trunk.iml" />
+    </modules>
+  </component>
+</project>

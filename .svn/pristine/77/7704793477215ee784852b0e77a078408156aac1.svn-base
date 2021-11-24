@@ -1,0 +1,8 @@
+FileNameMaker.0=File name must have %s symbol.
+FileNameMaker.1=File name must not be empty.
+ImportFileManager.2=Scheduling dayily cleanup on: %s
+ImportFileManager.3=Start deleting a directory: %s
+ImportFileManager.4=Start deleting a file: %s
+ImportFileManager.5=Start decompressing a zip file to: %s
+ImportFileManager.6=Import file %s is stored to %s
+ImportFileNameMaker.0=No %s instances for you\!

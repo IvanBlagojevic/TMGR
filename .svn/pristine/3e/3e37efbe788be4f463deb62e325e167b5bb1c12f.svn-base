@@ -1,0 +1,26 @@
+{
+  "roleId": "some role",
+  "roleType": "SYSTEM",
+  "policies": [
+    {
+      "category": "User",
+      "policyId": "POLICY_FOUNDATION_USERPROFILE_ADD",
+      "policyType": "SYSTEM"
+    },
+    {
+      "category": "Organization",
+      "policyId": "POLICY_FOUNDATION_ORGANIZATION_EDIT",
+      "policyType": "SYSTEM"
+    },
+    {
+      "category": "Role",
+      "policyId": "POLICY_FOUNDATION_SECURITY_ROLE_VIEW",
+      "policyType": "SYSTEM"
+    },
+    {
+      "category": "Project",
+      "policyId": "POLICY_FOUNDATION_PROJECT_ADD",
+      "policyType": "SYSTEM"
+    }
+  ]
+}

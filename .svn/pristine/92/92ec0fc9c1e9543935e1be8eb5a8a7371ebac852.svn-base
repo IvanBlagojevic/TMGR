@@ -1,0 +1,45 @@
+{
+  "saveDashboardCommands": [
+    {
+      "translationUnits": [
+        {
+          "matchedTermEntryTicket": "$matchedTermEntryTicket",
+          "sourceTermUpdateCommands": [
+            {
+              "command": "add",
+              "markerId": "9c25d767-6d00-4dad-b0f7-634b2fa4b660",
+              "languageId": "en-US",
+              "type": "term",
+              "value": "Some source term",
+              "status": "PROCESSED"
+            },
+            {
+              "command": "add",
+              "parentMarkerId": "9c25d767-6d00-4dad-b0f7-634b2fa4b660",
+              "markerId": "9c25d767-6d00-4dad-b0f7-634b2fa4b666",
+              "type": "description",
+              "subType": "definition",
+              "value": "This is some term description"
+            }
+          ],
+          "targetTermUpdateCommands": [
+            {
+              "command": "add",
+              "markerId": "402972d1-70a5-41fa-9c07-11f79a1d831e",
+              "languageId": "de-DE",
+              "type": "term",
+              "status": "WAITING",
+              "value": "Maus"
+            }
+          ]
+        }
+      ],
+      "projectTicket": "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+      "sourceLanguage": "en-US",
+      "saveTerm": false,
+      "targetLanguage": [
+        "de-DE"
+      ]
+    }
+  ]
+}

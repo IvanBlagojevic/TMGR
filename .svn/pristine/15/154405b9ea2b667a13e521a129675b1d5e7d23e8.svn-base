@@ -1,0 +1,163 @@
+package org.gs4tr.termmanager.service;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.gs4tr.foundation.modules.project.service.BaseProjectService;
+import org.gs4tr.foundation.modules.security.model.Role;
+import org.gs4tr.termmanager.model.Attribute;
+import org.gs4tr.termmanager.model.AttributeLevelEnum;
+import org.gs4tr.termmanager.model.ProjectLanguage;
+import org.gs4tr.termmanager.model.ProjectMetadata;
+import org.gs4tr.termmanager.model.ProjectMetadataRequest;
+import org.gs4tr.termmanager.model.ProjectUserLanguage;
+import org.gs4tr.termmanager.model.Statistics;
+import org.gs4tr.termmanager.model.TmProject;
+import org.gs4tr.termmanager.model.TmUserProfile;
+import org.springframework.security.access.annotation.Secured;
+
+public interface ProjectService extends BaseProjectService<TmProject> {
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    Long addNewLanguagesOnImport(Long userId, List<ProjectLanguage> projectLanguagesForImport);
+
+    @Secured({ "POLICY_FOUNDATION_PROJECT_EDIT", "POLICY_FOUNDATION_PROJECT_ADD" })
+    Long addOrUpdateProjectAttributes(Long projectId, List<Attribute> incomingAttributes);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    Long addOrUpdateProjectAttributesOnImport(Long projectId,
+	    Map<AttributeLevelEnum, Set<String>> incomingProjectAttributes, boolean ignoreCase);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    void addOrUpdateProjectLanguageDetail(Long projectId, Set<String> incomingLanguages);
+
+    @Secured({ "POLICY_FOUNDATION_PROJECT_EDIT", "POLICY_FOUNDATION_PROJECT_ADD" })
+    Long addOrUpdateProjectLanguages(Long projectId, List<ProjectLanguage> projectLanguages);
+
+    /* Note: Original method is secured and exposed */
+    void addOrUpdateProjectLanguagesForRecodeOrClone(Long projectId, List<ProjectLanguage> projectLanguages);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    Long addOrUpdateProjectNotesOnImport(Long projectId, Set<String> projectNotes, boolean ignoreCase);
+
+    @Secured({ "POLICY_FOUNDATION_PROJECT_EDIT", "POLICY_FOUNDATION_PROJECT_ADD" })
+    Long addOrUpdateProjectUserLanguages(Long userId, Long projectId, List<String> languages, List<Long> userIds,
+	    Boolean isGeneric);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    void clearStatistics(Collection<Long> statisticsIds);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    boolean containsGenericProjectUsers(List<Long> projectIds);
+
+    @Secured({ "POLICY_FOUNDATION_PROJECT_EDIT", "POLICY_FOUNDATION_PROJECT_ADD" })
+    Long enableProject(Long projectId);
+
+    List<Long> findAllDisabledProjectIds();
+
+    List<Long> findAllEnabledProjectIds();
+
+    List<TmProject> findAllProjectsFetchLanguages();
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    Map<Long, List<Attribute>> findAttributesByProjectId(List<Long> projectIds);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    TmProject findProjectById(Long projectId, Class<?>... classes);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<TmProject> findProjectByIds(List<Long> projectIds);
+
+    List<Long> findProjectIdsByShortCodes(List<String> shortCodes);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<ProjectUserLanguage> findProjectUserLanguageByProjectId(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<ProjectUserLanguage> findProjectUserLanguageByProjectIds(List<Long> projectIds, Class<?>... classesToFetch);
+
+    List<Long> findProjectsByNameLike(String nameLike);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<Attribute> getAttributesByProjectId(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<TmProject> getCurrentUserProjects();
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<Long> getDisabledProjectsIds(List<Long> projectIds);
+
+    @Secured({ "POLICY_FOUNDATION_PROJECT_ADD", "POLICY_FOUNDATION_PROJECT_EDIT" })
+    Set<TmUserProfile> getGenericProjectUsers(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    Map<String, Set<TmUserProfile>> getLanguageAssignees(Long projectId, String sourceLanguage);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    Map<String, Set<TmUserProfile>> getLanguagePowerUsers(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    Long getOrganizationIdByProject(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    Set<String> getProjectLanguageCodes(List<Long> projectIds);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<String> getProjectLanguageCodes(Long projectIds);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<ProjectLanguage> getProjectLanguages(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<ProjectLanguage> getProjectLanguagesByProjectId(Long projectId);
+
+    /* Note: Original method is secured and exposed */
+    List<ProjectLanguage> getProjectLanguagesForRecodeOrClone(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<ProjectMetadata> getProjectMetadata(ProjectMetadataRequest request);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<String> getProjectUserLanguageCodes(Long projectId, Long userId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<ProjectUserLanguage> getProjectUserLanguages(Long userId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<ProjectUserLanguage> getProjectUserLanguages(Long projectId, Long userId);
+
+    @Secured({ "POLICY_FOUNDATION_PROJECT_ADD", "POLICY_FOUNDATION_PROJECT_EDIT", "POLICY_TM_PROJECT_SEND_CONNECTION" })
+    Set<TmUserProfile> getProjectUsers(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<TmUserProfile> getProjectUsersByLanguageIds(Long projectId, List<ProjectLanguage> projectLanguages);
+
+    /* Note: Original method is secured and exposed */
+    Set<TmUserProfile> getProjectUsersForRecodeOrClone(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<String> getRoleIdsByUserAndProject(Long projectId, Long userId);
+
+    @Secured({ "POLICY_FOUNDATION_PROJECT_ADD", "POLICY_FOUNDATION_PROJECT_EDIT" })
+    List<Role> getRolesByUserAndProject(Long projectId, Long userId);
+
+    @Secured({ "POLICY_FOUNDATION_SECURITY_GETLOGINDATA" })
+    List<Statistics> getStatisticsByProjectId(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    Map<Long, List<String>> getUserLanguagesMap(Long projectId);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    Map<String, List<Statistics>> getUserProjectStatistics(Long userId, String reportType);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<TmProject> getUserProjects(Long id, Class<?>... classesToFetch);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    List<Statistics> getUserStatistics(Long userId, String reportType);
+
+    @Secured("POLICY_FOUNDATION_SECURITY_GETLOGINDATA")
+    boolean updateProjectProperties(Long projectId, Map<String, Object> updateCommand);
+}

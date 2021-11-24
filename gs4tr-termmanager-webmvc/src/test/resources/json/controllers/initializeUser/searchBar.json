@@ -1,0 +1,314 @@
+{
+  "searchBar": {
+    "DATE_COMPLETED_RANGE": {
+      "type": "DATE_RANGE",
+      "name": "dateCompletedRange"
+    },
+    "LANGUAGE_SET_NAME": {
+      "type": "INPUT",
+      "name": "languageSetNameInputText"
+    },
+    "MODIFICATION_USERS": {
+      "required": false,
+      "values": [
+        {
+          "name": "admin",
+          "value": "admin"
+        },
+        {
+          "name": "system",
+          "value": "system"
+        },
+        {
+          "name": "super",
+          "value": "super"
+        },
+        {
+          "name": "translator",
+          "value": "translator"
+        }
+      ],
+      "value": [],
+      "type": "COMBO_MULTI",
+      "name": "modificationUsers"
+    },
+    "PROJECT_LIST": {
+      "required": true,
+      "values": [
+        {
+          "name": "Skype",
+          "value": "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q"
+        }
+      ],
+      "value": [
+        "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q"
+      ],
+      "type": "COMBO_MULTI",
+      "name": "projectComboBox"
+    },
+    "ORGANIZATION_NAME": {
+      "type": "INPUT",
+      "name": "organizationNameInputText"
+    },
+    "PROJECT_NAME": {
+      "type": "INPUT",
+      "name": "projectNameInputText"
+    },
+    "DATE_CREATED_RANGE": {
+      "type": "DATE_RANGE",
+      "name": "dateCreatedRange"
+    },
+    "ENTITY_TYPE": {
+      "values1": [
+        {
+          "name": "ATTRIBUTES",
+          "value": "ATTRIBUTES"
+        },
+        {
+          "name": "TERM",
+          "value": "TERM"
+        }
+      ],
+      "values2": [
+        {
+          "name": "SOURCE",
+          "value": "SOURCE"
+        },
+        {
+          "name": "TARGET",
+          "value": "TARGET"
+        }
+      ],
+      "required": true,
+      "value": {
+        "value1": [
+          "TERM"
+        ],
+        "value2": [
+          "SOURCE",
+          "TARGET"
+        ]
+      },
+      "type": "COMBO_MULTI_DOUBLE",
+      "name": "entityType"
+    },
+    "SUBMISSION_TERM_LANGUAGE": {
+      "required": true,
+      "values": [],
+      "value": null,
+      "type": "COMBO_SINGLE",
+      "name": "submissionTermLanguage"
+    },
+    "SUBMISSION_STATUSES": {
+      "required": false,
+      "values": [
+        {
+          "name": "COMPLETED",
+          "value": "COMPLETED"
+        },
+        {
+          "name": "CANCELLED",
+          "value": "CANCELLED"
+        },
+        {
+          "name": "INFINALREVIEW",
+          "value": "INFINALREVIEW"
+        },
+        {
+          "name": "INTRANSLATIONREVIEW",
+          "value": "INTRANSLATIONREVIEW"
+        }
+      ],
+      "value": null,
+      "type": "COMBO_MULTI",
+      "name": "statuses"
+    },
+    "HIDE_BLANKS": {
+      "required": false,
+      "values": [],
+      "value": [],
+      "type": "COMBO_MULTI",
+      "name": "hideBlanks"
+    },
+    "CREATION_USERS": {
+      "required": false,
+      "values": [
+        {
+          "name": "admin",
+          "value": "admin"
+        },
+        {
+          "name": "system",
+          "value": "system"
+        },
+        {
+          "name": "super",
+          "value": "super"
+        },
+        {
+          "name": "translator",
+          "value": "translator"
+        }
+      ],
+      "value": [],
+      "type": "COMBO_MULTI",
+      "name": "creationUsers"
+    },
+    "LANGUAGE_DIRECTION_SUBMISSION": {
+      "values1": [],
+      "values2": [],
+      "required": false,
+      "value": {
+        "value1": null,
+        "value2": null
+      },
+      "type": "COMBO_MULTI_DOUBLE",
+      "name": "languageDirectionSubmission"
+    },
+    "SUBMISSION_USERS": {
+      "values1": [],
+      "values2": [],
+      "required": false,
+      "value": {
+        "value1": [
+          null
+        ],
+        "value2": [
+          null
+        ]
+      },
+      "type": "COMBO_MULTI_DOUBLE",
+      "name": "submissionUsers"
+    },
+    "TERM_ENTRY_DATE_CREATED_RANGE": {
+      "type": "DATE_RANGE",
+      "name": "termEntryDateCreatedRange"
+    },
+    "USER_FIRST_NAME": {
+      "type": "INPUT",
+      "name": "firstNameInputText"
+    },
+    "SUBMISSION_NAME": {
+      "type": "INPUT",
+      "name": "submissionNameInputText"
+    },
+    "ROLE_NAME": {
+      "type": "INPUT",
+      "name": "roleNameInputText"
+    },
+    "USER_LAST_NAME": {
+      "type": "INPUT",
+      "name": "lastNameInputText"
+    },
+    "TERM_NAME": {
+      "values": [
+        {
+          "name": "DEFAULT",
+          "value": "DEFAULT"
+        },
+        {
+          "name": "EXACT",
+          "value": "EXACT"
+        }
+      ],
+      "value": {
+        "value1": null,
+        "value2": "DEFAULT"
+      },
+      "type": "TEXT_AND_COMBO_SINGLE",
+      "name": "termNameAndSearchType"
+    },
+    "SUBMISSION_PROJECT_LIST": {
+      "required": false,
+      "values": null,
+      "value": null,
+      "type": "COMBO_MULTI",
+      "name": "submissionProjectComboBox"
+    },
+    "USER_NAME": {
+      "type": "INPUT",
+      "name": "userNameInputText"
+    },
+    "DATE_MODIFIED_RANGE": {
+      "type": "DATE_RANGE",
+      "name": "dateModifiedRange"
+    },
+    "TERM_STATUSES": {
+      "required": false,
+      "values": [
+        {
+          "name": "PROCESSED",
+          "value": "PROCESSED"
+        },
+        {
+          "name": "WAITING",
+          "value": "WAITING"
+        },
+        {
+          "name": "MISSINGTRANSLATION",
+          "value": "MISSINGTRANSLATION"
+        },
+        {
+          "name": "INFINALREVIEW",
+          "value": "INFINALREVIEW"
+        },
+        {
+          "name": "BLACKLISTED",
+          "value": "BLACKLISTED"
+        },
+        {
+          "name": "INTRANSLATIONREVIEW",
+          "value": "INTRANSLATIONREVIEW"
+        }
+      ],
+      "value": null,
+      "type": "COMBO_MULTI",
+      "name": "statuses"
+    },
+    "LANGUAGE_DIRECTION": {
+      "required": true,
+      "values": [
+        {
+          "direction": "LTR",
+          "tickets": [
+            "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q"
+          ],
+          "name": "English",
+          "value": "en"
+        },
+        {
+          "direction": "LTR",
+          "tickets": [
+            "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q"
+          ],
+          "name": "English (United States)",
+          "value": "en-US"
+        },
+        {
+          "direction": "LTR",
+          "tickets": [
+            "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q"
+          ],
+          "name": "French (France)",
+          "value": "fr-FR"
+        },
+        {
+          "direction": "LTR",
+          "tickets": [
+            "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q"
+          ],
+          "name": "German (Germany)",
+          "value": "de-DE"
+        }
+      ],
+      "value": {
+        "value1": "en",
+        "value2": [
+          "en-US"
+        ]
+      },
+      "type": "COMBO_SINGLE_AND_COMBO_MULTI_LINKED",
+      "name": "languageDirection"
+    }
+  }
+}

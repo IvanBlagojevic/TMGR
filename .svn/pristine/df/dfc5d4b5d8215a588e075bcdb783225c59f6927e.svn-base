@@ -1,0 +1,291 @@
+package org.gs4tr.termmanager.service.reindex;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import org.gs4tr.termmanager.dao.ProjectLanguageDAO;
+import org.gs4tr.termmanager.model.ProjectDetail;
+import org.gs4tr.termmanager.model.ProjectLanguageDetail;
+import org.gs4tr.termmanager.service.AbstractRecodeOrCloneTermsTest;
+import org.gs4tr.termmanager.service.solr.restore.RecodeOrCloneTermsProcessor;
+import org.gs4tr.termmanager.service.solr.restore.model.RecodeOrCloneCommand;
+import org.gs4tr.termmanager.service.solr.restore.model.RecodeOrCloneCommandParser;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class RecodeOrCloneTermsProcessorTest extends AbstractRecodeOrCloneTermsTest {
+
+    @Autowired
+    private ProjectLanguageDAO _projectLanguageDAO;
+
+    @Test
+    public void testCloneWhileAppRunning() {
+
+	RecodeOrCloneTermsProcessor processor = getRecodeOrCloneTermsProcessor();
+
+	boolean isParseSuccess = true;
+	boolean isRebuildByProjectShortCodes = false;
+
+	Set<String> projectShortCodesForReindex = null;
+
+	List<RecodeOrCloneCommand> recodeCommands = new ArrayList<>();
+	List<RecodeOrCloneCommand> cloneCommands = new ArrayList<>();
+	cloneCommands.add(getRecodeOrCloneCommand());
+
+	Set<String> languagesOnProjectBefore = getProjectLanguageDAO().getLanguageIdsByProjectId(PROJECT_ID1);
+
+	Assert.assertTrue(languagesOnProjectBefore.contains(EN));
+	Assert.assertFalse(languagesOnProjectBefore.contains(EN_US));
+
+	ProjectDetail pdBefore = getProjectDetailService().findByProjectId(PROJECT_ID1, ProjectLanguageDetail.class);
+	Set<ProjectLanguageDetail> pldBefore = pdBefore.getLanguageDetails();
+
+	Assert.assertEquals(3, pldBefore.size());
+
+	ProjectLanguageDetail enPld = pldBefore.stream().filter(pld -> pld.getLanguageId().equals(EN)).findFirst()
+		.orElse(null);
+
+	Assert.assertNotNull(enPld);
+
+	try {
+	    projectShortCodesForReindex = processor.recodeOrCloneTerms(recodeCommands, cloneCommands);
+	    isRebuildByProjectShortCodes = processor.isRebuildByProjectShortCodes();
+	} catch (RuntimeException e) {
+	    isParseSuccess = false;
+	}
+	Assert.assertTrue(isParseSuccess);
+	Assert.assertTrue(isRebuildByProjectShortCodes);
+	Assert.assertNotNull(projectShortCodesForReindex);
+
+	Assert.assertEquals(1, projectShortCodesForReindex.size());
+	Assert.assertEquals(SHORT_CODE_PROJECT1, projectShortCodesForReindex.iterator().next());
+
+	Set<String> languagesOnProjectAfter = getProjectLanguageDAO().getLanguageIdsByProjectId(PROJECT_ID1);
+
+	Assert.assertTrue(languagesOnProjectAfter.contains(EN));
+	Assert.assertTrue(languagesOnProjectAfter.contains(EN_US));
+
+	ProjectDetail pdAfter = getProjectDetailService().findByProjectId(PROJECT_ID1, ProjectLanguageDetail.class);
+
+	Set<ProjectLanguageDetail> pldAfter = pdAfter.getLanguageDetails();
+
+	Assert.assertEquals(4, pldAfter.size());
+
+	ProjectLanguageDetail enUsPld = pldAfter.stream().filter(pld -> pld.getLanguageId().equals(EN_US)).findFirst()
+		.orElse(null);
+
+	Assert.assertNotNull(enUsPld);
+
+	Assert.assertEquals(enPld.getActiveSubmissionCount(), enUsPld.getActiveSubmissionCount());
+	Assert.assertEquals(enPld.getForbiddenTermCount(), enUsPld.getForbiddenTermCount());
+	Assert.assertEquals(enPld.getOnHoldTermCount(), enUsPld.getOnHoldTermCount());
+	Assert.assertEquals(enPld.getApprovedTermCount(), enUsPld.getApprovedTermCount());
+	Assert.assertEquals(enPld.getPendingApprovalCount(), enUsPld.getPendingApprovalCount());
+
+    }
+
+    @Test
+    public void testCommandParserBadProjectShortCode() {
+
+	// Test non existing short code
+	String projectsForRecode = "BAD_SHORT_CODE,en,en-US";
+
+	boolean isParseSuccess = true;
+
+	try {
+	    RecodeOrCloneCommandParser parser = new RecodeOrCloneCommandParser(getProjectService(),
+		    getProjectLanguageDAO(), Collections.emptyList());
+	    parser.setAsText(projectsForRecode);
+	} catch (RuntimeException e) {
+	    isParseSuccess = false;
+	    String expectedMessage = "Can't find projectId for project short code: [BAD_SHORT_CODE]";
+	    Assert.assertEquals(expectedMessage, e.getMessage());
+	}
+	Assert.assertFalse(isParseSuccess);
+
+    }
+
+    @Test
+    public void testCommandParserDisabledProject() {
+	String projectsForRecode = "TES000001,en,en-US";
+	boolean isParseSuccess = true;
+	try {
+	    RecodeOrCloneCommandParser parser = new RecodeOrCloneCommandParser(getProjectService(),
+		    getProjectLanguageDAO(), Collections.singletonList(1L));
+	    parser.setAsText(projectsForRecode);
+	} catch (RuntimeException e) {
+	    isParseSuccess = false;
+	    String expectedMessage = "locale.properties has project [TES000001] that is disabled";
+	    Assert.assertEquals(expectedMessage, e.getMessage());
+	}
+	Assert.assertFalse(isParseSuccess);
+    }
+
+    @Test
+    public void testCommandParserInvalidLocale() {
+
+	// Target (rr-RR) locale is invalid
+	String projectsForRecode = "TES000001,en,rr-RR";
+	boolean isParseSuccess = true;
+	try {
+	    RecodeOrCloneCommandParser parser = new RecodeOrCloneCommandParser(getProjectService(),
+		    getProjectLanguageDAO(), Collections.emptyList());
+	    parser.setAsText(projectsForRecode);
+	} catch (RuntimeException e) {
+	    isParseSuccess = false;
+	    String expectedMessage = "locale.properties has property with locale: [rr-RR] that not exists";
+	    Assert.assertEquals(expectedMessage, e.getMessage());
+	}
+	Assert.assertFalse(isParseSuccess);
+    }
+
+    @Test
+    public void testCommandParserLanguageFromIsNotInProject() {
+
+	// Project Short code is omitted
+	String projectsForRecode = "en,en-US";
+	boolean isParseSuccess = true;
+	try {
+	    RecodeOrCloneCommandParser parser = new RecodeOrCloneCommandParser(getProjectService(),
+		    getProjectLanguageDAO(), Collections.emptyList());
+	    parser.setAsText(projectsForRecode);
+	} catch (RuntimeException e) {
+	    isParseSuccess = false;
+	    String expectedMessage = "locale.properties has invalid property";
+	    Assert.assertEquals(expectedMessage, e.getMessage());
+	}
+	Assert.assertFalse(isParseSuccess);
+    }
+
+    @Test
+    public void testCommandParserProjectHaveTargetLocale() {
+
+	// Project already have target (de) locale
+	String projectsForRecode = "TES000001,en,de";
+	boolean isParseSuccess = true;
+	try {
+	    RecodeOrCloneCommandParser parser = new RecodeOrCloneCommandParser(getProjectService(),
+		    getProjectLanguageDAO(), Collections.emptyList());
+	    parser.setAsText(projectsForRecode);
+	} catch (RuntimeException e) {
+	    isParseSuccess = false;
+	    String expectedMessage = "Project [1] already have locale [de]";
+	    Assert.assertEquals(expectedMessage, e.getMessage());
+	}
+	Assert.assertFalse(isParseSuccess);
+    }
+
+    @Test
+    public void testCommandParserProjectWithoutFromLocale() {
+
+	// Project don't have it locale
+	String projectsForRecode = "TES000001,it,en-US";
+	boolean isParseSuccess = true;
+	try {
+	    RecodeOrCloneCommandParser parser = new RecodeOrCloneCommandParser(getProjectService(),
+		    getProjectLanguageDAO(), Collections.emptyList());
+	    parser.setAsText(projectsForRecode);
+	} catch (RuntimeException e) {
+	    isParseSuccess = false;
+	    String expectedMessage = "Project [1] don't have locale [it]";
+	    Assert.assertEquals(expectedMessage, e.getMessage());
+	}
+	Assert.assertFalse(isParseSuccess);
+    }
+
+    @Test
+    public void testRecodeOrCloneProcessor() {
+
+	RecodeOrCloneTermsProcessor processor = getRecodeOrCloneTermsProcessor();
+
+	boolean isParseSuccess = true;
+	boolean isRebuildByProjectShortCodes = false;
+
+	Set<String> projectShortCodesForReindex = null;
+
+	try {
+	    projectShortCodesForReindex = processor.recodeOrCloneTerms();
+	    isRebuildByProjectShortCodes = processor.isRebuildByProjectShortCodes();
+	} catch (RuntimeException e) {
+	    isParseSuccess = false;
+	}
+	Assert.assertTrue(isParseSuccess);
+	Assert.assertTrue(isRebuildByProjectShortCodes);
+	Assert.assertNotNull(projectShortCodesForReindex);
+    }
+
+    @Test
+    public void testRecodeWhileAppRunning() {
+
+	RecodeOrCloneTermsProcessor processor = getRecodeOrCloneTermsProcessor();
+
+	boolean isParseSuccess = true;
+	boolean isRebuildByProjectShortCodes = false;
+
+	Set<String> projectShortCodesForReindex = null;
+
+	List<RecodeOrCloneCommand> recodeCommands = new ArrayList<>();
+	recodeCommands.add(getRecodeOrCloneCommand());
+
+	List<RecodeOrCloneCommand> cloneCommands = new ArrayList<>();
+
+	Set<String> languagesOnProjectBefore = getProjectLanguageDAO().getLanguageIdsByProjectId(PROJECT_ID1);
+
+	Assert.assertTrue(languagesOnProjectBefore.contains(EN));
+	Assert.assertFalse(languagesOnProjectBefore.contains(EN_US));
+
+	ProjectDetail pdBefore = getProjectDetailService().findByProjectId(PROJECT_ID1, ProjectLanguageDetail.class);
+	Set<ProjectLanguageDetail> pldBefore = pdBefore.getLanguageDetails();
+
+	Assert.assertEquals(3, pldBefore.size());
+
+	ProjectLanguageDetail enPld = pldBefore.stream().filter(pld -> pld.getLanguageId().equals(EN)).findFirst()
+		.orElse(null);
+
+	Assert.assertNotNull(enPld);
+
+	try {
+	    projectShortCodesForReindex = processor.recodeOrCloneTerms(recodeCommands, cloneCommands);
+	    isRebuildByProjectShortCodes = processor.isRebuildByProjectShortCodes();
+	} catch (RuntimeException e) {
+	    isParseSuccess = false;
+	}
+	Assert.assertTrue(isParseSuccess);
+	Assert.assertTrue(isRebuildByProjectShortCodes);
+	Assert.assertNotNull(projectShortCodesForReindex);
+
+	Assert.assertEquals(1, projectShortCodesForReindex.size());
+	Assert.assertEquals(SHORT_CODE_PROJECT1, projectShortCodesForReindex.iterator().next());
+
+	Set<String> languagesOnProjectAfter = getProjectLanguageDAO().getLanguageIdsByProjectId(PROJECT_ID1);
+
+	Assert.assertFalse(languagesOnProjectAfter.contains(EN));
+	Assert.assertTrue(languagesOnProjectAfter.contains(EN_US));
+
+	ProjectDetail pdAfter = getProjectDetailService().findByProjectId(PROJECT_ID1, ProjectLanguageDetail.class);
+
+	Set<ProjectLanguageDetail> pldAfter = pdAfter.getLanguageDetails();
+
+	Assert.assertEquals(3, pldAfter.size());
+
+	ProjectLanguageDetail enUsPld = pldAfter.stream().filter(pld -> pld.getLanguageId().equals(EN_US)).findFirst()
+		.orElse(null);
+
+	Assert.assertNotNull(enUsPld);
+
+	Assert.assertEquals(enPld.getActiveSubmissionCount(), enUsPld.getActiveSubmissionCount());
+	Assert.assertEquals(enPld.getForbiddenTermCount(), enUsPld.getForbiddenTermCount());
+	Assert.assertEquals(enPld.getOnHoldTermCount(), enUsPld.getOnHoldTermCount());
+	Assert.assertEquals(enPld.getApprovedTermCount(), enUsPld.getApprovedTermCount());
+	Assert.assertEquals(enPld.getPendingApprovalCount(), enUsPld.getPendingApprovalCount());
+
+    }
+
+    private ProjectLanguageDAO getProjectLanguageDAO() {
+	return _projectLanguageDAO;
+    }
+
+}

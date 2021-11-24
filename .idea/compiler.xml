@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="gs4tr-termmanager-webservice" />
+        <module name="gs4tr-termmanager-glossary" />
+        <module name="gs4tr-termmanager-migration" />
+        <module name="gs4tr-termmanager-cache" />
+        <module name="gs4tr-termmanager-service" />
+        <module name="gs4tr-termmanager-resources" />
+        <module name="gs4tr-termmanager-model" />
+        <module name="gs4tr-termmanager-webapp" />
+        <module name="gs4tr-termmanager-io" />
+        <module name="gs4tr-termmanager-dao" />
+        <module name="gs4tr-termmanager-tests" />
+        <module name="gs4tr-termmanager-webmvc" />
+        <module name="gs4tr-termmanager-persistence" />
+        <module name="gs4tr-termmanager-solr-plugin" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="gs4tr-termmanager-cache" target="1.5" />
+      <module name="gs4tr-termmanager-dao" target="1.5" />
+      <module name="gs4tr-termmanager-glossary" target="1.5" />
+      <module name="gs4tr-termmanager-io" target="1.5" />
+      <module name="gs4tr-termmanager-migration" target="1.5" />
+      <module name="gs4tr-termmanager-model" target="1.5" />
+      <module name="gs4tr-termmanager-persistence" target="1.5" />
+      <module name="gs4tr-termmanager-resources" target="1.5" />
+      <module name="gs4tr-termmanager-service" target="1.5" />
+      <module name="gs4tr-termmanager-solr-plugin" target="1.5" />
+      <module name="gs4tr-termmanager-tests" target="1.5" />
+      <module name="gs4tr-termmanager-webapp" target="1.5" />
+      <module name="gs4tr-termmanager-webmvc" target="1.5" />
+      <module name="gs4tr-termmanager-webservice" target="1.5" />
+      <module name="trunk" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

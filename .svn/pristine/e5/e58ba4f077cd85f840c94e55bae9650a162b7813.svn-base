@@ -1,0 +1,37 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<bean id="rememberMeCookieName" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="test-rememberme" />
+	</bean>
+
+	<bean id="sessionContextAttributes" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>privateEncryptionAesKey</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>environment:services.properties</value>
+                <value>environment:tptOAuth.properties</value>
+            </list>
+		</property>
+	</bean>
+
+	<bean id="solrServiceConfiguration"
+		class="org.gs4tr.termmanager.service.solr.SolrServiceConfiguration">
+		<constructor-arg index="0" type="java.io.File">
+			<value>environment:solrservice.properties</value>
+		</constructor-arg>
+	</bean>
+
+    <bean id="defaultConfigurationProvider"
+          class="org.gs4tr.foundation.modules.spring.configuration.DefaultConfigurationProvider" />
+
+    <bean id="versionService" class="org.gs4tr.termmanager.service.impl.VersionServiceImpl" />
+</beans>

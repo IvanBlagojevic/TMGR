@@ -1,0 +1,114 @@
+{
+    "gridConfig": [
+        {
+            "sortable": true,
+            "sortProperty": "project.projectInfo.name",
+            "dataIndex": "name",
+            "hidden": false,
+            "width": 240,
+            "headerKey": "homeProjectName",
+            "systemHidden": false
+        },
+        {
+            "sortable": true,
+            "sortProperty": "project.projectInfo.shortCode",
+            "dataIndex": "shortCode",
+            "hidden": false,
+            "width": 135,
+            "headerKey": "shortCode",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "termEntryCount",
+            "hidden": false,
+            "width": 135,
+            "headerKey": "termEntryCount",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "languageCount",
+            "hidden": false,
+            "width": 156,
+            "headerKey": "languageCount",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "termCount",
+            "hidden": false,
+            "width": 135,
+            "headerKey": "termCount",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "approvedTermCount",
+            "hidden": false,
+            "width": 135,
+            "headerKey": "approvedTermCount",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "forbiddenTermCount",
+            "hidden": false,
+            "width": 135,
+            "headerKey": "forbiddenTermCount",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "termInSubmissionCount",
+            "hidden": false,
+            "width": 135,
+            "headerKey": "termInSubmissionCount",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "activeSubmissionCount",
+            "hidden": false,
+            "width": 135,
+            "headerKey": "activeSubmissionCount",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "completedSubmissionCount",
+            "hidden": false,
+            "width": 226,
+            "headerKey": "completedSubmissionCount",
+            "systemHidden": false
+        },
+        {
+            "sortable": true,
+            "sortProperty": "details.dateModified",
+            "dataIndex": "dateModified",
+            "hidden": false,
+            "width": 114,
+            "headerKey": "modificationDate",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "project.projectInfo.name",
+            "dataIndex": "defaultSortProperty",
+            "hidden": true,
+            "width": 70,
+            "headerKey": "defaultSortProperty",
+            "systemHidden": true
+        }
+    ],
+    "sortProperty": "project.projectInfo.name",
+    "ascending": true
+}

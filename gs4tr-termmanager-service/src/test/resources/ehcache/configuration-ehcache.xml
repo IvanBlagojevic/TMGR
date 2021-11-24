@@ -1,0 +1,10 @@
+<ehcache>
+	<diskStore path="java.io.tmpdir/tm" />
+	<defaultCache maxElementsInMemory="10" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="600" overflowToDisk="true" />
+
+	<!-- web service cache -->
+	<cache name="activeUserSessionsCache" overflowToDisk="false"
+		maxElementsInMemory="100" eternal="false" timeToIdleSeconds="120000" />
+
+</ehcache>

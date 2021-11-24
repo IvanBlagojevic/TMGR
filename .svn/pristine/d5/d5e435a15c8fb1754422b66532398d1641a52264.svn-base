@@ -1,0 +1,17 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mockito="http://www.mockito.org/spring/mockito"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+              http://www.mockito.org/spring/mockito classpath:mockito.xsd">
+
+    <mockito:mock id="hzCacheGateway"
+                  class="org.gs4tr.termmanager.cache.CacheGateway"/>
+    <mockito:mock id="guavaCacheGateway"
+                  class="org.gs4tr.termmanager.cache.CacheGateway"/>
+
+    <mockito:mock id="hzEntryProcessorExecutor"
+                  class="org.gs4tr.termmanager.cache.entry.processor.executor.HzEntryProcessorExecutor"/>
+
+    <mockito:mock id="hzInstance" class="com.hazelcast.core.HazelcastInstance"/>
+
+</beans>

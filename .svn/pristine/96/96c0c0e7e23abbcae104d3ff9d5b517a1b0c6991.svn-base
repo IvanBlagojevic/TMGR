@@ -1,0 +1,45 @@
+{
+  "folder": "TERM_LIST",
+  "index": 0,
+  "size": 50,
+  "searchUserLatestChanges": false,
+  "projectComboBox": [
+    "$submissionTicket"
+  ],
+  "languageDirection": {
+    "value1": "en-EN",
+    "value2": [
+      "de-DE"
+    ]
+  },
+  "hideBlanks": [
+    "en-US",
+    "de-DE"
+  ],
+  "entityType": {
+    "value1": [
+      "TERM",
+      "ATTRIBUTES"
+    ],
+    "value2": [
+      "SOURCE"
+    ]
+  },
+  "statuses": [
+    "PROCESSED",
+    "WAITING",
+    "MISSING_TRANSLATION"
+  ],
+  "dateCreatedRange": {
+    "fromDate": $fromDate,
+    "toDate": $toDate
+  },
+  "dateModifiedRange": {
+    "fromDate": $fromDate,
+    "toDate": $toDate
+  },
+  "userCreated": "user",
+  "userModified": "user",
+  "ascending": false,
+  "sortProperty": "term.dateModified"
+}

@@ -1,0 +1,17 @@
+<Context sessionCookiePathUsesTrailingSlash="false">
+	<Resource name="jdbc/termmanager" auth="Container"
+  		type="com.mchange.v2.c3p0.ComboPooledDataSource" driverClass="net.sourceforge.jtds.jdbc.Driver"
+  		jdbcUrl="jdbc:jtds:sqlserver://127.0.0.1:1433/term_manager" user="sa"
+  		password="password" factory="org.apache.naming.factory.BeanFactory"
+  		acquireIncrement="2" minPoolSize="5" maxPoolSize="200"
+  		idleConnectionTestPeriod="100" maxStatements="0" checkoutTimeout="3000"
+		unreturnedConnectionTimeout="0" debugUnreturnedConnectionStackTraces="false" />
+		
+	<Resource name="jdbc/jackrabbit" auth="Container" 
+		type="com.mchange.v2.c3p0.ComboPooledDataSource" driverClass="net.sourceforge.jtds.jdbc.Driver"
+		jdbcUrl="jdbc:jtds:sqlserver://127.0.0.1:1433/term_manager_jack" user="sa"
+		password="password" factory="org.apache.naming.factory.BeanFactory"
+		acquireIncrement="1" minPoolSize="1" maxPoolSize="3"
+		idleConnectionTestPeriod="100" maxStatements="0" checkoutTimeout="30000"
+		unreturnedConnectionTimeout="0" debugUnreturnedConnectionStackTraces="false" />
+</Context>

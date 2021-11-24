@@ -1,0 +1,74 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mockito="http://www.mockito.org/spring/mockito"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+              http://www.mockito.org/spring/mockito classpath:mockito.xsd">
+
+	<mockito:spy beanName="sessionService" />
+
+	<mockito:mock id="userProfileService"
+		class="org.gs4tr.termmanager.service.UserProfileService" />
+
+	<mockito:mock id="mailTemplateService"
+		class="org.gs4tr.foundation.modules.mail.service.MailTemplatesService" />
+
+	<mockito:mock id="repositoryManager"
+		class="org.gs4tr.foundation.modules.repository.RepositoryManager" />
+
+	<mockito:mock id="termEntryService"
+		class="org.gs4tr.termmanager.service.TermEntryService" />
+
+	<mockito:mock id="multilingualViewModelService"
+		class="org.gs4tr.termmanager.service.MultilingualViewModelService" />
+
+	<mockito:mock id="TermService"
+		class="org.gs4tr.termmanager.service.TermService" />
+
+	<mockito:mock id="submissionDetailViewService"
+		class="org.gs4tr.termmanager.service.SubmissionDetailViewService" />
+
+	<mockito:mock id="SubmissionLanguageDetailViewService"
+		class="org.gs4tr.termmanager.service.SubmissionLanguageDetailViewService" />
+
+	<mockito:mock id="organizationService"
+		class="org.gs4tr.termmanager.service.OrganizationService" />
+
+	<mockito:mock id="projectDetailService"
+		class="org.gs4tr.termmanager.service.ProjectDetailService" />
+
+	<mockito:mock id="projectService"
+		class="org.gs4tr.termmanager.service.ProjectService" />
+
+	<mockito:mock id="submissionService"
+		class="org.gs4tr.termmanager.service.SubmissionService" />
+
+	<mockito:mock id="uuidGeneratorService"
+		class="org.gs4tr.termmanager.service.UuidGeneratorService" />
+
+	<mockito:mock id="projectLanguageDetailService"
+		class="org.gs4tr.termmanager.service.ProjectLanguageDetailService" />
+
+	<mockito:mock id="pluginsService"
+		class="org.gs4tr.termmanager.service.PluginsService" />
+
+	<mockito:mock id="termEntryExporter"
+		class="org.gs4tr.termmanager.service.TermEntryExporter" />
+
+	<mockito:mock id="roleService"
+		class="org.gs4tr.termmanager.service.RoleService" />
+
+	<mockito:mock id="importTermService"
+		class="org.gs4tr.termmanager.service.ImportTermService" />
+
+	<mockito:mock id="batchJobsInfoProvider"
+		class="org.gs4tr.termmanager.service.batch.info.provider.BatchJobsInfoProvider" />
+
+	<mockito:mock id="eMailMessageSender"
+		class="org.gs4tr.foundation.modules.mail.EMailMessageSender" />
+
+	<mockito:mock id="eventLoggingService"
+		class="org.gs4tr.eventlogging.api.service.EventLoggingService" />
+
+	<mockito:mock id="statisticsService"
+				  class="org.gs4tr.termmanager.service.StatisticsService"/>
+</beans>

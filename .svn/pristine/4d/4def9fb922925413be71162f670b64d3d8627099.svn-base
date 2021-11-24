@@ -1,0 +1,6 @@
+{
+  "submissionTicket": "$submissionTicket",
+  "targetTickets": [
+    "$targetTickets"
+  ]
+}

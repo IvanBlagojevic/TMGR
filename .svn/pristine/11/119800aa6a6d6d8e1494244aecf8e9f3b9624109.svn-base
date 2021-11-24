@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <display-name>GlobalLink TermManager 1.0</display-name>
+
+    <description>GlobalLink TermManager WebUI</description>
+
+    <!-- Session time out is set to 20 mins. -->
+    <session-config>
+        <session-timeout>20</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.gs4tr</welcome-file>
+    </welcome-file-list>
+
+    <filter>
+        <filter-name>restSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>restSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>restSecurityFilterChain</filter-name>
+        <url-pattern>/rest/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:org/gs4tr/termmanager/migration/spring/applicationContext-migration.xml
+            classpath:org/gs4tr/termmanager/dao/spring/applicationContext-dao.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-service.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-hibernate.xml
+            classpath:org/gs4tr/foundation/modules/repository/spring/applicationContext-repository.xml
+            classpath:org/gs4tr/foundation/modules/spring/rmi/applicationContext-rmi.xml
+            classpath:org/gs4tr/termmanager/webmvc/spring/applicationContext-mvc.xml
+            classpath:org/gs4tr/termmanager/webmvc/spring/applicationContext-mvc-security.xml
+            classpath:org/gs4tr/termmanager/webservice/spring/applicationContext-aop.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-logging.xml
+            classpath:org/gs4tr/termmanager/webservice/spring/applicationContext-webservice.xml
+            classpath:org/gs4tr/termmanager/cache/spring/applicationContext-hazelcast.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-aop.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-mvc.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-mvc-session-management.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-mvc-session-management-hazelcast.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-rest.xml
+            classpath:org/gs4tr/termmanager/webmvc/spring/applicationContext-configuration.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-aop.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-notifications.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-security.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-security-commons.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-security-default.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-security-saml.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-security-ldap.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-oauth.xml
+            classpath:org/gs4tr/termmanager/glossary/spring/applicationContext-service.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-systemTasks.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-translationTasks.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-schedule.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-solr.xml
+            classpath:org/gs4tr/foundation/modules/jmx/applicationContext-jmx.xml
+            classpath:org/gs4tr/foundation/modules/usermanager/spring/applicationContext-service.xml
+            classpath:org/gs4tr/foundation/modules/security/spring/applicationContext-service.xml
+            classpath:org/gs4tr/foundation/modules/mail/spring/applicationContext-mail.xml
+            classpath:org/gs4tr/foundation/modules/webmvc/spring/applicationContext-i18n.xml
+            classpath:org/gs4tr/termmanager/glossary/spring/applicationContext-glossary-v2-service.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-fileManager.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-fileAnalysis.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-projectTerminologyCounts.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-backup.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-import-report.xml
+            classpath:org/gs4tr/termmanager/io/spring/applicationContext-io.xml
+            classpath:org/gs4tr/termmanager/service/spring/applicationContext-health.xml
+            classpath:org/gs4tr/termmanager/webmvc/spring/applicationContext-rest-health.xml
+            \WEB-INF\applicationContext-init.xml
+        </param-value>
+    </context-param>
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>
+            org.gs4tr.foundation.modules.spring.EnvironmentAwareWebApplicationContext
+        </param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.gs4tr.foundation.modules.spring.EnvironmentVariableName
+        </param-name>
+        <param-value>
+            GS4TR_TMGR_HOME
+        </param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.gs4tr.termmanager.service.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>
+            org.springframework.security.web.session.HttpSessionEventPublisher
+        </listener-class>
+    </listener>
+
+    <!-- UI servlet -->
+    <servlet>
+        <servlet-name>termmanager</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>termmanager</servlet-name>
+        <url-pattern>*.ter</url-pattern>
+        <url-pattern>*.gs4tr</url-pattern>
+        <url-pattern>/theme.json</url-pattern>
+        <url-pattern>/login</url-pattern>
+        <url-pattern>/SSO</url-pattern>
+        <url-pattern>/changePassword</url-pattern>
+        <url-pattern>/resetPassword</url-pattern>
+    </servlet-mapping>
+
+    <!-- Rest V1 servlet -->
+    <servlet>
+        <servlet-name>restV1</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>restV1</servlet-name>
+        <url-pattern>/rest/login</url-pattern>
+        <url-pattern>/rest/addTerm</url-pattern>
+        <url-pattern>/rest/detailedExport</url-pattern>
+        <url-pattern>/rest/export</url-pattern>
+        <url-pattern>/rest/projectByShortcode</url-pattern>
+        <url-pattern>/rest/userProjects</url-pattern>
+        <url-pattern>/rest/import</url-pattern>
+        <url-pattern>/rest/logout</url-pattern>
+    </servlet-mapping>
+
+    <!-- Rest V2 servlet -->
+    <servlet>
+        <servlet-name>restV2</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <load-on-startup>4</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>restV2</servlet-name>
+        <url-pattern>/rest/v2/login</url-pattern>
+        <url-pattern>/rest/v2/addTerm</url-pattern>
+        <url-pattern>/rest/v2/batchSegmentTermSearch</url-pattern>
+        <url-pattern>/rest/v2/detailedExport</url-pattern>
+        <url-pattern>/rest/v2/projectByShortcode</url-pattern>
+        <url-pattern>/rest/v2/userProjects</url-pattern>
+        <url-pattern>/rest/v2/segmentTermSearch</url-pattern>
+        <url-pattern>/rest/v2/searchTermEntries</url-pattern>
+        <url-pattern>/rest/v2/import</url-pattern>
+        <url-pattern>/rest/v2/logout</url-pattern>
+        <url-pattern>/rest/v2/getProjectMetadata</url-pattern>
+        <url-pattern>/rest/v2/recodeOrClone</url-pattern>
+    </servlet-mapping>
+
+    <!-- Glossary V2 servlet -->
+    <servlet>
+        <servlet-name>glossaryV2Servlet</servlet-name>
+        <servlet-class>org.gs4tr.tm3.httpconnector.servlet.impl.TmgrGlossaryServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>glossaryV2Servlet</servlet-name>
+        <url-pattern>/v2/glossary/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>blacklistV2Servlet</servlet-name>
+        <servlet-class>org.gs4tr.tm3.httpconnector.servlet.impl.TmgrBlacklistServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>blacklistV2Servlet</servlet-name>
+        <url-pattern>/v2/blacklist/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- authentication profiles: defaultAuthentication,samlAuthentication,ldapAuthentication,oauthAuthentication -->
+    <!-- repository profiles: jackrabbitRepository -->
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>defaultAuthentication,jackrabbitRepository</param-value>
+    </context-param>
+
+    <error-page>
+        <error-code>400</error-code>
+        <location>/server_error.html</location>
+    </error-page>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/server_error.html</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/server_error.html</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/server_error.html</location>
+    </error-page>
+    <error-page>
+        <error-code>405</error-code>
+        <location>/server_error.html</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/server_error.html</location>
+    </error-page>
+</web-app>

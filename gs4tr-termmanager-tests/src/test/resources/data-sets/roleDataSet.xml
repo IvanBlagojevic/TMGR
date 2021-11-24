@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+    <!-- ROLES -->
+    <TM_ROLE ROLE_ID="pm" ROLE_TYPE="1"/>
+    <TM_ROLE ROLE_ID="translator" ROLE_TYPE="1"/>
+    <TM_ROLE ROLE_ID="pro role" ROLE_TYPE="0"/>
+    <TM_ROLE ROLE_ID="term_translator" ROLE_TYPE="0"/>
+    <TM_ROLE ROLE_ID="generic" ROLE_TYPE="1"/>
+
+
+    <!-- GENERIC -->
+    <TM_ROLE_POLICY ROLE_ID="generic" POLICY_ID="POLICY_TM_TERM_ADD_ON_HOLD_TERM"/>
+
+    <!-- PM -->
+
+    <!-- User Menu -->
+    <TM_ROLE_POLICY ROLE_ID="pm"
+                    POLICY_ID="POLICY_TM_VIEW_TRANSLATOR_INBOX"/>
+
+    <!-- UserProfile Service -->
+    <TM_ROLE_POLICY ROLE_ID="pm"
+                    POLICY_ID="POLICY_FOUNDATION_USERPROFILE_ADD"/>
+    <TM_ROLE_POLICY ROLE_ID="pm"
+                    POLICY_ID="POLICY_FOUNDATION_USERPROFILE_EDIT"/>
+    <TM_ROLE_POLICY ROLE_ID="pm"
+                    POLICY_ID="POLICY_FOUNDATION_USERPROFILE_VIEW"/>
+    <TM_ROLE_POLICY ROLE_ID="pm"
+                    POLICY_ID="POLICY_TM_SEND_TO_TRANSLATION_REVIEW"/>
+
+    <TM_ROLE_POLICY ROLE_ID="pm" POLICY_ID="POLICY_TM_TERMENTRY_IMPORT"/>
+    <TM_ROLE_POLICY ROLE_ID="pm" POLICY_ID="POLICY_TM_TERMENTRY_EXPORT"/>
+
+    <!-- Organization Service -->
+    <TM_ROLE_POLICY ROLE_ID="pm"
+                    POLICY_ID="POLICY_FOUNDATION_ORGANIZATION_ADD"/>
+    <TM_ROLE_POLICY ROLE_ID="pm"
+                    POLICY_ID="POLICY_FOUNDATION_ORGANIZATION_EDIT"/>
+    <TM_ROLE_POLICY ROLE_ID="pm"
+                    POLICY_ID="POLICY_FOUNDATION_ORGANIZATION_VIEW"/>
+    <TM_ROLE_POLICY ROLE_ID="pm"
+                    POLICY_ID="POLICY_FOUNDATION_ORGANIZATION_ENABLEDISABLE"/>
+
+    <!-- Project Service -->
+    <TM_ROLE_POLICY ROLE_ID="pm" POLICY_ID="POLICY_FOUNDATION_PROJECT_ADD"/>
+    <TM_ROLE_POLICY ROLE_ID="pm" POLICY_ID="POLICY_FOUNDATION_PROJECT_EDIT"/>
+    <TM_ROLE_POLICY ROLE_ID="pm" POLICY_ID="POLICY_FOUNDATION_PROJECT_VIEW"/>
+
+    <!-- Project Description Service -->
+    <TM_ROLE_POLICY ROLE_ID="pm" POLICY_ID="POLICY_TM_ADD_EDIT_PROJECT_DESCRIPTION"/>
+
+    <!-- User Menu -->
+    <!-- <TM_ROLE_POLICY ROLE_ID="pm" POLICY_ID="POLICY_TM_MENU_INBOX_FOLDER"
+        /> -->
+    <!-- <TM_ROLE_POLICY ROLE_ID="translator" -->
+    <!-- POLICY_ID="POLICY_TM_MENU_ACTIVE_TERMS_FOLDER" /> -->
+
+    <TM_ROLE_POLICY ROLE_ID="translator"
+                    POLICY_ID="POLICY_FOUNDATION_USERPROFILE_ADD"/>
+    <TM_ROLE_POLICY ROLE_ID="translator"
+                    POLICY_ID="POLICY_FOUNDATION_USERPROFILE_EDIT"/>
+    <TM_ROLE_POLICY ROLE_ID="translator"
+                    POLICY_ID="POLICY_FOUNDATION_USERPROFILE_VIEW"/>
+
+    <!-- TermEntry Service -->
+    <TM_ROLE_POLICY ROLE_ID="translator"
+                    POLICY_ID="POLICY_TM_TERM_ADD_APPROVED_TERM"/>
+    <TM_ROLE_POLICY ROLE_ID="translator"
+                    POLICY_ID="POLICY_TM_VIEW_TRANSLATOR_INBOX"/>
+
+    <!-- Project Roles -->
+    <TM_ROLE_POLICY ROLE_ID="pro role"
+                    POLICY_ID="POLICY_TM_TERMENTRY_ASSIGN_ATTRIBUTES"/>
+    <TM_ROLE_POLICY ROLE_ID="pro role"
+                    POLICY_ID="POLICY_TM_TERM_ADD_APPROVED_TERM"/>
+    <TM_ROLE_POLICY ROLE_ID="pro role" POLICY_ID="POLICY_TM_TERMENTRY_EXPORT"/>
+    <TM_ROLE_POLICY ROLE_ID="pro role"
+                    POLICY_ID="POLICY_TM_TERMENTRY_FORBID_TERMENTRY"/>
+    <TM_ROLE_POLICY ROLE_ID="pro role" POLICY_ID="POLICY_TM_TERMENTRY_IMPORT"/>
+
+</dataset>

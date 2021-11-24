@@ -1,0 +1,20 @@
+{
+    "name":"model",
+    "type":"properties",
+    "pairs":[
+        {
+            "key":"connectionStrings",
+            "type":"and",
+            "rules":[
+                {
+                    "type":"array"
+                },
+                {
+                    "type":"length",
+                    "min":0,
+                    "max":100
+                }
+            ]
+        }
+    ]
+}

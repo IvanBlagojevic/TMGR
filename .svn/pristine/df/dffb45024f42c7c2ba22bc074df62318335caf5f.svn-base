@@ -1,0 +1,151 @@
+#Size of the file chunk stored in-memory during import into CMS
+repository.chunkSize=900000
+
+#JackRabbit remote method invocation settings
+rmi.port=1099
+
+ip.address=127.0.0.1
+
+# example: https://cas-address:8443/cas
+# Notes: https protocol is required, DO NOT add trailing slash
+cas.address=http://localhost:8080/cas
+# If CAS and other integrated apps are on the same VM or subnet then this validator address should be internal cas address.
+# Otherwise use original cas.address.
+cas.ticket.validator.address=http://localhost:8080/cas
+cas.unique.identifier=tmgr_authentication_provider
+# example: https://gl-tptprod1.transperfect.com/PD
+# Notes: for CAS integration https protocol is required, DO NOT add trailing slash
+serverAddress=http://localhost:8080/TMGR
+server.http.port=8082
+server.https.port=8445
+
+# example: Term Manager@https://localhost:8081/tmgr
+cas.members=
+
+# public address used for mail creation 
+# example: https://gl-tpttmgr.transperfect.com/TMGR
+# Notes: for CAS integration https protocol is required, DO NOT add trailing slash
+dynamic.serverAddress=
+
+# If indexes get corrupted, tell TMGR to rebuild using data from DB
+index.rebuildOnStartup=false
+
+# Batch size when writing backup data to DB. Using large value may cause 
+# application to run out of memory, but it may reduce time when adding 
+# large number of TUs. Using to small value will use less memory, but it
+# will take longer to add large number of TUs (e.g. when importing).
+index.batchSize=500
+
+#Synchronization options
+#Number of allowed parallel synchronization threads 
+synchronize.threads=100
+synchronize.wait.seconds=30
+
+#Adds Access-Control-Allow-Origin to the response header. Clients domain should be set as value.
+allowed.origin=
+
+#internal rest communication configuration
+rest.communication.username=testUser
+rest.communication.password=password
+
+#AUM
+#basic configuration
+aum.url=
+aum.adminUserName=
+aum.adminPassword=
+#application shared info properties
+aum.appInfo.aumIntegrationSystemRoles=admin,system_super,system_translator
+aum.appInfo.aumIntegrationProjectRoles=super_user,term_translator
+
+#LDAP implementation string: 'activeDirectory', 'openLdap'
+ldap.implementation=openLdap
+#LDAP (if ldap.url does not exists pd2 ldap will be disabled) 
+ldap.url=ldap://localhost:389
+#LDAP Manager distinguished name
+ldap.manager.dn=cn=Manager,dc=emisia,dc=net
+ldap.manager.password=cpEmisia01
+#LDAP base for user search
+ldap.base=dc=emisia,dc=net
+#Distinguished name of searched user
+ldap.user.dn=uid={0}
+#Attribute of a group that this user is memeber of
+ldap.group.filter=memberUid={1}
+#Default group id for newly created user. LDAP administrator should manage this on LDAP server
+ldap.default.group.id=502
+#If this is set to true LDAP password can be changed from PD2
+ldap.allow.password.change=true
+#ObjectClass for user search when user is edited
+ldap.user.objectClass=person
+#ObjectClass for group search when adding new user in LDAP
+ldap.group.objectClass=posixGroup
+#User unique id attribute (sAMAccountName for AD, uid for openDS etc....)
+ldap.user.uid.attribute=uid
+
+#SAML-Configuring application in SSO mode.
+
+#List of all applications (Service Providers) integrated with TMGR in Single Sign On mode, given in the following format: 
+#"APP_NAME1":"HOST1/saml.classifier";"APP_NAME2":"HOST2/saml.classifier", e.g.
+#PD:https://ql-tptprod1.transperfect.com/PD/EMC;TMS:https://ql-tptprod1.transperfect.com/TMS/EMC
+saml.sso.applications=
+#password for SAML specific java keystore (GS4TR_HOME/config/security/keystore.jks). 
+#Default value - password1!
+saml.keystore.password=password1!
+#Common name of service provider certificate stored in the SAML specific keystore. 
+#Default value - translations.com
+saml.certificate.common.name=translations.com
+#password of the certificate in SAML specific keystore. 
+#Default value - password1!
+saml.certificate.password=password1!
+#Unique alias for application within SSO. 
+#Default value - tmgrAlias
+saml.service.provider.alias=tmgrAlias
+#Client specific classifier, e.g. EMC
+saml.classifier=
+
+#smtp mail server setup
+mail.smtp.host=localhost
+mail.smtp.username=
+mail.smtp.password=
+mail.smtp.auth=false
+mail.smtp.port=25
+mail.smtp.ssl.enable=false
+mail.smtp.starttls.enable=false
+mail.debug=false
+mail.from=noreply@translations.com
+mail.from.name=Term Manager Team
+mail.from.address=noreply@translations.com
+
+#HAZELCAST configuration
+hz.management.center.enabled=false
+hz.management.center.url=http://localhost:8080/mancenter
+hz.group.password=password1!
+hz.group.name=tmgr
+hz.jmx=true
+hz.jmx.detailed=true
+hz.logging.type=log4j
+hz.operation.thread.count=32
+hz.network.port=5701
+hz.multicast.enabled=false
+hz.tcp-ip.enabled=true
+hz.members=127.0.0.1
+
+hz.map.max.size=15
+hz.map.max.size.policy=FREE_HEAP_PERCENTAGE
+
+# Max session inactive time(in minutes)
+sessionManagement.maxInactiveTime=20
+
+#Remember-me token validity in seconds. Default 2 weeks
+rememberme.token.validity=1209600
+#Number of days after last successful login, after which account will be disabled.
+maxUnusedAccountTime=365
+#CORS is disabled by default
+security.cors.global.internalPaths=
+security.cors.global.allowedOrigins=
+security.cors.global.allowedHeaders=x-requested-with
+security.cors.global.allowedMethods=GET,POST,OPTIONS,HEAD
+#these are comma-separated valuses, add URI that you want to be skipped by CSP filter
+skippedCspURIs=SSO,swagger/index.html
+
+# Notify admin via mail about locked user account event. Default value is "false". To enable option, set value to "true".
+notifyAdminAboutLockedAccountLoginAttempt=false

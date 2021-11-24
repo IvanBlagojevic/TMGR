@@ -1,0 +1,35 @@
+{
+  "saveDashboardCommands":[
+    {
+      "translationUnits":[
+        {
+          "sourceTermUpdateCommands":[
+            {
+              "command":"add",
+              "markerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b660",
+              "languageId":"fr-FR",
+              "status": "BLACKLISTED",
+              "type":"term",
+              "value":"frenchTerm"
+            }
+          ],
+          "targetTermUpdateCommands":[
+            {
+              "command":"add",
+              "markerId":"402972d1-70a5-41fa-9c07-11f79a1d831b",
+              "languageId":"no-NO",
+              "status": "WAITING",
+              "type":"term",
+              "value":"norwegianTerm"
+            }
+          ]
+        }
+      ],
+      "projectTicket":"$projectTicket",
+      "sourceLanguage":"fr-FR",
+      "targetLanguage":[
+        "no-NO"
+      ]
+    }
+  ]
+}

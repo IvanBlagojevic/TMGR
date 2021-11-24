@@ -1,0 +1,10 @@
+<ehcache>
+	<diskStore path="java.io.tmpdir" />
+	<defaultCache maxElementsInMemory="10" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="600" overflowToDisk="true" />
+
+	<cache name="WSv2UsersCache" overflowToDisk="true"
+		maxElementsInMemory="5000" eternal="false" timeToIdleSeconds="1200">
+	</cache>
+
+</ehcache>

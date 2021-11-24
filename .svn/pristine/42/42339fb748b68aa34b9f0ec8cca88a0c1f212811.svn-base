@@ -1,0 +1,107 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+    <security:global-method-security
+            secured-annotations="enabled" access-decision-manager-ref="policyAccessDecisionManager"
+            authentication-manager-ref="defaultAuthenticationManager">
+    </security:global-method-security>
+
+    <bean id="policyAccessDecisionManager"
+          class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg>
+            <list>
+                <ref bean="policyVoter"/>
+            </list>
+        </constructor-arg>
+        <property name="allowIfAllAbstainDecisions">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <bean id="policyVoter" class="org.springframework.security.access.vote.RoleVoter">
+        <property name="rolePrefix" value="POLICY_"/>
+    </bean>
+
+    <bean id="foldersPolicies" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <bean class="org.gs4tr.termmanager.model.FolderPolicy">
+                    <constructor-arg index="0" value="PROJECTDETAILS"/>
+                    <constructor-arg index="1" value="POLICY_TM_MENU_TERMS"/>
+                </bean>
+                <bean class="org.gs4tr.termmanager.model.FolderPolicy">
+                    <constructor-arg index="0" value="TERM_LIST"/>
+                    <constructor-arg index="1" value="POLICY_TM_MENU_TERMS"/>
+                </bean>
+                <bean class="org.gs4tr.termmanager.model.FolderPolicy">
+                    <constructor-arg index="0" value="SUBMISSIONDETAILS"/>
+                    <constructor-arg index="1"
+                                     value="POLICY_TM_VIEW_TRANSLATOR_INBOX"/>
+                </bean>
+                <bean class="org.gs4tr.termmanager.model.FolderPolicy">
+                    <constructor-arg index="0" value="SUBMISSIONTERMLIST"/>
+                    <constructor-arg index="1"
+                                     value="POLICY_TM_VIEW_TRANSLATOR_INBOX"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="adminFoldersPolicies" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <bean class="org.gs4tr.termmanager.model.FolderPolicy">
+                    <constructor-arg index="0" value="USERS"/>
+                    <constructor-arg index="1"
+                                     value="POLICY_FOUNDATION_USERPROFILE_VIEW"/>
+                </bean>
+                <bean class="org.gs4tr.termmanager.model.FolderPolicy">
+                    <constructor-arg index="0" value="PROJECTS"/>
+                    <constructor-arg index="1"
+                                     value="POLICY_FOUNDATION_PROJECT_VIEW"/>
+                </bean>
+                <bean class="org.gs4tr.termmanager.model.FolderPolicy">
+                    <constructor-arg index="0" value="ORGANIZATIONS"/>
+                    <constructor-arg index="1"
+                                     value="POLICY_FOUNDATION_ORGANIZATION_VIEW"/>
+                </bean>
+                <bean class="org.gs4tr.termmanager.model.FolderPolicy">
+                    <constructor-arg index="0" value="SECURITY"/>
+                    <constructor-arg index="1"
+                                     value="POLICY_FOUNDATION_SECURITY_ROLE_VIEW"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="restResponseRebuildIndexFilter"
+          class="org.gs4tr.termmanager.service.security.RestResponseRebuildIndexFilter">
+        <property name="restoreFromDatabase" value="${index.restoreFromBackup:false}"/>
+        <property name="clearDisabledTerminology" value="${clear.disabled.terminology.from.backup:false}"/>
+        <property name="serverAddress" value="${serverAddress}"/>
+    </bean>
+
+    <bean id="restResponseModifierFilter"
+          class="org.gs4tr.termmanager.service.security.RestResponseModifierFilter">
+        <property name="additionalHeaders">
+            <map>
+                <entry key="Access-Control-Allow-Origin" value="${allowed.origin}"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="restSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
+        <constructor-arg>
+            <list>
+                <security:filter-chain pattern="/**"
+                                       filters="restResponseRebuildIndexFilter"/>
+                <security:filter-chain pattern="/rest/**"
+                                       filters="restResponseModifierFilter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+</beans>

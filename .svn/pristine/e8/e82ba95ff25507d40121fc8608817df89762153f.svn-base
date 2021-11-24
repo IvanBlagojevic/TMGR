@@ -1,0 +1,36 @@
+{
+	"saveDashboardCommands":[
+		{
+			"translationUnits":[
+				{
+					"matchedTermEntryTicket":"$matchedTermEntryTicket",
+					"termEntryTicket":"$incomingTermEntryTicket",
+					"sourceTermUpdateCommands":[
+						{
+							"command":"add",
+							"markerId":"c502608e-uuid-term-010",
+							"languageId":"en-US",
+							"type":"term",
+							"value":"house"
+						}
+					],
+					"targetTermUpdateCommands":[
+						{
+							"command":"add",
+							"markerId":"c502608e-uuid-term-011",
+							"languageId":"de-DE",
+							"type":"term",
+							"value":"riverrun"
+						}
+					]
+				}
+			],
+			"projectTicket":"4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+			"sourceLanguage":"en-US",
+			"saveTerm":false,
+			"targetLanguage":[
+				"de-DE"
+			]
+		}
+	]
+}

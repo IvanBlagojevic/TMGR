@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+	ID="TMGR" entityID="TMGR">
+	<md:SPSSODescriptor AuthnRequestsSigned="true"
+		WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+		<md:KeyDescriptor use="signing">
+			<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+				<ds:X509Data>
+					<ds:X509Certificate>MIIDizCCAnqgAwIBAgIEM4e4jDANBgkqhkiG9w0BAQsFADB9MQswCQYDVQQGEwJVUzELMAkGA1UE
+						CBMCVVMxEDAOBgNVBAcTB05ld1lvcmsxGTAXBgNVBAoTEHRyYW5zbGF0aW9ucy5jb20xGTAXBgNV
+						BAsTEHRyYW5zbGF0aW9ucy5jb20xGTAXBgNVBAMTEHRyYW5zbGF0aW9ucy5jb20wHhcNMTQxMjAy
+						MTAxMjMzWhcNMjQxMTI5MTAxMjMzWjB9MQswCQYDVQQGEwJVUzELMAkGA1UECBMCVVMxEDAOBgNV
+						BAcTB05ld1lvcmsxGTAXBgNVBAoTEHRyYW5zbGF0aW9ucy5jb20xGTAXBgNVBAsTEHRyYW5zbGF0
+						aW9ucy5jb20xGTAXBgNVBAMTEHRyYW5zbGF0aW9ucy5jb20wggEbMA0GCSqGSIb3DQEBAQUAA4IB
+						CAAwggEDAoH7AJGbLH9iXNFyhe0AyxFQmBJJvHGUnxbXDvm8HUT09HDSN2ZLPwzsMBwQDvoOfHTM
+						+rbG+h8T78Y2dBt8+w/nDiszX+Om6PrPWlfuHh+7Mqif6ArxZVdLGWcTmvSJ3s6wieV+zVAZ2VvH
+						82n4Ks06f5gvsyW7IK5ZZKAsU1K22zkdg8AUgvoo7DdEUz/uHhVwAKPs6GqoYvn5KyTF+f1AvJQA
+						3GyJYOKwIJW1VdEDrSU+/5s5DHN+0OlnHDDIizI1uNVAEe9Rv0R2mOaw/lXWTCvcXsmWYz+s3JHA
+						D2HkqRSFkjW935dzmPDOHN2UGqslVZ+SSeJ5dg+kPgUCAwEAAaMhMB8wHQYDVR0OBBYEFFUEj1UW
+						8hTGeM6WT/NtGW8wxCFMMA0GCSqGSIb3DQEBCwUAA4H7AIxIwewnt0uaId5W/F2l+KDPJOl44rw6
+						hc6Nu2RBtdrK2vvv8imiyiN/O4EEjlvAJ1GScTH3+7kNv3VL9knW3vu4xWCHdh/eE2O7z50ALcMF
+						yj3Dnd81Of8KFc9Yf19js11FySmWBUFNkkMKqJ/TrU5CagCkhsBQxh7bBV288zJMtXSSIYbMxwWd
+						htMFBzYJP/1T9IGhF2f0OY94/yh8SMyFFAqAEvWM8qOORXbsM0giEaZ4Qv1jjDRnAaGRPdq/9ErW
+						n/uOlkj6pR2sd/P3FyfN8m/+W4xfMT6wsJNe3yMg1S+R90x5LA3d9M7Szm0fPVIUG7dH2LuTcno=</ds:X509Certificate>
+				</ds:X509Data>
+			</ds:KeyInfo>
+		</md:KeyDescriptor>
+		<md:KeyDescriptor use="encryption">
+			<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+				<ds:X509Data>
+					<ds:X509Certificate>MIIDizCCAnqgAwIBAgIEM4e4jDANBgkqhkiG9w0BAQsFADB9MQswCQYDVQQGEwJVUzELMAkGA1UE
+						CBMCVVMxEDAOBgNVBAcTB05ld1lvcmsxGTAXBgNVBAoTEHRyYW5zbGF0aW9ucy5jb20xGTAXBgNV
+						BAsTEHRyYW5zbGF0aW9ucy5jb20xGTAXBgNVBAMTEHRyYW5zbGF0aW9ucy5jb20wHhcNMTQxMjAy
+						MTAxMjMzWhcNMjQxMTI5MTAxMjMzWjB9MQswCQYDVQQGEwJVUzELMAkGA1UECBMCVVMxEDAOBgNV
+						BAcTB05ld1lvcmsxGTAXBgNVBAoTEHRyYW5zbGF0aW9ucy5jb20xGTAXBgNVBAsTEHRyYW5zbGF0
+						aW9ucy5jb20xGTAXBgNVBAMTEHRyYW5zbGF0aW9ucy5jb20wggEbMA0GCSqGSIb3DQEBAQUAA4IB
+						CAAwggEDAoH7AJGbLH9iXNFyhe0AyxFQmBJJvHGUnxbXDvm8HUT09HDSN2ZLPwzsMBwQDvoOfHTM
+						+rbG+h8T78Y2dBt8+w/nDiszX+Om6PrPWlfuHh+7Mqif6ArxZVdLGWcTmvSJ3s6wieV+zVAZ2VvH
+						82n4Ks06f5gvsyW7IK5ZZKAsU1K22zkdg8AUgvoo7DdEUz/uHhVwAKPs6GqoYvn5KyTF+f1AvJQA
+						3GyJYOKwIJW1VdEDrSU+/5s5DHN+0OlnHDDIizI1uNVAEe9Rv0R2mOaw/lXWTCvcXsmWYz+s3JHA
+						D2HkqRSFkjW935dzmPDOHN2UGqslVZ+SSeJ5dg+kPgUCAwEAAaMhMB8wHQYDVR0OBBYEFFUEj1UW
+						8hTGeM6WT/NtGW8wxCFMMA0GCSqGSIb3DQEBCwUAA4H7AIxIwewnt0uaId5W/F2l+KDPJOl44rw6
+						hc6Nu2RBtdrK2vvv8imiyiN/O4EEjlvAJ1GScTH3+7kNv3VL9knW3vu4xWCHdh/eE2O7z50ALcMF
+						yj3Dnd81Of8KFc9Yf19js11FySmWBUFNkkMKqJ/TrU5CagCkhsBQxh7bBV288zJMtXSSIYbMxwWd
+						htMFBzYJP/1T9IGhF2f0OY94/yh8SMyFFAqAEvWM8qOORXbsM0giEaZ4Qv1jjDRnAaGRPdq/9ErW
+						n/uOlkj6pR2sd/P3FyfN8m/+W4xfMT6wsJNe3yMg1S+R90x5LA3d9M7Szm0fPVIUG7dH2LuTcno=</ds:X509Certificate>
+				</ds:X509Data>
+			</ds:KeyInfo>
+		</md:KeyDescriptor>
+		<md:SingleLogoutService
+			Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+			Location="${tmgr.url}/${saml.classifier}/SingleLogout/alias/${saml.service.provider.alias}" />
+		<md:SingleLogoutService
+			Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+			Location="${tmgr.url}/${saml.classifier}/SingleLogout/alias/${saml.service.provider.alias}" />
+		<md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
+		</md:NameIDFormat>
+		<md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent
+		</md:NameIDFormat>
+		<md:AssertionConsumerService
+			Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+			Location="${tmgr.url}/${saml.classifier}/SSO/alias/${saml.service.provider.alias}"
+			index="0" isDefault="true" />
+	</md:SPSSODescriptor>
+</md:EntityDescriptor>

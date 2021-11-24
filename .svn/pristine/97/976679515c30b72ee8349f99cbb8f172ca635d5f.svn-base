@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- database connection properties -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/term_manager</property>
+        <property name="hibernate.connection.username">dbuser</property>
+        <property name="hibernate.connection.password">dbuser</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+
+        <!-- show mysql queries output in console -->
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.use_sql_comments">false</property>
+        <property name="hibernate.format_sql">false</property>
+
+        <!-- manage automatic database creation -->
+
+        <property name="hibernate.jdbc.batch_size">500</property>
+        <property name="hibernate.order_inserts">true</property>
+        <property name="hibernate.order_updates">true</property>
+
+
+        <property name="hibernate.cache.use_second_level_cache">false</property>
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
+        </property>
+    </session-factory>
+</hibernate-configuration>

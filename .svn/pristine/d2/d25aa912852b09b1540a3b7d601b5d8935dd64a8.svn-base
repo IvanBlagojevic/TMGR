@@ -1,0 +1,78 @@
+{
+  "gridConfig": [
+    {
+      "sortable": true,
+      "sortProperty": "entity.userInfo.userName",
+      "dataIndex": "userInfo.userName",
+      "hidden": false,
+      "width": 243,
+      "headerKey": "username",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "entity.userInfo.firstName",
+      "dataIndex": "userInfo.firstName",
+      "hidden": false,
+      "width": 400,
+      "headerKey": "firstname",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "entity.userInfo.lastName",
+      "dataIndex": "userInfo.lastName",
+      "hidden": false,
+      "width": 200,
+      "headerKey": "surname",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "entity.userInfo.enabled",
+      "dataIndex": "userInfo.enabled",
+      "hidden": false,
+      "width": 50,
+      "headerKey": "enabled",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "entity.userInfo.dateLastLogin",
+      "dataIndex": "userInfo.dateLastLogin",
+      "hidden": false,
+      "width": 200,
+      "headerKey": "lastLogin",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "userInfo.accountLocked",
+      "hidden": false,
+      "width": 70,
+      "headerKey": "locked",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "organization.organizationInfo.name",
+      "dataIndex": "organizationName",
+      "hidden": false,
+      "width": 100,
+      "headerKey": "organization",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "entity.userInfo.userName",
+      "dataIndex": "defaultSortProperty",
+      "hidden": true,
+      "width": 70,
+      "headerKey": "defaultSortProperty",
+      "systemHidden": true
+    }
+  ],
+  "sortProperty": "entity.userInfo.userName",
+  "ascending": true
+}

@@ -1,0 +1,469 @@
+<mail-templates>
+	<html-frame>
+        <!-- TMGR4 template-->
+        <!--
+        <![CDATA[
+    <div style="border:1px solid #8EA4C1;background-color:#CCD8E7;margin:20px;padding:5px 5px 10px 5px;">
+        <div style="background-color:#CCD8E7;padding:10px;">
+            <img src="$serverAddress/resources/css/img/global/logo/logo.png" />
+        </div>
+        <div style="border:1px solid #A3BAE9;background-color:#CCD8E7;padding:10px 0px 5px 0px;">
+            <div style="background-color:#FFFFFF;padding:50px;font-family:sans-serif;font-size:small;">
+                ## This is the place where html body defined by mail-template/html is injected.
+                $htmlBody
+            </div>
+            <div style="background-color:#CCD8E7;text-align:center;padding:2px 0px 0px 0px;">
+                <a style="text-decoration:none;font-family:sans-serif;color:#29367D;font-size:small" href="http://www.translations.com">www.translations.com</a>
+            </div>
+        </div>
+    </div>
+        ]]>
+        -->
+
+        <!-- TMGR5 template-->
+        <![CDATA[
+			<div style="margin:20px">
+				<div style="border:1px solid #51A2DB;background-color:#51A2DB;">
+					<div style="background-color:#51A2DB;padding:10px;">
+						<img src="$serverAddress/classicAqua/resources/img/foundation/global/logo/logo_white.png" />
+					</div>
+					<div style="background-color:#FFFFFF;padding:40px;font-family:tahoma,arial,verdana,sans-serif;font-size:13px;">
+						## This is the place where html body defined by mail-template/html is injected.
+						<div style="margin:10px;">
+							$htmlBody
+						</div>
+					</div>
+					<div style="background-color:#51A2DB;text-align:center;padding:6px 0px 6px 0px;">
+						<a style="text-decoration:none;font-family:tahoma, arial, verdana,sans-serif;color:#FFFFFF;font-size:12px" href="http://www.translations.com">www.translations.com</a>
+					</div>
+				</div>
+			</div>
+			<div style="color:#999;font-family:tahoma,arial,verdana,sans-serif;font-size:9px;line-height:12px;margin:20px;padding:10px;text-align:justify">
+				&copy; 2016/2017 Translations.com. All Rights Reserved.<br />
+				<b>SECURITY NOTICE:</b> This communication (including all accompanying document(s) is for the sole use of the intended recipient and may contain confidential information. Unauthorized use, distribution, disclosure or any action taken or omitted to be taken in reliance on this communication is prohibited, and may be unlawful. If you are not the intended recipient, please notify the sender by telephone and destroy electronic and hard copies of this facsimile. By inadvertent disclosure of this communication, Translations.com does not waive confidentiality privilege with respect hereto.
+			</div>
+		]]>
+	</html-frame>
+
+	<mail-template name='notificationReport'>
+		<subject>Term Manager $reportType report - $reportDate</subject>
+		<body>
+			<text>
+				<![CDATA[
+Hello $user,
+		
+Please preview Term Manager activity that occurred during the previous $interval.
+
+#foreach ( $report in $reports )
+	Project:  $report.projectName
+		#foreach ( $st in $report.statistics )
+			Language: $st.languageName
+			#if($classifiers.contains("addedApprovedTerm"))
+			Added approved: $st.addedApprovedTerms
+			#end
+			#if($classifiers.contains("addedPendingTerm"))
+			Added Pending Approval: $st.addedPendingTerms
+			#end
+			#if($classifiers.contains("addedOnHoldTerm"))
+			Added On Hold: $st.addedOnHoldTerms
+			#end
+			#if($classifiers.contains("addedBlacklistedTerm"))
+			Added Blacklisted: $st.addedBlacklistedTerms
+			#end
+			#if($classifiers.contains("editTerm"))
+			Updated: $st.updatedTerms
+			#end
+			#if($classifiers.contains("deletedTerm"))
+			Deleted: $st.deletedTerms
+			#end
+			#if($classifiers.contains("approveTerm"))
+			Approved: $st.approvedTerms
+			#end
+			#if($classifiers.contains("demoteTerm"))
+			Set to Pending Approval: $st.demotedTerms
+			#end
+			#if($classifiers.contains("onHoldTerm"))
+			Set On Hold: $st.onHoldTerms
+			#end
+			#if($classifiers.contains("blacklistTerm"))
+			Blacklisted: $st.blacklistedTerms
+			#end
+		    ----------------------------------------
+		#end
+#end
+		
+		
+To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+ 
+Best regards,
+GlobalLink Term Manager Team
+<br /><br />
+		]]>
+			</text>
+			<html>
+				<![CDATA[
+	Hello $user,<br /><br />
+	Please preview Term Manager activity that occurred during the previous $interval.
+	
+	#foreach ( $report in $reports )
+	
+	<h4>Project:  $report.projectName</h4>
+	
+	<table border="1">
+			<tr>
+   				<td></td>
+   				#if($classifiers.contains("addedApprovedTerm"))
+   				<td>Added Approved</td>
+   				#end
+   				#if($classifiers.contains("addedPendingTerm"))
+   				<td>Added Pending Approval</td>
+   				#end
+   				#if($classifiers.contains("addedOnHoldTerm"))
+   				<td>Added On Hold</td>
+   				#end
+   				#if($classifiers.contains("addedBlacklistedTerm"))
+   				<td>Added Blacklisted</td>
+   				#end
+   				#if($classifiers.contains("editTerm"))
+   				<td>Updated</td>
+   				#end
+   				#if($classifiers.contains("deletedTerm"))
+   				<td>Deleted</td>
+   				#end
+   				#if($classifiers.contains("approveTerm"))
+  				<td>Approved</td>
+  				#end
+  				#if($classifiers.contains("demoteTerm"))
+  				<td>Set to Pending Approval</td>
+  				#end
+  				#if($classifiers.contains("onHoldTerm"))
+  				<td>Set On Hold</td>
+  				#end
+  				#if($classifiers.contains("blacklistTerm"))
+  				<td>Blacklisted</td>
+  				#end
+		#foreach ( $st in $report.statistics )
+			<tr>
+   				<td><b>$st.languageName</b></td>
+   				#if($classifiers.contains("addedApprovedTerm"))
+   				<td>$st.addedApprovedTerms</td>
+   				#end
+   				#if($classifiers.contains("addedPendingTerm"))
+   				<td>$st.addedPendingTerms</td>
+   				#end
+   				#if($classifiers.contains("addedOnHoldTerm"))
+   				<td>$st.addedOnHoldTerms</td>
+   				#end
+   				#if($classifiers.contains("addedBlacklistedTerm"))
+   				<td>$st.addedBlacklistedTerms</td>
+   				#end
+   				#if($classifiers.contains("editTerm"))
+   				<td>$st.updatedTerms</td>
+   				#end
+   				#if($classifiers.contains("deletedTerm"))
+   				<td>$st.deletedTerms</td>
+   				#end
+   				#if($classifiers.contains("approveTerm"))
+  				<td>$st.approvedTerms</td>
+  				#end
+  				#if($classifiers.contains("demoteTerm"))
+  				<td>$st.demotedTerms</td>
+  				#end
+  				#if($classifiers.contains("onHoldTerm"))
+  				<td>$st.onHoldTerms</td>
+  				#end
+  				#if($classifiers.contains("blacklistTerm"))
+  				<td>$st.blacklistedTerms</td>
+  				#end
+			</tr>
+		#end
+	
+	</table>
+	
+	#end
+	
+	<br /><br />To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+	Best regards, <br /><i>GlobalLink Term Manager Team</i>.<br /><br />
+	]]>
+			</html>
+		</body>
+	</mail-template>
+
+	<mail-template name='connectionStrings'>
+		<subject>Term Manager connection information</subject>
+		<body>
+			<text>
+				<![CDATA[
+	Hello,
+             
+    You can access Term Manager projects using some of the connection strings 
+	which you can find in the attached file.	
+
+    Best regards,
+    The GlobalLink Term Manager Team.
+		]]>
+			</text>
+			<html>
+				<![CDATA[
+	Hello,<br /><br />
+	You can access Term Manager projects using some of the connection strings<br/>
+	which you can find in the attached file.<br/>
+	<br/>
+	Best regards,<br/> <i>The GlobalLink Term Manager Team</i>.
+	]]>
+			</html>
+		</body>
+	</mail-template>
+
+    <mail-template name="twoFactorAuthenticationTemplate">
+        <subject>TMGR | Authentication Verification Info</subject>
+        <body>
+            <text><![CDATA[
+					Hello $user!
+
+					Please complete your Term Manager authentication using this code: $code.
+
+					The above code is valid for 15 minutes after you receive this email.
+					Each code can be used only one time, but you can request one whenever you need it.
+
+					Best regards,
+						The GlobalLink Term Manager Team.
+					]]>
+            </text>
+            <html><![CDATA[
+					Hello $user!<br /><br />
+					Please complete your Term Manager authentication using this code:
+					<h3>$code</h3>
+					Or click on this <a href="$serverAddress/submitTwoFactorAuthCode.gs4tr?twoFactAuthCode=$code">link</a>.<br /><br />
+					The above code is valid for 15 minutes after you receive this email.<br />
+					Each code can be used only one time, but you can request one whenever you need it.<br /><br /><br />
+					Best regards,<br />
+						&mdash;<i>The GlobalLink Term Manager Team</i>.<br />
+					]]>
+            </html>
+        </body>
+    </mail-template>
+
+	<mail-template name="passwordResetTemplate">
+        <subject>TMGR | Password Reset</subject>
+		<body>
+			<text><![CDATA[
+					Hello $user!
+
+					Please complete your Term Manager password reset using this code: $code.
+
+					The above code is valid for $codeExpirePeriod minutes after you receive this email.
+					Each code can be used only one time, but you can request one whenever you need it.
+
+					Best regards,
+						The GlobalLink Term Manager Team.
+					]]>
+			</text>
+			<html><![CDATA[
+					Hello $user!<br /><br />
+					Please complete your Term Manager password reset using this code:
+					<h3>$code</h3>
+					Or click on this <a href="$serverAddress/passwordReset.gs4tr?validationCode=$code">link</a>.<br /><br />
+					The above code is valid for $codeExpirePeriod minutes after you receive this email.<br />
+					Each code can be used only one time, but you can request one whenever you need it.<br /><br /><br />
+					Best regards,<br />
+						&mdash;<i>The GlobalLink Term Manager Team</i>.<br />
+					]]>
+			</html>
+		</body>
+	</mail-template>
+
+	<mail-template name='readyForTranslation'>
+		<subject>Term Manager Submissions Report</subject>
+		<body>
+			<text>
+				<![CDATA[
+	Hello,
+             
+    Term(s) are available for you to translate/review.
+
+		Submission name: $jobName<br/>
+
+		Number of terms: $numberOfTerms<br/>
+
+		Source language: $sourceLanguage<br/>
+
+		Target language: $targetLanguage<br/>
+
+		Submitter: $user<br/>
+
+		Submission comment: $jobComment<br/>
+
+	To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+
+	Best regards,
+    The GlobalLink Term Manager Team.
+		]]>
+			</text>
+			<html>
+				<![CDATA[
+	Hello,<br /><br />
+	Term(s) are available for you to translate/review.<br/>
+	<br/>
+	&emsp;&bull;&ensp;Submission name:&ensp;$jobName<br/>
+	&emsp;&bull;&ensp;Number of terms:&ensp;$numberOfTerms<br/>
+	&emsp;&bull;&ensp;Source language:&ensp;$sourceLanguage<br/>
+	&emsp;&bull;&ensp;Target language:&ensp;$targetLanguage<br/>
+	&emsp;&bull;&ensp;Submitter:&ensp;$user<br/>
+	&emsp;&bull;&ensp;Submission comment:&ensp;$jobComment<br/>
+	<br /><br />To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+	Best regards,<br/> <i>The GlobalLink Term Manager Team</i>.
+	]]>
+			</html>
+		</body>
+	</mail-template>
+
+	<mail-template name='translationCanceled'>
+		<subject>Term Manager Submissions Report</subject>
+		<body>
+			<text>
+				<![CDATA[
+	Hello,
+             
+    Term(s) have been canceled from translation/review.
+
+		Submission name: $jobName<br/>
+		Number of terms: $numberOfTerms<br/>
+		Source language: $sourceLanguage<br/>
+		Target language: $targetLanguage<br/>
+		Canceled by: $user<br/>
+
+	To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+
+	Best regards,
+    The GlobalLink Term Manager Team.
+		]]>
+			</text>
+			<html>
+				<![CDATA[
+	Hello,<br /><br />
+	Term(s) have been canceled from translation/review.<br/>
+	<br/>
+	&emsp;&bull;&ensp;Submission name:&ensp;$jobName<br/>
+	&emsp;&bull;&ensp;Number of terms:&ensp;$numberOfTerms<br/>
+	&emsp;&bull;&ensp;Source language:&ensp;$sourceLanguage<br/>
+	&emsp;&bull;&ensp;Target language:&ensp;$targetLanguage<br/>
+	&emsp;&bull;&ensp;Canceled by:&ensp;$user<br/>
+	<br /><br />To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+	Best regards,<br/> <i>The GlobalLink Term Manager Team</i>.
+	]]>
+			</html>
+		</body>
+	</mail-template>
+
+	<mail-template name='translationCompleted'>
+		<subject>Term Manager Submissions Report</subject>
+		<body>
+			<text>
+				<![CDATA[
+	Hello,
+             
+    Translation is completed and it is available for review.
+
+		Submission name: $jobName<br/>
+		Number of terms: $numberOfTerms<br/>
+		Source language: $sourceLanguage<br/>
+		Target language: $targetLanguage<br/>
+		Submitter: $user<br/>
+		Completed by: $assignee<br/>
+
+	To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+
+	Best regards,
+    The GlobalLink Term Manager Team.
+		]]>
+			</text>
+			<html>
+				<![CDATA[
+	Hello,<br /><br />
+	Translation is completed and it is available for review.<br/>
+	<br/>
+	&emsp;&bull;&ensp;Submission name:&ensp;$jobName<br/>
+	&emsp;&bull;&ensp;Number of terms:&ensp;$numberOfTerms<br/>
+	&emsp;&bull;&ensp;Source language:&ensp;$sourceLanguage<br/>
+	&emsp;&bull;&ensp;Target language:&ensp;$targetLanguage<br/>
+	&emsp;&bull;&ensp;Submitter:&ensp;$user<br/>
+	&emsp;&bull;&ensp;Completed by:&ensp;$assignee<br/>
+	<br /><br />To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+	Best regards,<br/> <i>The GlobalLink Term Manager Team</i>.
+	]]>
+			</html>
+		</body>
+	</mail-template>
+
+	<mail-template name='lockedAccountAdminMailTemplate'>
+		<subject>Account locked</subject>
+		<body>
+			<text><![CDATA[
+					Hello,
+
+					User account has been locked.
+					Reason: exceeded limit of unsuccessful login attempts.
+
+  					Username: $username;
+  					IP address: $ipAddress;
+  					Time: $time.
+
+ 					Best regards,
+						The GlobalLink Term Manager Team.
+
+					]]>
+			</text>
+			<html><![CDATA[
+					Hello,<br /><br />
+					User account has been locked.<br />
+					Reason: exceeded limit of unsuccessful login attempts.<br /><br />
+					<ul>
+						<li style="padding:0px 0px 5px 0px"><strong>Username:</strong> $username</li>
+						<li style="padding:0px 0px 5px 0px"><strong>Ip address:</strong> $ipAddress</li>
+						<li style="padding:0px 0px 5px 0px"><strong>Time:</strong> $time</li>
+					</ul><br /><br />
+					Best regards,<br />
+						<i>&mdash;The GlobalLink Term Manager Team</i><br /><br />
+
+					<span style="color:#e57702;font-family:Arial,sans-serif;font-size:11px;line-height:15px">Please do not reply to this automated message, for any assistance please contact the <a href="mailto:$supportMail&amp;subject=%5BQuery%5D%20PD%20%7C%20SubID%20$submissionId%20%7C%20$submissionName&amp;body=Dear%20Support%20Team%2C%0A%0A%3Center%20your%20query%20here%3E%0A%0A%0A--%0ASubmission%20information%0A-%20Submission%20ID%3A%20$submissionId%0A-%20Submission%20Name%3A%20$submissionName%0A-%20Project%20Name%3A%20$projectName%0A-%20PD%20URL%3A%20$serverAddress%0A">Support Team</a>.<br /><br /></span>
+
+					]]>
+			</html>
+		</body>
+	</mail-template>
+	<mail-template name='lockedAccountUserMailTemplate'>
+		<subject>Account locked</subject>
+		<body>
+			<text><![CDATA[
+					Hello,
+
+					Your account has been locked.
+					Reason: exceeded limit of unsuccessful login attempts.
+
+  					IP address: $ipAddress;
+  					Time: $time.
+
+ 					Best regards,
+						The GlobalLink Term Manager Team.
+
+					]]>
+			</text>
+			<html><![CDATA[
+					Hello,<br /><br />
+					Your account has been locked.<br />
+					Reason: exceeded limit of unsuccessful login attempts.<br /><br />
+					<ul>
+						<li style="padding:0px 0px 5px 0px"><strong>Ip address:</strong> $ipAddress</li>
+						<li style="padding:0px 0px 5px 0px"><strong>Time:</strong> $time</li>
+					</ul><br /><br />
+					Best regards,<br />
+						<i>&mdash;The GlobalLink Term Manager Team</i><br /><br />
+
+					<span style="color:#e57702;font-family:Arial,sans-serif;font-size:11px;line-height:15px">Please do not reply to this automated message, for any assistance please contact the <a href="mailto:$supportMail&amp;subject=%5BQuery%5D%20PD%20%7C%20SubID%20$submissionId%20%7C%20$submissionName&amp;body=Dear%20Support%20Team%2C%0A%0A%3Center%20your%20query%20here%3E%0A%0A%0A--%0ASubmission%20information%0A-%20Submission%20ID%3A%20$submissionId%0A-%20Submission%20Name%3A%20$submissionName%0A-%20Project%20Name%3A%20$projectName%0A-%20PD%20URL%3A%20$serverAddress%0A">Support Team</a>.<br /><br /></span>
+
+					]]>
+			</html>
+		</body>
+	</mail-template>
+</mail-templates>

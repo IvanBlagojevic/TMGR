@@ -1,0 +1,32 @@
+{
+  "preImportCheck": false,
+  "ignoreCase": true,
+  "defaultTermStatus": "PROCESSED",
+  "folder": "$folder",
+  "languageReplacements": [
+  ],
+  "attributeReplacements": [
+  ],
+  "numberOfTermEntries": [
+  ],
+  "projectTicket": "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+  "importLanguagesPerFile": [
+    {
+      "fileName": "fileName",
+      "importLanguages": [
+        "de-DE",
+        "en-US",
+        "fr-FR"
+      ]
+    }
+  ],
+  "sourceLanguage": "en-US",
+  "syncOption": "OVERWRITE",
+  "termAttributeNames": [
+  ],
+  "termEntryAttributeNames": [
+  ],
+  "termNoteNames": [
+    "Marketing-GolfPride"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+	"submissionTickets":[
+		"$submissionTicket"
+	],
+	"termTickets":[
+		"$ticket1",
+		"$ticket2",
+		"$ticket3",
+		"$ticket4"
+	]
+}

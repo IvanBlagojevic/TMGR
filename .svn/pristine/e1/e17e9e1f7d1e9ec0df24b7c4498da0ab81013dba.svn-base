@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <context:component-scan base-package="org.gs4tr.foundation.modules.webmvc.controllers"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.webmvc.controllers"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.webmvc.rest"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.webmvc.rest.interceptors"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.webmvc.configuration"/>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+
+    <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/templates/velocity/"/>
+    </bean>
+
+    <bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="order" value="1"/>
+        <property name="cache" value="true"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".html"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+    </bean>
+
+    <bean id="internalResolver" class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver">
+        <property name="suffix" value="Handler"/>
+    </bean>
+
+</beans>

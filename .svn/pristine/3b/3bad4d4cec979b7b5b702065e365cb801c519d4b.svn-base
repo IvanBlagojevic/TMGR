@@ -1,0 +1,11 @@
+{
+    "sourceTickets":[
+        "$termTicket1",
+        "$termTicket6"
+    ],
+    "termIds":[
+        "$termTicket2",
+        "$termTicket3",
+        "$termTicket5"
+    ]
+}

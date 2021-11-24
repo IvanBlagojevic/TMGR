@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <bean id="currentVersion" class="org.gs4tr.termmanager.migration.VersionHolder"/>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg index="0" ref="cpDataSource"/>
+    </bean>
+
+    <bean id="migrations" class="org.gs4tr.termmanager.migration.Migrations">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+        <property name="tablePrefix" value="TM"/>
+        <property name="migrators">
+            <list>
+                <ref bean="m411to412"/>
+                <ref bean="m_4.12.0_to_4.12.1"/>
+                <ref bean="m_4.12.1_to_4.12.2"/>
+                <ref bean="m_4.12.2_to_4.12.3"/>
+                <ref bean="m_4.12.3_to_5.0.0"/>
+                <ref bean="m500to510"/>
+                <ref bean="m510to520"/>
+                <ref bean="m520to530"/>
+                <ref bean="m530to540"/>
+                <ref bean="m540to550"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="m411to412" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="4.11.0"/>
+        <property name="targetVersion" value="4.12.0"/>
+        <property name="executors">
+            <list>
+                <bean class="org.gs4tr.foundation.modules.migration.SqlExecutor">
+                    <property name="fileName" value="tmgr411_tmgr412.sql"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <bean id="m_4.12.0_to_4.12.1" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="4.12.0"/>
+        <property name="targetVersion" value="4.12.1"/>
+        <property name="executors">
+            <list/>
+        </property>
+    </bean>
+    <bean id="m_4.12.1_to_4.12.2" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="4.12.1"/>
+        <property name="targetVersion" value="4.12.2"/>
+        <property name="executors">
+            <list/>
+        </property>
+    </bean>
+    <bean id="m_4.12.2_to_4.12.3" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="4.12.2"/>
+        <property name="targetVersion" value="4.12.3"/>
+        <property name="executors">
+            <list/>
+        </property>
+    </bean>
+    <bean id="m_4.12.3_to_5.0.0" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="4.12.3"/>
+        <property name="targetVersion" value="5.0.0"/>
+        <property name="executors">
+            <list>
+                <bean class="org.gs4tr.foundation.modules.migration.SqlExecutor">
+                    <property name="fileName" value="tmgr412_tmgr500.sql"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <bean id="m_5.0.0_to_5.0.1" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="5.0.0"/>
+        <property name="targetVersion" value="5.0.1"/>
+        <property name="executors">
+            <list/>
+        </property>
+    </bean>
+    <bean id="m500to510" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="5.0.1"/>
+        <property name="targetVersion" value="5.1.0"/>
+        <property name="executors">
+            <list>
+                <bean class="org.gs4tr.foundation.modules.migration.SqlExecutor">
+                    <property name="fileName" value="tmgr500_tmgr510.sql"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <bean id="m510to520" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="5.1.0"/>
+        <property name="targetVersion" value="5.2.0"/>
+        <property name="executors">
+            <list>
+                <bean class="org.gs4tr.foundation.modules.migration.SqlExecutor">
+                    <property name="fileName" value="tmgr510_tmgr520.sql"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <bean id="m520to530" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="5.2.0"/>
+        <property name="targetVersion" value="5.3.0"/>
+        <property name="executors">
+            <list>
+                <bean class="org.gs4tr.foundation.modules.migration.SqlExecutor">
+                    <property name="fileName" value="tmgr520_tmgr530.sql"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <bean id="m530to540" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="5.3.0"/>
+        <property name="targetVersion" value="5.4.0"/>
+        <property name="executors">
+            <list/>
+        </property>
+    </bean>
+    <bean id="m540to550" class="org.gs4tr.foundation.modules.migration.DefaultMigrator">
+        <property name="sourceVersion" value="5.4.0"/>
+        <property name="targetVersion" ref="currentVersion"/>
+        <property name="executors">
+            <list>
+                <bean class="org.gs4tr.foundation.modules.migration.SqlExecutor">
+                    <property name="fileName" value="tmgr540_tmgr550.sql"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+</beans>

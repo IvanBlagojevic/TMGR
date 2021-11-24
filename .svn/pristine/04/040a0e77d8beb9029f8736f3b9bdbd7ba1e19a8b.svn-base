@@ -1,0 +1,476 @@
+<?xml version='1.0'?>
+
+<!DOCTYPE martif SYSTEM "TBXcdv04.dtd">
+<martif type='TBX' xml:lang='en' >
+	<martifHeader> 
+		<fileDesc>
+			<sourceDesc>
+				<p>from Term Manager - All Issues</p>
+			</sourceDesc>
+		</fileDesc> 
+		<encodingDesc>
+			<p type='DCSName'>TBXExport.XML</p>
+		</encodingDesc>  
+	</martifHeader>
+	<text>
+		<body>
+			<termEntry id='c1'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t604'>"THE BEST OF ALL VACATION WORLDS!"</term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t605'>&#171; Le meilleur du monde des voyages ! &#187;</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c2'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t606'>..Or By Brand</term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t607'>&#8230;ou par marque</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c3'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t608'>..Or By Interest</term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t609'>&#8230; ou par int&#233;r&#234;t</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c4'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t610'>&#169; 2004 Starwood Hotels &#38; Resorts Worldwide, Inc.</term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t611'>&#169; 2004 Starwood Hotels &#38; Resorts Worldwide, Inc.</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c5'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t612'>1 1/2 BATH                    </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t613'>1 1/2 bain</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c6'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t614'>1 BEDROOM                     </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t615'>1 chambre</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c7'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t616'>1 BEDROOM APARTMENT              </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t617'>Appartement 1 chambre</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c8'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t618'>1 BEDROOM SUITE               </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t619'>Suite 1 chambre</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c9'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t620'>1 BEDROOM VILLA               </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t621'>Villa 1 chambre</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c10'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t622'>1 COMP BEVERAGE &#38; BKFST COUPON</term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t623'>1 coupon gratuit pour boisson et petit-d&#233;jeuner </term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c11'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t624'>1 KING                        </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t625'>1 tr&#232;s grand lit</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c12'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t626'>1 QUEEN                       </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t627'>1 grand lit</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c13'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t628'>1 SINGLE BED                  </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t629'>1 lit pour une personne</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c14'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t630'>1 WAY AIRPORT TRANSFER        </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t631'>Un transfert h
+tel-a&#233;roport</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c15'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t632'>100% Non-Smoking</term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t633'>100 % non-fumeur</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c16'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t634'>100% Non-Smoking Guestrooms</term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t635'>Chambres 100 % non-fumeurs </term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c17'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t636'>100% Non-Smoking Rooms and Facilities</term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t637'>Chambres et installations 100 % non-fumeurs</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c18'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t638'>18-Hole Golf Course</term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t639'>Parcours de golf 18 trous</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c19'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t640'>2 BATHROOMS                   </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t641'>2 salles de bains</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c20'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t642'>2 BDRM APARTMENT              </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t643'>Appartement 2 chambres</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c21'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t644'>2 BEDROOM CANVAS BUNGALOW     </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t645'>Bungalow en toile 2 chambres</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c22'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t646'>2 BEDROOM VILLA               </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t647'>Villa 2 chambres</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c23'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t648'>2 BEDROOMS                    </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t649'>2 chambres</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+			<termEntry id='c24'>
+				<descrip type='context'>Translations.com - Starwood FR-FR</descrip>
+				<langSet xml:lang='en'>
+					<tig> 
+						<term id='t650'>2 BEDS/4 FUTONS               </term>
+						<transacGrp>
+							<transac type="terminologyManagementTransactions">origination</transac>
+							<transacNote type="responsibility"/>
+							<date/>
+						</transacGrp>
+					</tig>
+				</langSet>
+				<langSet xml:lang='FR-FR'>
+					<tig> 
+						<term id='t651'>2 lits/4 futons</term> 
+						<termNote type="characteristic">Final</termNote>
+					</tig>
+				</langSet>
+			</termEntry>
+		</body>
+	</text>
+</martif>

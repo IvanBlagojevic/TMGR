@@ -1,0 +1,11 @@
+{
+  "multipleTermEntriesMergeCommand": {
+    "projectTicket": "$projectTicket",
+    "sourceLanguage": "$languageId",
+    "termEntryTickets": [
+      "$matchedTermEntryId1",
+      "$matchedTermEntryId2",
+      "$matchedTermEntryId3"
+    ]
+  }
+}

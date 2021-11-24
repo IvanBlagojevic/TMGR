@@ -1,0 +1,231 @@
+{
+  "name": "model",
+  "type": "properties",
+  "pairs": [
+    {
+      "key": "projects",
+      "optional": false,
+      "rule": {
+        "type": "and",
+        "rules": [
+          {
+            "type": "array"
+          },
+          {
+            "type": "length",
+            "min": 1,
+            "max": 2
+          },
+          {
+            "type": "content",
+            "rule": {
+              "type": "properties",
+              "pairs": [
+                {
+                  "key": "projectName",
+                  "optional": false,
+                  "rule": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "key": "projectTicket",
+                  "optional": false,
+                  "rule": {
+                    "type": "properties",
+                    "pairs": [
+                      {
+                        "key": "ticketId",
+                        "optional": false,
+                        "rule": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "key": "projectLanguages",
+                  "optional": false,
+                  "rule": {
+                    "type": "and",
+                    "rules": [
+                      {
+                        "type": "array"
+                      },
+                      {
+                        "type": "length",
+                        "min": 1,
+                        "max": 3
+                      },
+                      {
+                        "type": "content",
+                        "rule": {
+                          "type": "properties",
+                          "pairs": [
+                            {
+                              "key": "language",
+                              "optional": false,
+                              "rule": {
+                                "type": "properties",
+                                "pairs": [
+                                  {
+                                    "key": "locale",
+                                    "optional": false,
+                                    "rule": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "key": "value",
+                                    "optional": false,
+                                    "rule": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  {
+                                    "key": "isRTL",
+                                    "optional": false,
+                                    "rule": {
+                                      "type": "bool"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "key": "termStatuses",
+                  "optional": false,
+                  "rule": {
+                    "type": "and",
+                    "rules": [
+                      {
+                        "type": "array"
+                      },
+                      {
+                        "type": "length",
+                        "min": 0,
+                        "max": 2
+                      },
+                      {
+                        "type": "content",
+                        "rule": {
+                          "type": "properties",
+                          "pairs": [
+                            {
+                              "key": "name",
+                              "optional": false,
+                              "rule": {
+                                "type": "enum",
+                                "values": [
+                                  "PROCESSED",
+                                  "WAITING"
+                                ]
+                              }
+                            },
+                            {
+                              "key": "value",
+                              "optional": false,
+                              "rule": {
+                                "type": "enum",
+                                "values": [
+                                  "PROCESSED",
+                                  "WAITING"
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "key": "defaultTermStatus",
+                  "optional": false,
+                  "rule": {
+                    "type": "properties",
+                    "pairs": [
+                      {
+                        "key": "name",
+                        "optional": false,
+                        "rule": {
+                          "type": "enum",
+                          "values": [
+                            "PROCESSED",
+                            "WAITING"
+                          ]
+                        }
+                      },
+                      {
+                        "key": "value",
+                        "optional": false,
+                        "rule": {
+                          "type": "enum",
+                          "values": [
+                            "PROCESSED",
+                            "WAITING"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "key": "defaultImportType",
+      "optional": false,
+      "rule": {
+        "type": "enum",
+        "values": [
+          "OVERWRITE"
+        ]
+      }
+    },
+    {
+      "key": "importTypes",
+      "optional": false,
+      "rule": {
+        "type": "and",
+        "rules": [
+          {
+            "type": "array"
+          },
+          {
+            "type": "length",
+            "min": 2,
+            "max": 2
+          },
+          {
+            "type": "content",
+            "rule": {
+              "type": "enum",
+              "values": [
+                "APPEND",
+                "OVERWRITE"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "key": "ignoreCase",
+      "optional": false,
+      "rule": {
+        "type": "bool"
+      }
+    }
+  ]
+}

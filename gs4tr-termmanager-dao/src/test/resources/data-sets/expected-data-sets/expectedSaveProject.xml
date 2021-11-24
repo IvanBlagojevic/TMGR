@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<TM_PROJECT NAME="testProject" PROJECT_ID="1" />
+	<TM_PROJECT NAME="translationProject" PROJECT_ID="2" />
+	<TM_PROJECT NAME="translationProject_4" PROJECT_ID="4" />
+
+	<TM_PROJECT NAME="disabledProject_1" PROJECT_ID="5" />
+	<TM_PROJECT NAME="disabledProject_2" PROJECT_ID="6" />
+	<TM_PROJECT NAME="xxx_Project_1" PROJECT_ID="7" />
+	<TM_PROJECT NAME="XXX_Project_2" PROJECT_ID="8" />
+
+	<TM_PROJECT NAME="testProjectCreation" PROJECT_ID="9" />
+</dataset>

@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>org.gs4tr.termmanager</groupId>
+		<artifactId>gs4tr-termmanager</artifactId>
+		<version>5.5.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.gs4tr.termmanager</groupId>
+	<artifactId>gs4tr-termmanager-model</artifactId>
+	<name>Term Manager Model</name>
+
+	<properties>
+		<versionPackageName>org.gs4tr.termmanager.model</versionPackageName>
+		<foundation.groupId>org.gs4tr.foundation</foundation.groupId>
+		<foundationModules.groupId>org.gs4tr.foundation.modules</foundationModules.groupId>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${foundation.groupId}</groupId>
+			<artifactId>gs4tr-foundation3-tbx</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>${foundationModules.groupId}</groupId>
+			<artifactId>gs4tr-foundation-modules-entities</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${foundationModules.groupId}</groupId>
+			<artifactId>gs4tr-foundation-modules-usermanager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${foundationModules.groupId}</groupId>
+			<artifactId>gs4tr-foundation-modules-project</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${foundationModules.groupId}</groupId>
+			<artifactId>gs4tr-foundation-modules-organization</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

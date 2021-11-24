@@ -1,0 +1,7 @@
+AbstractInternalNotificationProcessor.1=Invalid mail notification request.
+AutoTaskProcessorInfo.4=Could not parse properties from string: %s.
+NotificationProvider.0=NotificationProcessor of type %s could not be found.
+NotificationProvider.1=AutoTaskProcessorInfo for the type %s cannot be found.
+NotificationProvider.2=AutoTaskProcessorInfo cannot be found for the classifier: %s
+NotificationUtils.0=AutoTaskProcessorInfo cannot be found.
+TermReadyNotificationProcessor.1=Either more than one or no term found.

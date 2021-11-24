@@ -1,0 +1,6 @@
+{
+    "sourceTickets":[
+        "$termId"
+    ],
+    "termEntryTicket":"$termEntryTicket"
+}

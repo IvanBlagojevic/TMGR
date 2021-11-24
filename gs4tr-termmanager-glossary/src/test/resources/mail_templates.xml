@@ -1,0 +1,309 @@
+<mail-templates>
+	<html-frame>
+		<![CDATA[
+	<div style="border:1px solid #8EA4C1;background-color:#CCD8E7;margin:20px;padding:5px 5px 10px 5px;">
+        <div style="background-color:#CCD8E7;padding:10px;">
+			<img src="http://localhost:8080/ter/scripts/css/images/logo.png" />
+        </div>
+        <div style="border:1px solid #A3BAE9;background-color:#CCD8E7;padding:10px 0px 5px 0px;">
+            <div style="background-color:#FFFFFF;padding:50px;font-family:sans-serif;font-size:small;">			
+				## This is the place where html body defined by mail-template/html is injected.
+				$htmlBody				
+			</div>
+			<div style="background-color:#CCD8E7;text-align:center;padding:2px 0px 0px 0px;">
+                <a style="text-decoration:none;font-family:sans-serif;color:#29367D;font-size:small" href="http://www.translations.com">www.translations.com</a>
+            </div>
+        </div>
+	</div>
+		]]>
+	</html-frame>
+
+	<mail-template name='notificationReport'>
+		<subject>Term Manager $reportType report - $reportDate</subject>
+		<body>
+			<text>
+				<![CDATA[
+Hello $user,
+		
+Please preview Term Manager activity that occurred during the previous $interval.
+
+#foreach ( $report in $reports )
+	Project:  $report.projectName
+		#foreach ( $st in $report.statistics )
+			Language: $st.languageName
+			#if($classifiers.contains("addedApprovedTerm"))
+			Added approved: $st.addedApprovedTerms
+			#end
+			#if($classifiers.contains("addedPendingTerm"))
+			Added pending: $st.addedPendingTerms
+			#end
+			#if($classifiers.contains("editTerm"))
+			Updated: $st.updatedTerms
+			#end
+			#if($classifiers.contains("deletedTerm"))
+			Deleted: $st.deletedTerms
+			#end
+			#if($classifiers.contains("approveTerm"))
+			Approved: $st.approvedTerms
+			#end
+			#if($classifiers.contains("demoteTerm"))
+			Demoted: $st.demotedTerms
+			#end
+		    ----------------------------------------
+		#end
+#end
+		
+		
+To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+ 
+Best regards,
+GlobalLink Term Manager Team
+<br /><br />
+		]]>
+			</text>
+			<html>
+				<![CDATA[
+	Hello $user,<br /><br />
+	Please preview Term Manager activity that occurred during the previous $interval.
+	
+	#foreach ( $report in $reports )
+	
+	<h4>Project:  $report.projectName</h4>
+	
+	<table border="1">
+			<tr>
+   				<td></td>
+   				#if($classifiers.contains("addedApprovedTerm"))
+   				<td>Added Approved</td>
+   				#end
+   				#if($classifiers.contains("addedPendingTerm"))
+   				<td>Added Pending</td>
+   				#end
+   				#if($classifiers.contains("editTerm"))
+   				<td>Updated</td>
+   				#end
+   				#if($classifiers.contains("deletedTerm"))
+   				<td>Deleted</td>
+   				#end
+   				#if($classifiers.contains("approveTerm"))
+  				<td>Approved</td>
+  				#end
+  				#if($classifiers.contains("demoteTerm"))
+  				<td>Demoted</td>
+  				#end
+		#foreach ( $st in $report.statistics )
+			<tr>
+   				<td><b>$st.languageName</b></td>
+   				#if($classifiers.contains("addedApprovedTerm"))
+   				<td>$st.addedApprovedTerms</td>
+   				#end
+   				#if($classifiers.contains("addedPendingTerm"))
+   				<td>$st.addedPendingTerms</td>
+   				#end
+   				#if($classifiers.contains("editTerm"))
+   				<td>$st.updatedTerms</td>
+   				#end
+   				#if($classifiers.contains("deletedTerm"))
+   				<td>$st.deletedTerms</td>
+   				#end
+   				#if($classifiers.contains("approveTerm"))
+  				<td>$st.approvedTerms</td>
+  				#end
+  				#if($classifiers.contains("demoteTerm"))
+  				<td>$st.demotedTerms</td>
+  				#end
+			</tr>
+		#end
+	
+	</table>
+	
+	#end
+	
+	<br /><br />To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+	Best regards, <br /><i>GlobalLink Term Manager Team</i>.<br /><br />
+	]]>
+			</html>
+		</body>
+	</mail-template>
+
+	<mail-template name='connectionStrings'>
+		<subject>Term Manager connection information</subject>
+		<body>
+			<text>
+				<![CDATA[
+	Hello,
+             
+    You can access Term Manager projects using some of the connection strings 
+	which you can find in the attached file.	
+
+    Best regards,
+    The GlobalLink Term Manager Team.
+		]]>
+			</text>
+			<html>
+				<![CDATA[
+	Hello,<br /><br />
+	You can access Term Manager projects using some of the connection strings<br/>
+	which you can find in the attached file.<br/>
+	<br/>
+	Best regards,<br/> <i>The GlobalLink Term Manager Team</i>.
+	]]>
+			</html>
+		</body>
+	</mail-template>
+
+
+	<mail-template name="passwordResetTemplate">
+		<subject>Password reset request</subject>
+		<body>
+			<text><![CDATA[
+	Hello $user,
+	
+	
+	
+	You requested a password reset.
+	
+	New password is: '$newPassword'.
+	
+	
+	
+	
+	Best regards, 
+			The GlobalLink Term Manager Team.
+	]]>
+			</text>
+			<html><![CDATA[
+	Hello $user, <br /><br />		
+	You requested a password reset.<br />
+	New password is: '$newPassword'.
+	<br />	<br />	<br />	
+	Best regards, <br />
+			<i>The GlobalLink Term Manager Team</i>.
+	]]>
+			</html>
+		</body>
+	</mail-template>
+
+	<mail-template name='readyForTranslation'>
+		<subject>Term Manager Submissions Report</subject>
+		<body>
+			<text>
+				<![CDATA[
+	Hello,
+             
+    Term(s) are available for you to translate/review.
+
+		Submission name: $jobName<br/>
+
+		Number of terms: $numberOfTerms<br/>
+
+		Source language: $sourceLanguage<br/>
+
+		Target language: $targetLanguage<br/>
+
+		Submitter: $user<br/>
+
+		Submission comment: $jobComment<br/>
+
+	To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+
+	Best regards,
+    The GlobalLink Term Manager Team.
+		]]>
+			</text>
+			<html>
+				<![CDATA[
+	Hello,<br /><br />
+	Term(s) are available for you to translate/review.<br/>
+	<br/>
+	&emsp;&bull;&ensp;Submission name:&ensp;$jobName<br/>
+	&emsp;&bull;&ensp;Number of terms:&ensp;$numberOfTerms<br/>
+	&emsp;&bull;&ensp;Source language:&ensp;$sourceLanguage<br/>
+	&emsp;&bull;&ensp;Target language:&ensp;$targetLanguage<br/>
+	&emsp;&bull;&ensp;Submitter:&ensp;$user<br/>
+	&emsp;&bull;&ensp;Submission comment:&ensp;$jobComment<br/>
+	<br /><br />To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+	Best regards,<br/> <i>The GlobalLink Term Manager Team</i>.
+	]]>
+			</html>
+		</body>
+	</mail-template>
+
+	<mail-template name='translationCanceled'>
+		<subject>Term Manager Submissions Report</subject>
+		<body>
+			<text>
+				<![CDATA[
+	Hello,
+             
+    Term(s) have been canceled from translation/review.
+
+		Submission name: $jobName<br/>
+		Number of terms: $numberOfTerms<br/>
+		Source language: $sourceLanguage<br/>
+		Target language: $targetLanguage<br/>
+		Canceled by: $user<br/>
+
+	To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+
+	Best regards,
+    The GlobalLink Term Manager Team.
+		]]>
+			</text>
+			<html>
+				<![CDATA[
+	Hello,<br /><br />
+	Term(s) have been canceled from translation/review.<br/>
+	<br/>
+	&emsp;&bull;&ensp;Submission name:&ensp;$jobName<br/>
+	&emsp;&bull;&ensp;Number of terms:&ensp;$numberOfTerms<br/>
+	&emsp;&bull;&ensp;Source language:&ensp;$sourceLanguage<br/>
+	&emsp;&bull;&ensp;Target language:&ensp;$targetLanguage<br/>
+	&emsp;&bull;&ensp;Canceled by:&ensp;$user<br/>
+	<br /><br />To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+	Best regards,<br/> <i>The GlobalLink Term Manager Team</i>.
+	]]>
+			</html>
+		</body>
+	</mail-template>
+
+	<mail-template name='translationCompleted'>
+		<subject>Term Manager Submissions Report</subject>
+		<body>
+			<text>
+				<![CDATA[
+	Hello,
+             
+    Translation is completed and it is available for review.
+
+		Submission name: $jobName<br/>
+		Number of terms: $numberOfTerms<br/>
+		Source language: $sourceLanguage<br/>
+		Target language: $targetLanguage<br/>
+		Submitter: $user<br/>
+		Completed by: $assignee<br/>
+
+	To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+
+	Best regards,
+    The GlobalLink Term Manager Team.
+		]]>
+			</text>
+			<html>
+				<![CDATA[
+	Hello,<br /><br />
+	Translation is completed and it is available for review.<br/>
+	<br/>
+	&emsp;&bull;&ensp;Submission name:&ensp;$jobName<br/>
+	&emsp;&bull;&ensp;Number of terms:&ensp;$numberOfTerms<br/>
+	&emsp;&bull;&ensp;Source language:&ensp;$sourceLanguage<br/>
+	&emsp;&bull;&ensp;Target language:&ensp;$targetLanguage<br/>
+	&emsp;&bull;&ensp;Submitter:&ensp;$user<br/>
+	&emsp;&bull;&ensp;Completed by:&ensp;$assignee<br/>
+	<br /><br />To view terms please login to GlobalLink Term Manager by clicking <a style="text-decoration:none;font-family:sans-serif;font-size:small" href="$serverAddress">here</a>.<br /><br />
+	Best regards,<br/> <i>The GlobalLink Term Manager Team</i>.
+	]]>
+			</html>
+		</body>
+	</mail-template>
+</mail-templates>

@@ -1,0 +1,1 @@
+log4jdbc.drivers=org.mariadb.jdbc.Driver

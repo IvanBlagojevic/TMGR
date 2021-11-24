@@ -1,0 +1,19 @@
+{
+  "userInfo": {
+    "firstName": "Bob",
+    "lastName": "Jones",
+    "emailAddress": "$email",
+    "timeZone": "IndianKerguelen",
+    "emailNotification": true,
+    "enabled": true,
+    "userName": "translator",
+    "password": "",
+    "userType": "ORGANIZATION",
+    "accountNonExpired": true,
+    "accountLocked": false,
+    "credentialsNonExpired": true,
+    "dateLastLogin": 0,
+    "unsuccessfulAuthCount": 0
+  },
+  "createLdapUser": false
+}

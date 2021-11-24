@@ -1,0 +1,110 @@
+<beans xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+    <context:component-scan
+            base-package="org.gs4tr.termmanager.service.notification.listeners"/>
+
+    <bean class="org.gs4tr.termmanager.dao.hibernate.PowerUserProjectRoleDAOImpl"/>
+
+    <!--Service-->
+    <bean class="org.gs4tr.termmanager.service.impl.CacheGatewaySessionUpdaterServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.PowerUserProjectRoleServiceImpl"/>
+
+    <!-- Manualtask -->
+    <bean class="org.gs4tr.termmanager.service.manualtask.DeleteTermTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.ChangeTermStatusTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.ExportDocumentTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.ImportTbxDocumentTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.SendToTranslationTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.UndoTranslationChangesManualTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.ViewPropertiesTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.GetTermEntryHistoryTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.ViewXmlTermEntryTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.CheckImportProgressTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.CheckAnalysisProgressTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.GenerateImportTemplateTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.ExportItemCountTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.LookupTermTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.MergeManualTaskHandler"/>
+
+    <bean class="org.gs4tr.termmanager.service.manualtask.FileManagerTaskHandler"/>
+
+    <!-- Utils -->
+    <bean class="org.gs4tr.termmanager.service.utils.AdminTasksHolderHelper"/>
+
+    <!-- Foundation -->
+    <bean class="org.gs4tr.foundation.modules.mail.service.impl.MailTemplatesServiceImpl"/>
+    <bean class="org.gs4tr.foundation.modules.usermanager.service.impl.SessionServiceImpl"/>
+    <bean name="listenerSupport" class="org.gs4tr.foundation.modules.service.listener.NotificationListenerSupport"/>
+
+    <security:authentication-manager alias="defaultAuthenticationManager">
+        <security:authentication-provider
+                user-service-ref="userProfileService">
+            <security:password-encoder hash="sha"/>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>environment:services.properties</value>
+                <value>environment:tptOAuth.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="customEditorConfigurer"
+          class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="org.gs4tr.foundation.modules.entities.model.types.EntityType"
+                       value="org.gs4tr.termmanager.service.utils.EntityTypePropertyEditor"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="passwordEncoder"
+          class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties">
+            <props>
+                <prop key="dynamic.serverAddress">http://localhost</prop>
+                <prop key="rest.communication.username">rest</prop>
+                <prop key="rest.communication.password">password</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="rememberMeCookieName" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="test-rememberme"/>
+    </bean>
+
+    <bean id="passwordRegexHolder"
+          class="org.gs4tr.foundation.modules.usermanager.utils.PasswordRegexHolder">
+        <property name="passwordRegex" value="^(?=.*\d)(?=.*[!@#\$%\^&amp;\*\(\)]).{8,}$"/>
+    </bean>
+
+    <bean id="policyAccessDecisionManager"
+          class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg>
+            <list>
+                <ref bean="policyVoter"/>
+            </list>
+        </constructor-arg>
+        <property name="allowIfAllAbstainDecisions">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <bean id="policyVoter" class="org.springframework.security.access.vote.RoleVoter">
+        <property name="rolePrefix" value="POLICY_"/>
+    </bean>
+
+</beans>

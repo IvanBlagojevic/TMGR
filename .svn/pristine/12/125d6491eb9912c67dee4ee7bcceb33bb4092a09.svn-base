@@ -1,0 +1,226 @@
+{
+	"name":"model",
+	"type":"properties",
+	"pairs":[
+		{
+			"key":"descriptionTypes",
+			"optional":false,
+			"rule":{
+				"type":"and",
+				"rules":[
+					{
+						"type":"array"
+					},
+					{
+						"type":"length",
+						"min":0,
+						"max":100
+					},
+					{
+						"type":"content",
+						"rule":{
+							"type":"properties",
+							"pairs":[
+								{
+									"key":"projectTicket",
+									"optional":false,
+									"rule":{
+										"type":"properties",
+										"pairs":[
+											{
+												"key":"ticketId",
+												"optional":false,
+												"rule":{
+													"type":"string"
+												}
+												
+											}
+											
+										]
+										
+									}
+									
+								},
+								{
+									"key":"descriptions",
+									"optional":false,
+									"rule":{
+										"type":"properties",
+										"pairs":[
+											{
+												"key":"termEntryAttributes",
+												"optional":false,
+												"rule":{
+													"type":"array"
+												}
+												
+											},
+											{
+												"key":"termAttributes",
+												"optional":false,
+												"rule":{
+													"type":"array"
+												}
+												
+											},
+											{
+												"key":"termNotes",
+												"optional":false,
+												"rule":{
+													"type":"array"
+												}
+												
+											}
+											
+										]
+										
+									}
+									
+								}
+								
+							]
+							
+						}
+						
+					}
+					
+				]
+				
+			}
+			
+		},
+		{
+			"key":"projects",
+			"optional":false,
+			"rule":{
+				"type":"and",
+				"rules":[
+					{
+						"type":"array"
+					},
+					{
+						"type":"length",
+						"min":0,
+						"max":100
+					},
+					{
+						"type":"content",
+						"rule":{
+							"type":"properties",
+							"pairs":[
+								{
+									"key":"projectName",
+									"optional":false,
+									"rule":{
+										"type":"string"
+									}
+									
+								},
+								{
+									"key":"projectTicket",
+									"optional":false,
+									"rule":{
+										"type":"properties",
+										"pairs":[
+											{
+												"key":"ticketId",
+												"optional":false,
+												"rule":{
+													"type":"string"
+												}
+												
+											}
+											
+										]
+										
+									}
+									
+								}
+								
+							]
+							
+						}
+						
+					}
+					
+				]
+				
+			}
+			
+		},
+		{
+			"key":"exports",
+			"optional":false,
+			"rule":{
+				"type":"and",
+				"rules":[
+					{
+						"type":"array"
+					},
+					{
+						"type":"length",
+						"min":0,
+						"max":100
+					},
+					{
+						"type":"content",
+						"rule":{
+							"type":"properties",
+							"pairs":[
+								{
+									"key":"exportType",
+									"optional":false,
+									"rule":{
+										"type":"string"
+									}
+								},
+								{
+									"key":"exportMultilingual",
+									"optional":false,
+									"rule":{
+										"type":"bool"
+									}
+									
+								}
+								
+							]
+							
+						}
+						
+					}
+					
+				]
+				
+			}
+			
+		},
+		{
+			"key":"statuses",
+			"optional":false,
+			"rule":{
+				"type":"and",
+				"rules":[
+					{
+						"type":"array"
+					},
+					{
+						"type":"length",
+						"min":0,
+						"max":100
+					},
+					{
+						"type":"content",
+						"rule":{
+							"type":"string"
+						}
+						
+					}
+					
+				]
+				
+			}
+			
+		}
+		
+	]
+}

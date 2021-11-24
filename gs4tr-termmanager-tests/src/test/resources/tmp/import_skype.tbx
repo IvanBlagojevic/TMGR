@@ -1,0 +1,766 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE martif SYSTEM "TBXcoreStructV02.dtd">
+<martif type="TBX" xml:lang="en_US">
+	<martifHeader>
+		<fileDesc>
+			<sourceDesc>
+				<p>Skype Terms</p>
+			</sourceDesc>
+		</fileDesc>
+	</martifHeader>
+	<text>
+		<body>
+			<termEntry>
+				<descrip type="definition">one of telecom packages aka subscriptions</descrip>
+				<langSet xml:lang="en_US">
+					<tig>
+						<term>Unlimited Country</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ar">
+					<tig>
+						<term>دولة</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="bg_BG">
+					<tig>
+						<term>Неограничен „Страна“</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="cs_CZ">
+					<tig>
+						<term>Tarif Stát</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="da_DK">
+					<tig>
+						<term>Landepakke</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="de_DE">
+					<tig>
+						<term>Länder-Package</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="es_XM">
+					<tig>
+						<term>País sin límites</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="et_EE">
+					<tig>
+						<term>Riigi pakett</term>
+						<descrip type="context">Numbri jätkuvaks kasutamiseks logi palun juhtpaneeli sisse ja pikenda paketti.[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="fi_FI">
+					<tig>
+						<term>Maa-Paketti</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="fr_FR">
+					<tig>
+						<term>Illimité Pays</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="hu_HU">
+					<tig>
+						<term>Korlátlan ország csomag</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="it_IT">
+					<tig>
+						<term>Senza limiti Uno</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="iw_IL">
+					<tig>
+						<term>מדינה ללא הגבלה</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ja_JP">
+					<tig>
+						<term>1ヶ国限定プラン</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ko_KR">
+					<tig>
+						<term>무제한 국가 플랜</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="lt_LT">
+					<tig>
+						<term>„Šalis“</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="lv_LV">
+					<tig>
+						<term>Viena valsts</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="nl_NL">
+					<tig>
+						<term>Landenpakket</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="no_NO">
+					<tig>
+						<term>Ubegrenset til et land</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pl_PL">
+					<tig>
+						<term>Kraj — bez ograniczeń</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pt_BR">
+					<tig>
+						<term>Pais Ilimitado</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pt_PT">
+					<tig>
+						<term>País ilimitado</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ru_RU">
+					<tig>
+						<term>"Безлимитный план ""Страна"""</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="sv_SE">
+					<tig>
+						<term>Obegränsat till ett land</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="tr_TR">
+					<tig>
+						<term>Sınırsız Ülke</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="zh_CN">
+					<tig>
+						<term>一国无限通</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="zh_TW">
+					<tig>
+						<term>一國通</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				
+			</termEntry>
+			<termEntry>
+				<descrip type="definition">UI term; catalogue of Skype users' contacts</descrip>
+				<langSet xml:lang="en_US">
+					<tig>
+						<term>Contact List</term>
+						<descrip type="context">Search for friends and family who use Skype and add them to your contact list.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ar">
+					<tig>
+						<term>قائمة جهات الاتصال</term>
+						<descrip type="context">يمكن البحث عن الأصدقاء وأفراد الأسرة الذين يستخدمون Skype وإضافتهم إلى قائمة جهات الاتصال.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="bg_BG">
+					<tig>
+						<term>списък с контакти</term>
+						<descrip type="context">Показвай Моят списък с контакти</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="cs_CZ">
+					<tig>
+						<term>seznam kontaktů</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="da_DK">
+					<tig>
+						<term>liste over kontaktpersoner</term>
+						<descrip type="context">"Føj … personer til listen over kontaktpersoner, og anmod om deres kontaktoplysninger."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="de_DE">
+					<tig>
+						<term>Kontaktliste</term>
+						<descrip type="context">"Fügen Sie Ihrer Kontaktliste Skype-Kontakte hinzu. Sie können dann gleich sehen, ob sie online sind."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="el_GR">
+					<tig>
+						<term>λίστα επαφών</term>
+						<descrip type="context">Ο αριθμός αυτός δεν υπάρχει στη λίστα επαφών σας</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="es_XM">
+					<tig>
+						<term>lista de contactos</term>
+						<descrip type="context">Recomendamos a los usuarios que solo acepten llamadas de personas que están en su lista de contactos.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="et_EE">
+					<tig>
+						<term>kontaktide nimekiri</term>
+						<descrip type="context">X puudub sinu kontaktide nimekirjast</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="fi_FI">
+					<tig>
+						<term>kontaktiluettelo</term>
+						<descrip type="context">Tallenna tämä numero kontaktiluetteloosi.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="fr_FR">
+					<tig>
+						<term>liste de contacts</term>
+						<descrip type="context">Vous ne pouvez ajouter que les personnes de votre liste de contacts qui ont déjà accepté votre demande de contact.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="hu_HU">
+					<tig>
+						<term>partnerlista</term>
+						<descrip type="context">Ezután a „Hozzáadás” gombra kattintva adja hozzá a nevet a partnerlistához.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="in_ID">
+					<tig>
+						<term>daftar kontak</term>
+						<descrip type="context">Cari teman dan keluarga yang menggunakan Skype dan tambahkan ke daftar kontak.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="it_IT">
+					<tig>
+						<term>elenco contatti</term>
+						<descrip type="context">Cerca la persona con cui desideri parlare nell'elenco contatti.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="iw_IL">
+					<tig>
+						<term>רשימת אנשי קשר</term>
+						<descrip type="context">חפש/י אחר בני משפחה וחברים שמשתמשים ב- Skype והוסף/י אותם לרשימת אנשי הקשר.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ja_JP">
+					<tig>
+						<term>コンタクトリスト</term>
+						<descrip type="context">この電話番号がコンタクトリストに保存されます。</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ko_KR">
+					<tig>
+						<term>연락처 목록</term>
+						<descrip type="context">번호가 연락처 목록에 없습니다</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="lt_LT">
+					<tig>
+						<term>kontaktų sąrašas</term>
+						<descrip type="context">"Pavyzdžiui, galite įtraukti žmogų į savo kontaktų sąrašą ir nepasiųsti jam leidimo matyti būseną, arba tas žmogus gali neleisti jums matyti jo būsenos, arba jis gali norėti kurį laiką pagalvoti, ar nori jums leisti matyti savo būseną internete, ar ne."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="lv_LV">
+					<tig>
+						<term>kontaktpersonu saraksts</term>
+						<descrip type="context">"Izveidojiet ātri sazvanāmo kontaktpersonu sarakstu – iekļaujiet tajā sešus draugus, kuriem zvanāt visbiežāk."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="nl_NL">
+					<tig>
+						<term>lijst met contactpersonen</term>
+						<descrip type="context">Zoek vrienden en familie die Skype gebruiken en voeg ze toe aan uw lijst met contactpersonen.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="no_NO">
+					<tig>
+						<term>kontaktliste</term>
+						<descrip type="context">kun personer i min kontaktliste</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pl_PL">
+					<tig>
+						<term>lista kontaktów</term>
+						<descrip type="context">"Wyszukaj znajomych i krewnych, którzy używają programu Skype i dodaj ich do listy kontaktów."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pt_BR">
+					<tig>
+						<term>lista de contatos</term>
+						<descrip type="context">"Agora, você pode ter a mesma lista de contatos no computador, em casa ou no trabalho, ou mesmo em um café com acesso à Internet. "</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pt_PT">
+					<tig>
+						<term>lista de contactos</term>
+						<descrip type="context">O seu contacto de email %s está no Skype. Por favor adicione-o à sua lista de contactos.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ro_RO">
+					<tig>
+						<term>listă de prieteni</term>
+						<descrip type="context">Adaugă la lista ta de prieteni.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ru_RU">
+					<tig>
+						<term>список контактов</term>
+						<descrip type="context">"Выбери, какие из найденных нами абонентов Skype и номеров телефонов должны быть в твоем списке контактов Skype, и добавь их туда один за другим."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="sv_SE">
+					<tig>
+						<term>kontaktlista</term>
+						<descrip type="context">Sök efter vänner och familj som använder Skype och lägg till dem i din konktaktlista.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="tr_TR">
+					<tig>
+						<term>kişiler</term>
+						<descrip type="context">Ailen ve arkadaşların içinde başka Skype kullanıcılarını kişilerine ekleyebilirsin.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="vi_VN">
+					<tig>
+						<term>danh sách liên lạc</term>
+						<descrip type="context">Tìm kiếm bạn bè và ngýời thân sử dụng Skype và thêm họ và danh sách liên lạc của bạn.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="zh_CN">
+					<tig>
+						<term>联系人列表</term>
+						<descrip type="context">搜索使用Skype的亲友，然后将其添加到联系人列表。</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="zh_TW">
+					<tig>
+						<term>聯絡人名單</term>
+						<descrip type="context">直接從朋友的訊息中撥打電話或傳送簡訊給對方，無需將他們加入 Skype 聯絡人名單中。</descrip>
+					</tig>
+				</langSet>
+				
+			</termEntry>
+			<termEntry>
+				<descrip type="definition">"Skype Product, one of the possibilities to pay for using Skype Products"</descrip>
+				<langSet xml:lang="en_US">
+					<tig>
+						<term>Skype Credit</term>
+						<descrip type="context">"To call phones, you will need Skype Credit."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ar">
+					<tig>
+						<term>رصيد Skype</term>
+						<descrip type="context">"للاتصال بالهواتف، ستحتاج إلى رصيد Skype."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="bg_BG">
+					<tig>
+						<term>Skype кредит</term>
+						<descrip type="context">Купете Skype кредит и говорете по Skype с наземни и мобилни номера по целия свят.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="cs_CZ">
+					<tig>
+						<term>kredit Skype</term>
+						<descrip type="context">"Ale než budete moci zavolat na nějaký telefon, musíte nejprve nakoupit malý kredit služby Skype."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="da_DK">
+					<tig>
+						<term>Skype-kredit</term>
+						<descrip type="context">Du skal have Skype-kredit for at ringe til telefoner.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="de_DE">
+					<tig>
+						<term>Skype-Guthaben</term>
+						<descrip type="context">"Sie benötigen Skype-Guthaben, um Festnetz- oder Mobilfunkanschlüsse anzurufen."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="el_GR">
+					<tig>
+						<term>Πίστωση Skype</term>
+						<descrip type="context">"Με τη δέουσα υποβολή αιτήματος επιστροφής, η Skype θα σας επιστρέψει το πιστωτικό σας υπόλοιπο της Πίστωσης Skype."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="es_XM">
+					<tig>
+						<term>crédito de Skype</term>
+						<descrip type="context">"Para hacer llamadas a teléfonos fijos o móviles, debes tener crédito de Skype."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="et_EE">
+					<tig>
+						<term>Skype'i krediit</term>
+						<descrip type="context">Telefonidele helistamiseks vajad sa Skype'i krediiti.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="fi_FI">
+					<tig>
+						<term>Skype-saldo</term>
+						<descrip type="context">Puhelimiin soittamiseen tarvitaan Skype-saldoa.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="fr_FR">
+					<tig>
+						<term>crédits Skype</term>
+						<descrip type="context">Vous devez avoir des crédits Skype pour pouvoir passer des appels vers des téléphones fixes ou mobiles.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="hu_HU">
+					<tig>
+						<term>Skype-egyenleg</term>
+						<descrip type="context">A vezetékes és mobil készülékek Skype-ból való hívásához Skype-egyenleg szükséges.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="in_ID">
+					<tig>
+						<term>Kredit Skype</term>
+						<descrip type="context">"Untuk menelepon, Anda memerlukan Kredit Skype."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="it_IT">
+					<tig>
+						<term>credito Skype</term>
+						<descrip type="context">Per chiamare i telefoni fissi o cellulari devi avere credito Skype.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="iw_IL">
+					<tig>
+						<term>אשראי Skype</term>
+						<descrip type="context">כדי לחייג לטלפונים רגילים וניידים מ- Skype יש צורך באשראי Skype.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ja_JP">
+					<tig>
+						<term>Skypeクレジット</term>
+						<descrip type="context">Skypeクレジットがあれば、ボイスメールやテキストメッセージ機能などSkypeの優れた有料製品を使うことができる上、通話代も節約できます。</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ko_KR">
+					<tig>
+						<term>Skype 크레딧</term>
+						<descrip type="context">일반전화기로 전화를 걸려면 Skype 크레딧이 필요합니다.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="lt_LT">
+					<tig>
+						<term>„Skype“ kreditai</term>
+						<descrip type="context">"„Skype“ kreditų galiojimo laikas baigiasi praėjus 180 dienų nuo paskutiniojo kreditų įsigijimo arba veiksmo, kuriam buvo naudojami kreditai, pvz., skambučio."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="lv_LV">
+					<tig>
+						<term>Skype kredīts</term>
+						<descrip type="context">"Pēc bezmaksas zvana izmantošanas varat iegādāties Skype kredītu, lai zvanītu uz fiksētajiem un mobilajiem tālruņiem."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="nl_NL">
+					<tig>
+						<term>Skypetegoed</term>
+						<descrip type="context">"Maar voordat u een telefoon gaat bellen, moet u eerst wat Skypetegoed kopen."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="no_NO">
+					<tig>
+						<term>Skype-kredit</term>
+						<descrip type="context">Du trenger Skype-kredit for å ringe til telefoner.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pl_PL">
+					<tig>
+						<term>doładowanie konta Skype</term>
+						<descrip type="context">Doładowanie konta Skype umożliwia zakup całej gamy różnych produktów i usług Skype.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pt_BR">
+					<tig>
+						<term>Crédito Skype</term>
+						<descrip type="context">É preciso ter Crédito Skype para fazer chamadas para telefones fixos ou celulares.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pt_PT">
+					<tig>
+						<term>crédito Skype</term>
+						<descrip type="context">"No entanto, antes de efectuar chamadas para um telefone, terá de comprar primeiro algum Crédito Skype."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ro_RO">
+					<tig>
+						<term>credit Skype</term>
+						<descrip type="context">Cumpăraţi credit Skype şi continuaţi să efectuaţi apeluri telefonice spre reţele mobile şi fixe la tarife avantajoase.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ru_RU">
+					<tig>
+						<term>счет в Skype</term>
+						<descrip type="context">"Чтобы звонить на телефоны, на твоем счете в Skype должны быть деньги."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="sv_SE">
+					<tig>
+						<term>Skype-kredit</term>
+						<descrip type="context">Men innan du ringer måste du köpa lite Skype-kredit.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="tr_TR">
+					<tig>
+						<term>Skype Kontörü</term>
+						<descrip type="context">Telefonlara çağrı yapmak için Skype kontörü almak gerekiyor.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="vi_VN">
+					<tig>
+						<term>Tín dụng Skype</term>
+						<descrip type="context">"Ðể gọi tới ðiện thoại, bạn sẽ cần Tín dụng Skype."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="zh_CN">
+					<tig>
+						<term>Skype点数</term>
+						<descrip type="context">但在拨打电话前，您首先必须购买少量Skype点数。</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="zh_TW">
+					<tig>
+						<term>Skype 信用點數</term>
+						<descrip type="context">不過，在您打電話之前，您需要先購買一些 Skype 信用點數。</descrip>
+					</tig>
+				</langSet>
+				
+			</termEntry>
+			<termEntry>
+				<descrip type="definition">"Skype Product, free tool for allocating and managing business's employees' accounts, credit balance etc centrally"</descrip>
+				<langSet xml:lang="en_US">
+					<tig>
+						<term>Business Control Panel</term>
+						<descrip type="context">The Business Control Panel (BCP) is a free web-based tool for controlling Skype Credit expenditure in your business.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="et_EE">
+					<tig>
+						<term>ettevõtte kontohaldur</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				
+			</termEntry>
+			<termEntry>
+				<descrip type="definition">"business, SIP and Asterisk; means of having concurrent calls on PBX; one channel enables one inbound or outbound call"</descrip>
+				<langSet xml:lang="en_US">
+					<tig>
+						<term>channel</term>
+						<descrip type="context">To use Skype for SIP Beta you will need a monthly calling channel subscription based on the number of concurrent calls you will be making or receiving with your SIP profile.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ar">
+					<tig>
+						<term>قناة</term>
+						<descrip type="context">"لاستخدام Skype في SIP Beta، ستحتاج إلى اشتراك شهري في قناة اتصال."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="bg_BG">
+					<tig>
+						<term>канал</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="cs_CZ">
+					<tig>
+						<term>kanál</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="da_DK">
+					<tig>
+						<term>kanal</term>
+						<descrip type="context">"Antallet af kanaler, du abonnerer på, afgør, hvor mange ind- og/eller udgående opkald du kan foretage på samme tid."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="de_DE">
+					<tig>
+						<term>Kanal</term>
+						<descrip type="context">"Als Kanal gilt eine einzelne Verbindung von einer Endstelle zu einer Asterisk-Anwendung oder ein bidirektionaler Anruf zwischen zwei Endstellen, die an Asterisk angebunden sind."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="el_GR">
+					<tig>
+						<term>κανάλι</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="es_XM">
+					<tig>
+						<term>canal</term>
+						<descrip type="context">Cada canal que compres permite una llamada entrante o una saliente por vez.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="et_EE">
+					<tig>
+						<term>kõnekanal</term>
+						<descrip type="context">Ettevõtte kontohalduse praeguse jäägiga saad osta kuni X kõnekanali(t).</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="fi_FI">
+					<tig>
+						<term>kanava</term>
+						<descrip type="context">Ota tämä profiili käyttöön ostamalla kanavapaketti.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="fr_FR">
+					<tig>
+						<term>canal</term>
+						<descrip type="context">Chaque canal que vous achetez permet un appel entant ou sortant à la fois.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="hu_HU">
+					<tig>
+						<term>csatorna</term>
+						<descrip type="context">"Minél több csatornát vásárol, annál alacsonyabb az egy csatornára eső díj."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="in_ID">
+					<tig>
+						<term>saluran </term>
+						<descrip type="context">"Untuk menggunakan Skype untuk SIP Beta, Anda memerlukan subscription saluran panggilan bulanan berdasarkan panggilan serentak yang akan dilakukan atau diterima dengan profil SIP Anda."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="it_IT">
+					<tig>
+						<term>canale</term>
+						<descrip type="context">"Per far sì che Skype funzioni correttamente, è necessario che nessun altro canale sia selezionato"</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="iw_IL">
+					<tig>
+						<term>ערוץ</term>
+						<descrip type="context">"בכדי להשתמש בגרסת הביתא של Skype for SIP, תזדקק/י למינוי ערוץ שיחות חודשי שמבוסס על מספר השיחות שתבצע/י או תקבל/י בו-זמנית באמצעות פרופיל SIP."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ja_JP">
+					<tig>
+						<term>チャンネル</term>
+						<descrip type="context">Skype for SIPで使えるチャンネル数（同時通話数）はいくつですか？</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ko_KR">
+					<tig>
+						<term>채널</term>
+						<descrip type="context">귀하의 제어판에 채널 플랜을 갱신할 수 있는 충분한 크레딧이 있는지 확인해 주십시오</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="lt_LT">
+					<tig>
+						<term>kanalas</term>
+						<descrip type="context">"Kiekvienu kanalu galima palaikyti arba vieną įeinantį, arba vieną išeinantį pokalbį."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="lv_LV">
+					<tig>
+						<term>kanāls</term>
+						<descrip type="context">"Iegādājieties kanāla abonementu, lai aktivizētu šo profilu."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="nl_NL">
+					<tig>
+						<term>kanaal</term>
+						<descrip type="context">Voor kanalen betaalt u PRICETAG per kanaal / per maand.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="no_NO">
+					<tig>
+						<term>kanal</term>
+						<descrip type="context">"Etter at du har funnet kanalene, kan du bokmerke favorittkanalene dine og legge til kanalnavn."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pl_PL">
+					<tig>
+						<term>kanał</term>
+						<descrip type="context">Każdy wykupiony kanał umożliwia prowadzenie jednej rozmowy przychodzącej lub jednej rozmowy wychodzącej.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pt_BR">
+					<tig>
+						<term>canal</term>
+						<descrip type="context">Cada canal que você comprar permite fazer ou receber uma chamada de cada vez.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="pt_PT">
+					<tig>
+						<term>canal</term>
+						<descrip type="context">Alguns dos seus Perfis SIP foram suspensos por o seu Skype Manager ter crédito insuficiente disponível para pagar a subscrição do canal.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ro_RO">
+					<tig>
+						<term>canal</term>
+						<descrip type="context">[n/a]</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="ru_RU">
+					<tig>
+						<term>канал</term>
+						<descrip type="context">"Требуемое количество параллельных каналов зависит от ряда условий, например от размера твоей компании."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="sv_SE">
+					<tig>
+						<term>kanal</term>
+						<descrip type="context">Varje kanal som du köper tillåter ett inkommande eller ett utgående samtal när som helst.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="tr_TR">
+					<tig>
+						<term>kanal</term>
+						<descrip type="context">SIP için Skype Beta'yı kullanabilmek için aylık çağrı kanal aboneliğine ihtiyaç duyacaksın.</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="vi_VN">
+					<tig>
+						<term>kênh</term>
+						<descrip type="context">"Ðể sử dụng Skype cho SIP Beta, bạn sẽ cần một thuê bao kênh gọi hàng tháng dựa trên số các cuộc gọi ðồng thời mà bạn sẽ thực hiện hoặc nhận với hồ sõ SIP của mình."</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="zh_CN">
+					<tig>
+						<term>信道</term>
+						<descrip type="context">要使用Skype for SIP Beta，您需要首先办理通话信道的按月续费服务，此服务以使用SIP档案所拨打和接听的同时通话数为基础。</descrip>
+					</tig>
+				</langSet>
+				<langSet xml:lang="zh_TW">
+					<tig>
+						<term>頻道</term>
+						<descrip type="context">使用 Skype for SIP Beta 版，需要訂購月付型通話頻道，費率依同一時間的通話數目而定。</descrip>
+					</tig>
+				</langSet>
+			</termEntry>
+		</body>
+	</text>
+</martif>

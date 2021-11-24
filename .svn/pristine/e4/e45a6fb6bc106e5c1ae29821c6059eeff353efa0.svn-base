@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<artifactId>gs4tr-termmanager</artifactId>
+		<groupId>org.gs4tr.termmanager</groupId>
+		<version>5.5.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.gs4tr.termmanager</groupId>
+	<artifactId>gs4tr-termmanager-persistence</artifactId>
+
+	<name>Term Manager Persistence</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.gs4tr.termmanager</groupId>
+			<artifactId>gs4tr-termmanager-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.gs4tr.termmanager</groupId>
+			<artifactId>gs4tr-termmanager-solr-plugin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.gs4tr.foundation.modules</groupId>
+			<artifactId>gs4tr-foundation-modules-dao</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${tm.groupId}</groupId>
+			<artifactId>gs4tr-tm3-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> 
+				<configuration> <skipTests>true</skipTests> </configuration> </plugin> -->
+		</plugins>
+	</build>
+</project>

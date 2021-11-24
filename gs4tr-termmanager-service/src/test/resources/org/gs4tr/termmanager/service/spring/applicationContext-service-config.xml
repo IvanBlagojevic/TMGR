@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mockito="http://www.mockito.org/spring/mockito"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+              http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+              http://www.mockito.org/spring/mockito classpath:mockito.xsd">
+
+    <context:component-scan base-package="org.gs4tr.termmanager.service.solr"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.service.solr.backup"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.service.solr.restore"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.service.serializer"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.service.undoterm"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>environment:services.properties</value>
+                <value>environment:tptOAuth.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="solrServiceConfiguration"
+          class="org.gs4tr.termmanager.service.solr.SolrServiceConfiguration">
+        <constructor-arg index="0" type="java.io.File">
+            <value>environment:solrservice.properties</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="dbTermEntryService" class="org.gs4tr.termmanager.service.impl.DbTermEntryServiceImpl"/>
+    <bean id="dbSubmissionTermEntryService"
+          class="org.gs4tr.termmanager.service.impl.DbSubmissionTermEntryServiceImpl"/>
+
+    <!-- SOLR -->
+    <mockito:mock id="glossaryConnectionManager"
+                  class="org.gs4tr.termmanager.service.solr.GlossaryConnectionManager"/>
+
+    <mockito:mock id="tmgrGlossaryUpdater"
+                  class="org.gs4tr.termmanager.persistence.ITmgrGlossaryUpdater"/>
+    <mockito:mock id="tmgrGlossaryConnector"
+                  class="org.gs4tr.termmanager.persistence.ITmgrGlossaryConnector"/>
+
+
+</beans>

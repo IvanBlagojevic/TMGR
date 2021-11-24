@@ -1,0 +1,7 @@
+{
+	"projectTicket":"$projectTicket",
+	"sourceLanguage":"$sourceLanguage",
+	"termEntryTickets":[
+		"$ticket1"
+	]
+}

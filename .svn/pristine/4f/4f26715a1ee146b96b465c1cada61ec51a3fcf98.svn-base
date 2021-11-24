@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mockito="http://www.mockito.org/spring/mockito"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+  http://www.mockito.org/spring/mockito classpath:mockito.xsd">
+
+    <mockito:spy beanName="sessionService"/>
+
+    <mockito:mock id="userProfileService"
+                  class="org.gs4tr.termmanager.service.UserProfileService"/>
+
+    <mockito:mock id="projectService"
+                  class="org.gs4tr.termmanager.service.ProjectService"/>
+
+    <mockito:mock id="importTermService"
+                  class="org.gs4tr.termmanager.service.ImportTermService"/>
+
+    <mockito:mock id="termEntryService"
+                  class="org.gs4tr.termmanager.service.TermEntryService"/>
+
+    <mockito:mock id="statisticsService"
+                  class="org.gs4tr.termmanager.service.StatisticsService"/>
+
+    <mockito:mock id="adminTasksHolderHelper"
+                  class="org.gs4tr.termmanager.service.utils.AdminTasksHolderHelper"/>
+
+    <mockito:mock id="mailTemplatesService"
+                  class="org.gs4tr.foundation.modules.mail.service.MailTemplatesService"/>
+
+    <mockito:mock id="eMailMessageSender"
+                  class="org.gs4tr.foundation.modules.mail.EMailMessageSender"/>
+
+    <mockito:mock id="eventLoggingService"
+                  class="org.gs4tr.eventlogging.api.service.EventLoggingService"/>
+
+</beans>

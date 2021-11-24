@@ -1,0 +1,104 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mockito="http://www.mockito.org/spring/mockito"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+              http://www.mockito.org/spring/mockito classpath:mockito.xsd">
+
+    <!-- SOLR connection manager -->
+    <mockito:mock id="glossaryConnectionManager"
+                  class="org.gs4tr.termmanager.service.solr.GlossaryConnectionManager"/>
+
+    <!-- TMGR DAO -->
+    <mockito:mock id="messages" class="org.gs4tr.termmanager.dao.Messages"/>
+    <mockito:mock id="organizationDAO"
+                  class="org.gs4tr.termmanager.dao.OrganizationDAO"/>
+    <mockito:mock id="organizationSearchDAO"
+                  class="org.gs4tr.termmanager.dao.OrganizationSearchDAO"/>
+    <mockito:mock id="projectDAO" class="org.gs4tr.termmanager.dao.ProjectDAO"/>
+    <mockito:mock id="projectDetailDAO"
+                  class="org.gs4tr.termmanager.dao.ProjectDetailDAO"/>
+    <mockito:mock id="projectLanguageDAO"
+                  class="org.gs4tr.termmanager.dao.ProjectLanguageDAO"/>
+    <mockito:mock id="projectLanguageDetailDAO"
+                  class="org.gs4tr.termmanager.dao.ProjectLanguageDetailDAO"/>
+    <mockito:mock id="projectLanguageUserDetailDAO"
+                  class="org.gs4tr.termmanager.dao.ProjectLanguageUserDetailDAO"/>
+    <mockito:mock id="projectSearchDAO"
+                  class="org.gs4tr.termmanager.dao.ProjectSearchDAO"/>
+    <mockito:mock id="projectUserDetailDAO"
+                  class="org.gs4tr.termmanager.dao.ProjectUserDetailDAO"/>
+    <mockito:mock id="projectUserLanguageDAO"
+                  class="org.gs4tr.termmanager.dao.ProjectUserLanguageDAO"/>
+    <mockito:mock id="statisticsDAO" class="org.gs4tr.termmanager.dao.StatisticsDAO"/>
+    <mockito:mock id="submissionDAO" class="org.gs4tr.termmanager.dao.SubmissionDAO"/>
+    <mockito:mock id="submissionDetailViewDAO"
+                  class="org.gs4tr.termmanager.dao.SubmissionDetailViewDAO"/>
+    <mockito:mock id="submissionLanguageCommentDAO"
+                  class="org.gs4tr.termmanager.dao.SubmissionLanguageCommentDAO"/>
+    <mockito:mock id="submissionLanguageDAO"
+                  class="org.gs4tr.termmanager.dao.SubmissionLanguageDAO"/>
+    <mockito:mock id="submissionLanguageDetailViewDAO"
+                  class="org.gs4tr.termmanager.dao.SubmissionLanguageDetailViewDAO"/>
+    <mockito:mock id="submissionUserDAO"
+                  class="org.gs4tr.termmanager.dao.SubmissionUserDAO"/>
+    <mockito:mock id="termEntryResourceTrackDAO"
+                  class="org.gs4tr.termmanager.dao.TermEntryResourceTrackDAO"/>
+    <mockito:mock id="userCustomSearchDAO"
+                  class="org.gs4tr.termmanager.dao.UserCustomSearchDAO"/>
+    <mockito:mock id="userProfileDAO"
+                  class="org.gs4tr.termmanager.dao.UserProfileDAO"/>
+    <mockito:mock id="userProfileSearchDAO"
+                  class="org.gs4tr.termmanager.dao.UserProfileSearchDAO"/>
+    <mockito:mock id="userProjectRoleSearchDAO"
+                  class="org.gs4tr.termmanager.dao.UserProjectRoleSearchDAO"/>
+
+    <!-- foundation DAO -->
+    <mockito:mock id="roleSearchDAO"
+                  class="org.gs4tr.foundation.modules.security.dao.RoleSearchDAO"/>
+    <mockito:mock id="roleDAO"
+                  class="org.gs4tr.foundation.modules.security.dao.RoleDAO"/>
+    <mockito:mock id="policyDAO"
+                  class="org.gs4tr.foundation.modules.security.dao.PolicyDAO"/>
+
+    <mockito:mock id="mailHelper"
+                  class="org.gs4tr.termmanager.service.utils.MailHelper"/>
+    <mockito:mock id="eMailMessageSender"
+                  class="org.gs4tr.foundation.modules.mail.EMailMessageSender"/>
+
+    <!-- SOLR -->
+    <mockito:mock id="tmgrGlossaryBrowser"
+                  class="org.gs4tr.termmanager.persistence.ITmgrGlossaryBrowser"/>
+    <mockito:mock id="tmgrGlossaryUpdater"
+                  class="org.gs4tr.termmanager.persistence.ITmgrGlossaryUpdater"/>
+    <mockito:mock id="tmgrGlossarySearcher"
+                  class="org.gs4tr.termmanager.persistence.ITmgrGlossarySearcher"/>
+    <mockito:mock id="tmgrGlossaryConnector"
+                  class="org.gs4tr.termmanager.persistence.ITmgrGlossaryConnector"/>
+
+    <mockito:mock id="repositoryManager"
+                  class="org.gs4tr.foundation.modules.repository.RepositoryManager"/>
+
+    <!--<mockito:mock id="userProfileService"-->
+    <!--class="org.gs4tr.foundation.modules.usermanager.service.BaseUserProfileService"/>-->
+    <mockito:mock id="userProfileService"
+                  class="org.gs4tr.termmanager.service.UserProfileService"/>
+
+    <mockito:mock id="tmUserProfile"
+                  class="org.gs4tr.termmanager.model.TmUserProfile"/>
+
+    <!-- Exclusive Write Lock Manager -->
+    <mockito:mock id="exclusiveWriteLockManager"
+                  class="org.gs4tr.termmanager.service.lock.manager.ExclusiveWriteLockManager"/>
+
+    <mockito:mock id="exportNotificationCallback"
+                  class="org.gs4tr.termmanager.service.impl.ExportNotificationCallback"/>
+
+    <mockito:mock id="outputStream" class="java.io.OutputStream"/>
+
+    <!--TMGR Service-->
+    <mockito:mock id="statisticsService" class="org.gs4tr.termmanager.service.StatisticsService"/>
+
+    <mockito:mock id="projectDescriptionService" class="org.gs4tr.termmanager.service.ProjectDescriptionService"/>
+    
+    <mockito:mock id="recodeOrCloneTermsProcessor" class="org.gs4tr.termmanager.service.solr.restore.RecodeOrCloneTermsProcessor" />
+</beans>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<TM_LANGUAGE LANGUAGE_ID="de_DE" />
+	<TM_LANGUAGE LANGUAGE_ID="de_US" />
+	<TM_LANGUAGE LANGUAGE_ID="en_CA" />
+	<TM_LANGUAGE LANGUAGE_ID="en_US" />
+	<TM_LANGUAGE LANGUAGE_ID="fr_CA" />
+	<TM_LANGUAGE LANGUAGE_ID="fr_FR" />
+	<TM_LANGUAGE LANGUAGE_ID="fr_US" />
+	<TM_LANGUAGE LANGUAGE_ID="it_IT" />
+	<TM_LANGUAGE LANGUAGE_ID="zh_US" />
+</dataset>

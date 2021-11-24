@@ -1,0 +1,171 @@
+package org.gs4tr.termmanager.service.reindex;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.gs4tr.termmanager.io.tlog.config.PersistentStoreHandler;
+import org.gs4tr.termmanager.io.tlog.impl.TransactionLogHandler;
+import org.gs4tr.termmanager.persistence.solr.query.TmgrSearchFilter;
+import org.gs4tr.termmanager.service.solr.restore.Messages;
+import org.gs4tr.termmanager.service.solr.restore.model.RecodeOrCloneCommand;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class RestoreProcessorV2Test extends AbstractReIndex {
+
+    @Autowired
+    private PersistentStoreHandler _persistentStoreHandler;
+
+    @Autowired
+    private TransactionLogHandler _transactionLogHandler;
+
+    @Override
+    public void setUp() throws Exception {
+	super.setUp();
+	unlockProject(1L);
+	unlockProject(2L);
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+	super.tearDown();
+	unlockProject(1L);
+	unlockProject(2L);
+    }
+
+    @Test
+    public void testReIndex() throws Exception {
+	long num = getNumberOfEntries();
+	Assert.assertEquals(0, num);
+
+	long totalCount = getDbTermEntryService().getTotalCount(null);
+	Assert.assertTrue(totalCount > 0);
+
+	getRestoreProcessorV2().restore();
+
+	num = getNumberOfEntries();
+	Assert.assertEquals(totalCount, num);
+    }
+
+    @Test
+    public void testRecodeOrCloneOneProjectAlreadyLocked() throws Exception {
+	List<RecodeOrCloneCommand> recodeCommands = new ArrayList<>();
+
+	RecodeOrCloneCommand command = createRecodeOrCloneCommand("TES000001", 1L, "en", "en-GB");
+	recodeCommands.add(command);
+
+	List<RecodeOrCloneCommand> cloneCommands = new ArrayList<>();
+
+	// Lock fake project 2 to simulate another operation that is already started
+	lockProject(2L);
+
+	boolean isDetectedThatProjectIsLocked = false;
+	try {
+	    getRestoreProcessorV2().restoreRecodeOrClone(recodeCommands, cloneCommands);
+	} catch (Exception e) {
+	    isDetectedThatProjectIsLocked = true;
+	}
+
+	// Project in recode command is not already locked by another process
+	Assert.assertFalse(isDetectedThatProjectIsLocked);
+
+	Assert.assertFalse(getTransactionLogHandler().isLocked(1L));
+
+	// Project should remain locked
+	Assert.assertTrue(getTransactionLogHandler().isLocked(2L));
+    }
+
+    @Test
+    public void testRecodeOrCloneProjectsAlreadyLocked() throws Exception {
+	List<RecodeOrCloneCommand> recodeCommands = new ArrayList<>();
+
+	RecodeOrCloneCommand command = createRecodeOrCloneCommand("TES000001", 1L, "en", "en-GB");
+	recodeCommands.add(command);
+
+	List<RecodeOrCloneCommand> cloneCommands = new ArrayList<>();
+
+	// Lock project TES000001 to simulate another operation that is already started
+	lockProject(1L);
+
+	// Lock fake project 2
+	lockProject(2L);
+
+	boolean isDetectedThatProjectIsLocked = false;
+	try {
+	    // Try to perform recode or clone on already locked project
+	    getRestoreProcessorV2().restoreRecodeOrClone(recodeCommands, cloneCommands);
+	} catch (Exception e) {
+	    Assert.assertEquals(Messages.getString("project.is.locked.m"), e.getMessage());
+	    isDetectedThatProjectIsLocked = true;
+	}
+	Assert.assertTrue(isDetectedThatProjectIsLocked);
+
+	// Project should remain locked
+	Assert.assertTrue(getTransactionLogHandler().isLocked(1L));
+	Assert.assertTrue(getTransactionLogHandler().isLocked(2L));
+    }
+
+    @Test
+    public void testRecodeOrCloneWithLockedAndNotLockedProjects() {
+	List<RecodeOrCloneCommand> recodeCommands = new ArrayList<>();
+
+	RecodeOrCloneCommand command1 = createRecodeOrCloneCommand("TES000001", 1L, "en", "en-GB");
+	recodeCommands.add(command1);
+
+	RecodeOrCloneCommand command2 = createRecodeOrCloneCommand("TES000002", 2L, "en", "en-GB");
+	recodeCommands.add(command2);
+
+	List<RecodeOrCloneCommand> cloneCommands = new ArrayList<>();
+
+	// Lock fake project 2 to simulate another operation that is already started
+	lockProject(2L);
+
+	boolean isDetectedThatProjectIsLocked = false;
+	try {
+	    getRestoreProcessorV2().restoreRecodeOrClone(recodeCommands, cloneCommands);
+	} catch (Exception e) {
+	    Assert.assertEquals(Messages.getString("project.is.locked.m"), e.getMessage());
+	    isDetectedThatProjectIsLocked = true;
+	}
+
+	Assert.assertTrue(isDetectedThatProjectIsLocked);
+
+	Assert.assertFalse(getTransactionLogHandler().isLocked(1L));
+	Assert.assertTrue(getTransactionLogHandler().isLocked(2L));
+    }
+
+    private RecodeOrCloneCommand createRecodeOrCloneCommand(String projectShortCode, Long projectId,
+	    String languageFrom, String languageTo) {
+	RecodeOrCloneCommand command = new RecodeOrCloneCommand();
+	command.setProjectShortCode(projectShortCode);
+	command.setProjectId(projectId);
+	command.setLocaleFrom(languageFrom);
+	command.setLocaleTo(languageTo);
+	return command;
+    }
+
+    private long getNumberOfEntries() throws Exception {
+	TmgrSearchFilter filter = new TmgrSearchFilter();
+	filter.addProjectId(PROJECT_ID);
+	return getBrowser().getNumberOfTermEntriesOnProject(filter);
+    }
+
+    private PersistentStoreHandler getPersistentStoreHandler() {
+	return _persistentStoreHandler;
+    }
+
+    private TransactionLogHandler getTransactionLogHandler() {
+	return _transactionLogHandler;
+    }
+
+    private void lockProject(Long projectId) {
+	getTransactionLogHandler().startAppending(projectId, "power_user", "import", getRegularCollection());
+    }
+
+    private void unlockProject(Long projectId) {
+	if (getTransactionLogHandler().isLocked(projectId)) {
+	    getPersistentStoreHandler().closeAndClear(projectId);
+	}
+    }
+}

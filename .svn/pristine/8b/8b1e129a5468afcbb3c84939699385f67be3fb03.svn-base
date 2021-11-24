@@ -1,0 +1,45 @@
+package org.gs4tr.termmanager.webmvc.rest.utils;
+
+public class RestConstants {
+    public static final String ACTIVE_USERS_SESSIONS = "activeUsersSessions";
+    public static final String AFTER_DATE = "afterDate";
+    public static final String COMMAND = "command";
+    public static final String CSV = "CSV";
+    public static final String CSV_EXTENSION = ".csv";
+    public static final String CSVSYNC = "CSVSYNC";
+    public static final String DESCRIPTION_TYPE = "descriptionType";
+    public static final String EX_TO_CSV = "Export to CSV";
+    public static final String EX_TO_TBX = "Export to TBX";
+    public static final String EXPORT_FORBIDDEN_TERMS = "exportForbiddenTerms";
+    public static final String EXPORT_FORMAT = "exportFormat";
+    public static final String FETCH_LANGUAGES = "fetchLanguages";
+    public static final String GENERATE_STATISTICS = "generateStatistics";
+    public static final String INDEX = "index";
+    public static final String JSON = "JSON";
+    public static final String JSON_EXTENSION = ".json";
+    public static final String MARKER_ID = "markerId";
+    public static final String PARENT_MARKER_ID = "parentMarkerId";
+    public static final String PASSWORD = "password";
+    public static final String PROJECT_SHORTCODE = "projectShortcode";
+    public static final String PROJECT_TICKET = "projectTicket";
+    public static final String SIZE = "size";
+    public static final String SOURCE = "source";
+    public static final String SOURCE_LOCALE = "sourceLocale";
+    public static final String SOURCE_TERM = "sourceTerm";
+    public static final String SUBTYPE = "subtype";
+    public static final String SYNC_LANG = "syncLang";
+    public static final String TAB = "TAB";
+    public static final String TAB_EXTENSION = ".tab";
+    public static final String TARGET = "target";
+    public static final String TARGET_LOCALE = "targetLocale";
+    public static final String TARGET_TERM = "targetTerm";
+    public static final String TBX = "TBX";
+    public static final String TBX_EXTENSION = ".tbx";
+    public static final String TERM = "term";
+    public static final String TERM_ENTRY_TICKET = "termEntryTicket";
+    public static final String TYPE = "type";
+    public static final String USER_ID = "userId";
+    public static final String USER_TOKEN = "userToken";
+    public static final String USERNAME = "username";
+    public static final String VALUE = "value";
+}

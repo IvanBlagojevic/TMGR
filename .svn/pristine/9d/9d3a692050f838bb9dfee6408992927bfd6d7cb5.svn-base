@@ -1,0 +1,280 @@
+#Size of the file chunk stored in-memory during import into CMS
+repository.chunkSize=900000
+
+#JackRabbit remote method invocation settings
+rmi.port=1099
+
+ip.address=127.0.0.1
+
+# example: https://cas-address:8443/cas
+# Notes: https protocol is required, DO NOT add trailing slash
+cas.address=http://localhost:8080/cas
+# If CAS and other integrated apps are on the same VM or subnet then this validator address should be internal cas address.
+# Otherwise use original cas.address.
+cas.ticket.validator.address=http://localhost:8080/cas
+cas.unique.identifier=tmgr_authentication_provider
+# example: https://gl-tptprod1.transperfect.com/PD
+# Notes: for CAS integration https protocol is required, DO NOT add trailing slash
+serverAddress=http://localhost:8080/TMGR
+server.http.port=8080
+server.https.port=8445
+
+# example: Term Manager@https://localhost:8081/tmgr
+cas.members=
+# public address used for mail creation
+# example: https://gl-tpttmgr.transperfect.com/TMGR
+# Notes: for CAS integration https protocol is required, DO NOT add trailing slash
+dynamic.serverAddress=
+
+#Tableau server URLs:
+tableau.url.group.by.project=
+tableau.url.group.by.language=
+
+#If indexes is corrupted, tell TMGR to rebuild using data from DB
+index.restoreFromBackup=false
+index.pauseMillis=100
+# Batch size when writing backup data to DB. Using large value may cause
+# application to run out of memory, but it may reduce time when adding
+# large number of TUs. Using to small value will use less memory, but it
+# will take longer to add large number of TUs (e.g. when importing).
+index.batchSize=500
+# Batch size when re-indexing data from backup to SOLR.
+index.restoreBatchSize=2000
+
+# This property represents a list of projects (i.e project codes) to be skipped while re-indexing.
+# List can contain multiple values, but they must be separated by commas.
+# Example: index.project.codes.to.be.skipped=MED000641,HON001303,MED001204
+# Note: DO NOT ADD SPACE between comma.
+index.project.codes.to.be.skipped=
+
+# This property represents a list of projects (i.e project codes) that you want to re-indexing
+# (Just them, rest of the projects would be skipped).
+# List can contain multiple values, but they must be separated by commas.
+# Example: index.project.codes.to.be.skipped=MED000641,HON001303,MED001204
+# Note: DO NOT ADD SPACE between comma.
+index.project.codes.for.reindexed=
+
+#theme settings
+theme.cookie.name=theme
+avaliable.themes=classicAqua,classicDefault
+
+#Adds Access-Control-Allow-Origin to the response header. Clients domain should be set as value.
+allowed.origin=
+
+#Internal rest communication
+rest.communication.username=testUser
+rest.communication.password=password
+
+#LDAP implementation string: 'activeDirectory', 'openLdap'
+ldap.implementation=openLdap
+#LDAP (if ldap.url does not exists pd2 ldap will be disabled)
+ldap.url=ldap://localhost:389
+#LDAP Manager distinguished name
+ldap.manager.dn=cn=Manager,dc=emisia,dc=net
+ldap.manager.password=cpEmisia01
+#LDAP base for user search
+ldap.base=dc=emisia,dc=net
+#Distinguished name of searched user
+ldap.user.dn=uid={0}
+#Attribute of a group that this user is memeber of
+ldap.group.filter=memberUid={1}
+#Default group id for newly created user. LDAP administrator should manage this on LDAP server
+ldap.default.group.id=502
+#If this is set to true LDAP password can be changed from PD2
+ldap.allow.password.change=true
+#ObjectClass for user search when user is edited
+ldap.user.objectClass=person
+#ObjectClass for group search when adding new user in LDAP
+ldap.group.objectClass=posixGroup
+#User unique id attribute (sAMAccountName for AD, uid for openDS etc....)
+ldap.user.uid.attribute=uid
+#SSO global configuration parameters
+
+#global SLO can be disabled (only local logout would be performed)
+sso.global.logout=true
+#after global logout redirect to specific url
+sso.logout.redirectToUrl=
+
+#SAML-Configuring application in SSO mode.
+
+#List of all applications (Service Providers) integrated with TMGR in Single Sign On mode, given in the following format:
+#"APP_NAME1":"HOST1/saml.classifier";"APP_NAME2":"HOST2/saml.classifier", e.g.
+#TMGR:https://ql-tptprod1.transperfect.com/TMGR/EMC;TMS:https://ql-tptprod1.transperfect.com/TMS/EMC
+saml.sso.applications=
+#password for SAML specific java keystore (GS4TR_HOME/config/security/keystore.jks).
+#Default value - password1!
+saml.keystore.password=password1!
+#Common name of service provider certificate stored in the SAML specific keystore.
+#Default value - translations.com
+saml.certificate.common.name=translations.com
+#password of the certificate in SAML specific keystore.
+#Default value - password1!
+saml.certificate.password=password1!
+#Unique alias for application within SSO.
+#Default value - tmgrAlias
+saml.service.provider.alias=pdAlias
+#Client specific classifier, e.g. EMC
+saml.classifier=saml
+#redirect to error page if there is no local user in PD
+saml.noLocalUser.redirectUrl=http://urlToSSOLoginGenericErrorPage
+#global SLO can be disabled (only local logout would be performed)
+saml.global.logout=true
+#after global logout redirect to specific url
+saml.logout.redirectToUrl=http://urlToSSOLogoutSuccessPage
+#SSO landing page
+saml.landingPage=http://urlToLandingPage
+#isSsoUser cookie can be disabled
+saml.isSsoUserCookie.enabled=true
+
+#OAUTH-Configuring application in SSO mode.
+
+#for tpt auth set to TMGR client identifier on TPTAuth server
+oauth.audience=
+
+#Oauth server configuration
+#authorization Endpoint
+oauth.authorizationEndpointUri=
+#Json Web Key Set Uri
+oauth.jwksUri=
+#clientId (PD client identifier on TPTAuth server)
+oauth.clientId=
+#clientRedirectUri (serverAddress + "/SSO")
+oauth.clientRedirectUri=
+#logoutUrl
+oauth.logoutUrl=
+#oauth change password url
+oauth.changePasswordUrl=
+#period of checking user session in seconds. Default and recommended value is 5
+oauth.checkUserSessionPeriod=5
+#check user session uri
+oauth.checkUserSessionUri=
+#tptAuth support mail address. Default value is "support@translations.com"
+oauth.support.mailAddress=support@translations.com
+oauth.refreshTokenInterval=720
+
+tptauth.tokenScope=openid clients TMGR
+
+TPAuth.tokenScope=openid clients
+
+######oauth rest #####
+#grant type must be password for this authentication flow.
+rest.oauth.grantType=password
+#tpt user with enabled password grant type
+rest.oauth.username=
+rest.oauth.password=
+#scope must be IdManager
+rest.oauth.scope=IdPManager
+#token endpoint url
+rest.oauth.tokenEndpoint=
+#api end point url
+rest.oauth.apiEndPoint=
+#The Consumer Key from the connected app definition.
+rest.oauth.clientId=
+#The Consumer Secret from the connected app definition.
+rest.oauth.clientSecret=
+
+#smtp mail server setup
+mail.smtp.host=localhost
+mail.smtp.username=
+mail.smtp.password=
+mail.smtp.auth=false
+mail.smtp.port=25
+mail.smtp.ssl.enable=false
+mail.smtp.starttls.enable=false
+mail.debug=false
+mail.from=noreply@translations.com
+mail.from.name=Term Manager Team
+mail.from.address=noreply@translations.com
+
+#HAZELCAST configuration
+hz.management.center.enabled=false
+hz.management.center.url=http://localhost:8080/mancenter
+hz.group.password=password1!
+hz.group.name=tmgr
+hz.jmx=true
+hz.jmx.detailed=true
+hz.logging.type=log4j
+hz.operation.thread.count=32
+hz.network.port=5701
+hz.multicast.enabled=false
+hz.tcp-ip.enabled=true
+hz.members=127.0.0.1
+
+hz.map.max.size=15
+hz.map.max.size.policy=FREE_HEAP_PERCENTAGE
+# Max session inactive time in seconds
+sessionManagement.maxInactiveTime=1200
+
+#Max concurrent user sessions count
+sessionManagement.maxConcurrentSessionsCount=1
+
+#Remember-me token validity in seconds. Default 2 weeks
+rememberme.token.validity=1209600
+#rememberMe option enabled. Values true/false
+rememberme.enabled=false
+#Number of user's previous passwords to remember (Default n=5)
+previousPasswords.number=5
+#password policy regex
+password.policy.regex=^(?=.*\\d)(?=.*[!@#\\$%\\^&\\*\\(\\)]).{8,}$
+#password policy max failed logins
+password.policy.lockout.maxFailedLogins=5
+
+#Event Logging Configuration
+#To configure event logging level use one of next values: ALL, INFO, DEBUG, TRACE or OFF
+eventLogging.level=OFF
+eventLogging.file.path=${catalina.home}/logs/events.log
+eventLogging.file.limit=100
+eventLogging.file.count=5
+
+#max upload filename size in bytes, files longer then this will be rejected on upload or shorten on WS upload
+max.filename.size.in.bytes=170
+#max upload file size in bytes
+file.maxUploadSize=536870912
+
+#Number of DAYS after last successful login, after which account will be disabled.
+#To turn off this option, set value 0.
+maxUnusedAccountTime=365
+
+#CORS is disabled by default
+security.cors.global.internalPaths=
+security.cors.global.allowedOrigins=
+security.cors.global.allowedHeaders=x-requested-with
+security.cors.global.allowedMethods=GET,POST,OPTIONS,HEAD
+#these are comma-separated valuses, add URI that you want to be skipped by CSP filter
+
+# Headers, Content Policies
+#--------------------------------------------------------------------------------------------------
+#CSP policy header is sent for each response
+#Following option is disabling header for specific comma separated URLs
+# Default  = SSO
+# Example: SSO,someLocalRelativeUrl.html,someOtherResource.jpg
+skippedCspURIs=SSO,swagger/index.html
+
+# Notify admin via mail about locked user account event. Default value is "false". To enable option, set value to "true".
+notifyAdminAboutLockedAccountLoginAttempt=false
+
+gs4trJwt.auth.audience=
+gs4trJwt.provider.jwksUri=
+gs4trJwt.provider.token.audience=
+genericUserLogin=true
+
+synonym.number=10
+
+segmentSearch.threadPoolSize=2
+
+#Sumo Logic option for UI search:
+eventLoggingOptions.logFilters=false
+
+#Send rememberMe token only via secure connection. Available values of the field: 'true', 'false'.
+rememberme.useSecureCookie=true
+
+# Password Expiry Period
+# Default = 30 (days)
+password.expirePeriod=30
+
+# Error notification
+# Email errors to specified addresses
+# Errors include: Batch offline, Locked out users
+# PDII-22434, PDII-22444 | PD 5.6
+# use commas when specifying several recipients
+dynamic.error.reporting.to.address=

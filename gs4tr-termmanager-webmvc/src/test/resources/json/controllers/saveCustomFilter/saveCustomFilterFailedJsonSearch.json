@@ -1,0 +1,26 @@
+{
+  "folder": "TERM_LIST",
+  "customFolder": "Term_List_Filter",
+  "index": 0,
+  "ascending": true,
+  "size": 50,
+  "projectComboBox": [
+    "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q"
+  ],
+  "languageDirection": {
+    "value1": "en-US",
+    "value2": [
+      "fr-FR",
+      "de-DE"
+    ]
+  },
+  "entityType": {
+    "value1": [
+      "TERM"
+    ],
+    "value2": [
+      "SOURCE",
+      "TARGET"
+    ]
+  }
+}

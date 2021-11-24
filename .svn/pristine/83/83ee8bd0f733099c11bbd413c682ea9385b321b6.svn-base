@@ -1,0 +1,415 @@
+package org.gs4tr.termmanager.dao.hibernate;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.gs4tr.foundation.modules.dao.hibernate.HibernateCallback;
+import org.gs4tr.foundation.modules.dao.utils.ChunkedExecutionHelper;
+import org.gs4tr.foundation.modules.project.dao.hibernate.BaseProjectDAOImpl;
+import org.gs4tr.termmanager.dao.ProjectDAO;
+import org.gs4tr.termmanager.dao.utils.DaoUtils;
+import org.gs4tr.termmanager.model.Attribute;
+import org.gs4tr.termmanager.model.AttributeLevelEnum;
+import org.gs4tr.termmanager.model.BaseTypeEnum;
+import org.gs4tr.termmanager.model.InputFieldTypeEnum;
+import org.gs4tr.termmanager.model.ProjectLanguage;
+import org.gs4tr.termmanager.model.ProjectMetadata;
+import org.gs4tr.termmanager.model.ProjectMetadataRequest;
+import org.gs4tr.termmanager.model.TermEntryAttributeTypeEnum;
+import org.gs4tr.termmanager.model.TmProject;
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository("projectDAO")
+public class ProjectDAOImpl extends BaseProjectDAOImpl<TmProject> implements ProjectDAO {
+
+    private static final String JOIN_ORGANIZATION = " inner join pul.project.organization as o";
+
+    private static final String JOIN_PROJECT = " inner join pul.project as p";
+
+    private static final String JOIN_USER_PROFILE = " inner join pul.user as u";
+
+    private static final String SELECT = "select new Map(pul.project.organization.organizationInfo.name as organizationName, pul.project.projectInfo.name as projectName, pul.project.projectInfo.shortCode as projectShortcode, pul.user.genericPassword as genericPassword, pul.user.userInfo.userName as genericUser, pul.language as language) from ProjectUserLanguage pul";
+
+    private static final String WHERE_GENERIC = " u.generic is true";
+
+    private static final String WHERE_OPE = " (u.ope is null or u.ope = false)";
+
+    private static final String WHERE_ORGANIZATION_NAME = " lower (pul.project.organization.organizationInfo.name) like lower (:organizationName)";
+
+    private static final String WHERE_PROJECT_ENABLED = " p.projectInfo.enabled = true";
+
+    private static final String WHERE_PROJECT_LANGUAGES = " pul.language in (:languages)";
+
+    private static final String WHERE_PROJECT_NAME = " lower (p.projectInfo.name) like lower (:projectName)";
+
+    private static final String WHERE_PROJECT_SHORTCODE = " p.projectInfo.shortCode = :projectShortcode";
+
+    private static final String WHERE_USERNAME = " lower (u.userInfo.userName) like lower (:username)";
+
+    public ProjectDAOImpl() {
+	super(TmProject.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Long> findAllDisabledProjectIds() {
+	return execute(session -> session.getNamedQuery("Project.findAllDisabledProjectIds").list());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Long> findAllEnabledProjectIds() {
+	return execute(session -> session.getNamedQuery("Project.findAllEnabledProjectIds").list());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<TmProject> findAllEnabledProjects(final Class<?>... classesToFetch) {
+	HibernateCallback<List<TmProject>> cb = session -> {
+	    Query query = session.getNamedQuery("Project.findAllEnabledProjects");
+
+	    List<TmProject> list = query.list();
+	    if (classesToFetch != null && list != null) {
+		for (TmProject project : list) {
+		    DaoUtils.initializeEntities(project, classesToFetch);
+		}
+	    }
+	    return list;
+	};
+	return execute(cb);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Map<Long, List<Attribute>> findAttributesByProjectIds(final List<Long> projectIds) {
+	HibernateCallback<List<Map<String, Object>>> cb = session -> {
+	    final Query query = session.getNamedQuery("TmProject.findAttributesByProjectIds");
+
+	    final List<Map<String, Object>> projectAttributes = new ArrayList<>();
+
+	    ChunkedExecutionHelper.executeChuncked(projectIds, chunckProjectIds -> {
+		query.setParameterList("projectIds", projectIds);
+		projectAttributes.addAll(query.list());
+	    }, ChunkedExecutionHelper.DEFAULT_CHUNK_SIZE);
+
+	    return projectAttributes;
+	};
+
+	Map<Long, List<Attribute>> projectAttributes = new HashMap<>();
+
+	List<Map<String, Object>> results = execute(cb);
+
+	for (Map<String, Object> projAttr : results) {
+	    Long projectId = (Long) projAttr.get("projectId");
+
+	    List<Attribute> attributes = projectAttributes.computeIfAbsent(projectId, k -> new ArrayList<>());
+
+	    Attribute attribute = extractAttribute(projAttr);
+
+	    if (attribute != null && !attributes.contains(attribute)) {
+		attributes.add(attribute);
+	    }
+	}
+
+	return projectAttributes;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Long> findDisabledProjectIds(List<Long> projectIds) {
+	HibernateCallback<List<Long>> cb = session -> {
+	    Query query = session.getNamedQuery("Project.findDisabledProjectIds");
+	    query.setParameterList("projectIds", projectIds);
+	    return query.list();
+	};
+	return execute(cb);
+    }
+
+    @Override
+    public TmProject findProjectById(final Long projectId, final Class<?>... classes) {
+	HibernateCallback<TmProject> cb = session -> {
+	    Query query = session.getNamedQuery("Project.findProjectById");
+	    query.setLong("entityId", projectId);
+	    TmProject project = (TmProject) query.uniqueResult();
+	    if (project != null && classes != null) {
+		DaoUtils.initializeEntities(project, classes);
+	    }
+
+	    return project;
+	};
+	return execute(cb);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Long> findProjectIdsByShortCodes(final List<String> shortCodes) {
+	HibernateCallback<List<Long>> cb = session -> {
+	    final Query query = session.getNamedQuery("Project.findProjectIdsByShortCodes");
+	    query.setParameterList("shortCodes", shortCodes);
+	    return query.list();
+	};
+
+	return execute(cb);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ProjectLanguage> findProjectLanguagesByProjectId(final Long projectId) {
+	HibernateCallback<List<ProjectLanguage>> cb = session -> {
+	    Query query = session.getNamedQuery("Project.findProjectLanguagesByProjectId");
+	    query.setLong("projectId", projectId);
+
+	    return (List<ProjectLanguage>) query.list();
+	};
+	return execute(cb);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<TmProject> findProjectsByIds(final List<Long> projectIds) {
+	HibernateCallback<List<TmProject>> cb = session -> {
+	    final Query query = session.getNamedQuery("Project.findProjectsByIds");
+
+	    final List<TmProject> projects = new ArrayList<>();
+
+	    ChunkedExecutionHelper.executeChuncked(projectIds, chunckProjectIds -> {
+		query.setParameterList("projectIds", chunckProjectIds);
+
+		projects.addAll(query.list());
+	    }, ChunkedExecutionHelper.DEFAULT_CHUNK_SIZE);
+
+	    return projects;
+	};
+
+	return execute(cb);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Long> findProjectsByNameLike(String nameLike) {
+	HibernateCallback<List<Long>> cb = session -> {
+	    Query query = session.getNamedQuery("Project.findProjectsByNameLike");
+	    query.setString("name", nameLike + "%");
+
+	    return query.list();
+	};
+	return execute(cb);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Attribute> getAttributesByProjectId(final Long projectId) {
+
+	HibernateCallback<List<Attribute>> cb = session -> {
+	    Query query = session.getNamedQuery("TmProject.getAttributesByProjectId");
+	    query.setLong("projectId", projectId);
+
+	    List<Attribute> atts = new ArrayList<>();
+
+	    List<Map<String, Object>> result = query.list();
+	    for (Map<String, Object> map : result) {
+		Attribute a = new Attribute();
+
+		String name = (String) map.get("attributeName");
+		a.setName(name);
+
+		if (map.get("baseType") != null) {
+		    BaseTypeEnum baseType = (BaseTypeEnum) map.get("baseType");
+		    a.setBaseTypeEnum(baseType);
+		}
+
+		if (map.get("attributeLevel") != null) {
+		    AttributeLevelEnum attributeLevel = (AttributeLevelEnum) map.get("attributeLevel");
+		    a.setAttributeLevel(attributeLevel);
+		}
+
+		if (map.get("synchronizable") != null) {
+		    Boolean synchronizable = (Boolean) map.get("synchronizable");
+		    a.setSynchronizable(synchronizable);
+		}
+
+		if (map.get("comboValues") != null) {
+		    String comboValues = (String) map.get("comboValues");
+		    a.setComboValues(comboValues);
+		}
+
+		atts.add(a);
+	    }
+
+	    return atts;
+	};
+
+	return execute(cb);
+    }
+
+    @Override
+    public Long getOrganizationIdByProject(final Long projectId) {
+	HibernateCallback<Long> cb = session -> {
+	    final Query query = session.getNamedQuery("Project.getOrganizationIdByProject");
+	    query.setLong("projectId", projectId);
+
+	    return (Long) query.uniqueResult();
+	};
+
+	return execute(cb);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ProjectMetadata> getProjectMetadata(ProjectMetadataRequest request) {
+
+	HibernateCallback<List<ProjectMetadata>> cb = session -> {
+
+	    String organizationName = request.getOrganizationName();
+	    String projectName = request.getProjectName();
+	    String projectShortcode = request.getProjectShortcode();
+	    String username = request.getUsername();
+	    List<String> languages = request.getLanguages();
+
+	    String userQuery = generateQuery(organizationName, projectName, projectShortcode, languages, username);
+
+	    final Query query = session.createQuery(userQuery);
+
+	    setQueryParameters(query, organizationName, projectName, projectShortcode, languages, username);
+
+	    List<Map<String, Object>> result = query.list();
+
+	    Map<String, ProjectMetadata> metadataMap = new HashMap<>();
+
+	    for (Map<String, Object> map : result) {
+
+		String organization = (String) map.get("organizationName");
+		String password = (String) map.get("genericPassword");
+		String genericUsername = (String) map.get("genericUser");
+		String project = (String) map.get("projectName");
+		String shortcode = (String) map.get("projectShortcode");
+		String languageIds = (String) map.get("language");
+
+		ProjectMetadata projectMetadata = metadataMap.computeIfAbsent(project,
+			k -> new ProjectMetadata(organization, password, project, shortcode, genericUsername));
+
+		projectMetadata.addLanguage(languageIds);
+	    }
+
+	    return new ArrayList<>(metadataMap.values());
+	};
+
+	return execute(cb);
+    }
+
+    @Override
+    public void initializeProjectLanguages(TmProject project) {
+	Hibernate.initialize(project.getProjectLanguages());
+    }
+
+    private Attribute extractAttribute(Map<String, Object> projAttr) {
+	String name = (String) projAttr.get("attributeName");
+
+	if (StringUtils.isBlank(name)) {
+	    return null;
+	}
+
+	TermEntryAttributeTypeEnum termEntryAttributeType = (TermEntryAttributeTypeEnum) projAttr
+		.get("termEntryAttributeType");
+	AttributeLevelEnum attributeLevel = (AttributeLevelEnum) projAttr.get("attributeLevel");
+	Boolean required = (Boolean) projAttr.get("required");
+	String value = (String) projAttr.get("value");
+	Boolean multiplicity = (Boolean) projAttr.get("multiplicity");
+	String comboValues = (String) projAttr.get("comboValues");
+	Boolean readOnly = (Boolean) projAttr.get("readOnly");
+	InputFieldTypeEnum inputFieldTypeEnum = (InputFieldTypeEnum) projAttr.get("inputFieldTypeEnum");
+	BaseTypeEnum baseTypeEnum = (BaseTypeEnum) projAttr.get("baseTypeEnum");
+	Boolean synchronizable = (Boolean) projAttr.get("synchronizable");
+
+	Attribute attribute = new Attribute();
+	attribute.setName(name);
+	attribute.setTermEntryAttributeType(termEntryAttributeType);
+	attribute.setAttributeLevel(attributeLevel);
+	attribute.setRequired(required);
+	attribute.setValue(value);
+	attribute.setMultiplicity(multiplicity);
+	attribute.setComboValues(comboValues);
+	attribute.setReadOnly(readOnly);
+	attribute.setInputFieldTypeEnum(inputFieldTypeEnum);
+	attribute.setBaseTypeEnum(baseTypeEnum);
+	attribute.setSynchronizable(synchronizable);
+
+	return attribute;
+    }
+
+    private String generateQuery(String organizationName, String projectName, String projectShortcode,
+	    List<String> languages, String username) {
+
+	StringBuilder queryBuilder = new StringBuilder(SELECT);
+
+	List<String> queries = new ArrayList<>();
+	queries.add(WHERE_GENERIC);
+	queries.add(WHERE_OPE);
+	queries.add(WHERE_PROJECT_ENABLED);
+
+	queryBuilder.append(JOIN_ORGANIZATION);
+	queryBuilder.append(JOIN_PROJECT);
+	queryBuilder.append(JOIN_USER_PROFILE);
+
+	if (StringUtils.isNotEmpty(organizationName)) {
+	    queries.add(WHERE_ORGANIZATION_NAME);
+	}
+
+	if (StringUtils.isNotEmpty(projectName)) {
+	    queries.add(WHERE_PROJECT_NAME);
+	}
+
+	if (StringUtils.isNotEmpty(projectShortcode)) {
+	    queries.add(WHERE_PROJECT_SHORTCODE);
+	}
+
+	if (CollectionUtils.isNotEmpty(languages)) {
+	    queries.add(WHERE_PROJECT_LANGUAGES);
+	}
+
+	if (StringUtils.isNotEmpty(username)) {
+	    queries.add(WHERE_USERNAME);
+	}
+
+	queryBuilder.append(" where");
+	queryBuilder.append(queries.get(0));
+
+	for (int i = 1; i < queries.size(); i++) {
+	    queryBuilder.append(" and");
+	    queryBuilder.append(queries.get(i));
+	}
+
+	return queryBuilder.toString();
+
+    }
+
+    private void setQueryParameters(Query query, String organizationName, String projectName, String projectShortcode,
+	    List<String> languages, String username) {
+
+	if (StringUtils.isNotEmpty(organizationName)) {
+	    query.setParameter("organizationName", "%" + organizationName + "%");
+	}
+
+	if (StringUtils.isNotEmpty(projectName)) {
+	    query.setParameter("projectName", "%" + projectName + "%");
+	}
+
+	if (StringUtils.isNotEmpty(projectShortcode)) {
+	    query.setParameter("projectShortcode", projectShortcode);
+	}
+
+	if (CollectionUtils.isNotEmpty(languages)) {
+	    query.setParameterList("languages", languages);
+	}
+
+	if (StringUtils.isNotEmpty(username)) {
+	    query.setParameter("username", "%" + username + "%");
+	}
+    }
+}

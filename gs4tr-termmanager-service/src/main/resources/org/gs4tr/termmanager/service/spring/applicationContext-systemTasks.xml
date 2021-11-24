@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <bean id="systemManualTaskManager"
+          class="org.gs4tr.termmanager.service.manualtask.DefaultSystemManualTaskManager">
+        <property name="manualTaskHandlerMap">
+            <map>
+                <entry key="USER">
+                    <map>
+                        <entry key="add user">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AddUserTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_USERPROFILE_ADD</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="edit user">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.EditUserTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_USERPROFILE_EDIT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="assign role">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AssignUserRoleTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_USERPROFILE_VIEW</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="assign organization">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AssignUserOrganizationTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_USERPROFILE_VIEW</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="enable user">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.EnableUserTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_USERPROFILE_ENABLEDISABLE</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="assign project">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AssignUserProjectTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_USERPROFILE_VIEW</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="change password">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.ChangeUserPasswordTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_SECURITY_GETLOGINDATA</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="clear user metadata">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.ClearUserMetadataTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_SECURITY_GETLOGINDATA</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="unlock user account">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.UnlockUserAccountTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_USERPROFILE_ENABLEDISABLE</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="check user uniqueness">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.CheckUserUniquenessTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_USERPROFILE_ADD</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                    </map>
+                </entry>
+                <entry key="PROJECT">
+                    <map>
+                        <entry key="add project">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AddProjectTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_PROJECT_ADD</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="edit project">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.EditProjectTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_PROJECT_EDIT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="check project name uniqueness">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.CheckProjectUniquenessTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_PROJECT_ADD</value>
+                                        <value>POLICY_FOUNDATION_PROJECT_EDIT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="generate short code">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.GenerateProjectShortCodeTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_PROJECT_ADD</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="enable project">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.EnableProjectTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_PROJECT_ENABLEDISABLE</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="assign project users">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AssignProjectUsersTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_PROJECT_VIEW</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="get project user languages">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.GetProjectUserLanguagesTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_PROJECT_VIEW</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="assign project attributes">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AssignProjectAttributesTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_PROJECT_VIEW</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="assign project notes">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AssignProjectNotesTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_PROJECT_VIEW</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="send connection string">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.SendConnectionTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_PROJECT_SEND_CONNECTION</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                    </map>
+                </entry>
+                <entry key="ORGANIZATION">
+                    <map>
+                        <entry key="add organization">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AddOrganizationTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_ORGANIZATION_ADD</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="edit organization">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.EditOrganizationTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_ORGANIZATION_EDIT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="assign organization project">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AssignOrganizationProjectHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_ORGANIZATION_VIEW</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="get organization users">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.GetOrganizationUsersTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_ORGANIZATION_VIEW</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="enable organization">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.EnableOrganizationTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_ORGANIZATION_ENABLEDISABLE</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                    </map>
+                </entry>
+                <entry key="ROLE">
+                    <map>
+                        <entry key="add role">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AddRoleTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_SECURITY_ROLE_ADD</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="edit role">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.EditRoleTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_SECURITY_ROLE_EDIT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                    </map>
+                </entry>
+                <entry key="TERMENTRY">
+                    <map>
+                        <entry key="manage uploads">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.FileManagerTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_IMPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                            </bean>
+                        </entry>
+                        <entry key="import tbx">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.ImportTbxDocumentTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_IMPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                                <property name="notificationClassifier" value="termsImported"/>
+                            </bean>
+                        </entry>
+                        <entry key="save dashboard">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.SaveDashboardManualTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_SECURITY_GETLOGINDATA</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="export tbx">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.ExportDocumentTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_EXPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                            </bean>
+                        </entry>
+                        <entry key="check export progress">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.CheckExportProgressTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_EXPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                            </bean>
+                        </entry>
+                        <entry key="export item count">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.ExportItemCountTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_EXPORT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="download exported document">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.DownloadExportedDocumentTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_EXPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                            </bean>
+                        </entry>
+                        <entry key="view term">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.ViewXmlTermEntryTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_SECURITY_GETLOGINDATA</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="get term entry history">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.GetTermEntryHistoryTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERM_VIEW_TERM_HISTORY_USERS</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+
+                        <entry key="assign termentry attributes">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.AssignTermEntryAttributesTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_ASSIGN_ATTRIBUTES</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="check import progress">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.CheckImportProgressTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_IMPORT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="upload resource">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.UploadTermEntryReferencesTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_UPLOAD_BINARY_RESOURCE</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="upload multimedia">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.UploadMultimediaTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_UPLOAD_BINARY_RESOURCE</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="delete multimedia">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.DeleteMultimediaTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_UPLOAD_BINARY_RESOURCE</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="view properties">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.ViewPropertiesTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_FOUNDATION_SECURITY_GETLOGINDATA</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="merge term entries">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.MergeManualTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_MERGE_TERM_ENTRIES</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="generate import template">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.GenerateImportTemplateTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_IMPORT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="generate import summary report">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.GenerateImportReportTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_IMPORT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                    </map>
+                </entry>
+                <entry key="TERM">
+                    <map>
+                        <entry key="change term status">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.ChangeTermStatusTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERM_DEMOTE_TERM_STATUS</value>
+                                        <value>POLICY_TM_TERM_APPROVE_TERM_STATUS</value>
+                                        <value>POLICY_TM_TERMENTRY_FORBID_TERMENTRY</value>
+                                        <value>POLICY_TM_TERM_ON_HOLD_TERM_STATUS</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="disable term">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.DeleteTermTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERM_DISABLE_TERM</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="undo changes">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.SaveDashboardManualTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERM_ADD_APPROVED_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_PENDING_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_BLACKLIST_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_ON_HOLD_TERM</value>
+                                    </list>
+                                </property>
+                                <property name="taskPriority" value="LEVEL_FOUR"/>
+                            </bean>
+                        </entry>
+                        <entry key="save changes">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.SaveDashboardManualTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERM_ADD_APPROVED_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_PENDING_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_BLACKLIST_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_ON_HOLD_TERM</value>
+                                    </list>
+                                </property>
+                                <property name="taskPriority" value="LEVEL_THREE"/>
+                            </bean>
+                        </entry>
+                        <entry key="add term">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.SaveDashboardManualTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERM_ADD_APPROVED_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_PENDING_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_BLACKLIST_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_ON_HOLD_TERM</value>
+                                    </list>
+                                </property>
+                                <property name="taskPriority" value="LEVEL_ONE"/>
+                            </bean>
+                        </entry>
+                        <entry key="add synonym">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.SaveDashboardManualTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERM_ADD_APPROVED_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_PENDING_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_BLACKLIST_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_ON_HOLD_TERM</value>
+                                    </list>
+                                </property>
+                                <property name="taskPriority" value="LEVEL_TWO"/>
+                            </bean>
+                        </entry>
+                        <entry key="send to translation">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.SendToTranslationTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_SEND_TO_TRANSLATION_REVIEW</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="lookup term">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.LookupTermTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERM_APPROVE_TERM_STATUS</value>
+                                        <value>POLICY_TM_TERM_ADD_APPROVED_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_PENDING_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_BLACKLIST_TERM</value>
+                                        <value>POLICY_TM_TERM_ADD_ON_HOLD_TERM</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="merge term entries">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.MergeManualTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_MERGE_TERM_ENTRIES</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                    </map>
+                </entry>
+                <entry key="PROJECTDETAIL">
+                    <map>
+                        <entry key="manage uploads">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.FileManagerTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_IMPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                            </bean>
+                        </entry>
+                        <entry key="import tbx">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.ImportTbxDocumentTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_IMPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                                <property name="notificationClassifier" value="termsImported"/>
+                            </bean>
+                        </entry>
+                        <entry key="check import progress">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.CheckImportProgressTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_IMPORT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="check analysis progress">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.CheckAnalysisProgressTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_IMPORT</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="export tbx">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.ExportDocumentTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_EXPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                            </bean>
+                        </entry>
+                        <entry key="check export progress">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.CheckExportProgressTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_EXPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                            </bean>
+                        </entry>
+                        <entry key="download exported document">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.DownloadExportedDocumentTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_TERMENTRY_EXPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                            </bean>
+                        </entry>
+                        <entry key="generate report">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.GenerateReportManualTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_PROJECT_REPORT</value>
+                                    </list>
+                                </property>
+                                <property name="global" value="true"/>
+                            </bean>
+                        </entry>
+                        <entry key="manage project description">
+                            <bean class="org.gs4tr.termmanager.service.manualtask.ProjectDescriptionManualTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_ADD_EDIT_PROJECT_DESCRIPTION</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                        <entry key="send connection string">
+                            <bean
+                                    class="org.gs4tr.termmanager.service.manualtask.SendConnectionTaskHandler">
+                                <property name="policies">
+                                    <list>
+                                        <value>POLICY_TM_USER_SEND_CONNECTION</value>
+                                        <value>POLICY_TM_PROJECT_SEND_CONNECTION</value>
+                                    </list>
+                                </property>
+                            </bean>
+                        </entry>
+                    </map>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

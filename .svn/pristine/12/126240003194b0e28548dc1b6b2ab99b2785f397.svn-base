@@ -1,0 +1,39 @@
+{
+  "folder": "TERM_LIST",
+  "index": 0,
+  "size": 50,
+  "searchUserLatestChanges": false,
+  "projectComboBox": [
+    "$submissionTicket"
+  ],
+  "languageDirection": {
+  },
+  "entityType": {
+    "value1": [
+      "TERM",
+      "ATTRIBUTES"
+    ],
+    "value2": [
+      "SOURCE"
+    ]
+  },
+  "statuses": [
+    "PROCESSED",
+    "WAITING",
+    "MISSING_TRANSLATION"
+  ],
+  "dateCreatedRange": {
+    "fromDate": $fromDate,
+    "toDate": $toDate
+  },
+  "dateModifiedRange": {
+    "fromDate": $fromDate,
+    "toDate": $toDate
+  },
+  "termNameAndSearchType": {
+    "value1": "car",
+    "value2": "PREFIX"
+  },
+  "ascending": false,
+  "sortProperty": "term.dateModified"
+}

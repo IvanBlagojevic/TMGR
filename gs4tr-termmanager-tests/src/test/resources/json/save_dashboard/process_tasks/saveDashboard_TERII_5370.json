@@ -1,0 +1,28 @@
+{
+  "saveDashboardCommands": [
+    {
+      "translationUnits": [
+        {
+          "termEntryTicket": "$termEntryId",
+          "sourceTermUpdateCommands": [
+            {
+              "command": "update",
+              "markerId": "$termId",
+              "languageId": "en-US",
+              "status": "$status",
+              "type": "term",
+              "value": "$termName",
+              "parentMarkerId": "$termEntryId"
+            }
+          ],
+          "targetTermUpdateCommands": [
+          ]
+        }
+      ],
+      "projectTicket": "$projectTicket",
+      "sourceLanguage": "en-US",
+      "targetLanguage": [
+      ]
+    }
+  ]
+}

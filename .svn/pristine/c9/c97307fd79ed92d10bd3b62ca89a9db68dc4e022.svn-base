@@ -1,0 +1,191 @@
+package org.gs4tr.termmanager.io.tests;
+
+import java.util.Objects;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.gs4tr.foundation.modules.spring.TestEnvironmentAwareContextLoader;
+import org.gs4tr.termmanager.dao.ProjectDetailDAO;
+import org.gs4tr.termmanager.dao.ProjectLanguageDetailDAO;
+import org.gs4tr.termmanager.dao.StatisticsDAO;
+import org.gs4tr.termmanager.dao.backup.DbTermEntryDAO;
+import org.gs4tr.termmanager.io.config.IndexConfiguration;
+import org.gs4tr.termmanager.io.config.IndexConnectionHandler;
+import org.gs4tr.termmanager.io.tlog.config.PersistentStoreHandler;
+import org.gs4tr.termmanager.io.tlog.impl.TransactionLogHandler;
+import org.gs4tr.termmanager.model.test.groups.SolrTest;
+import org.gs4tr.termmanager.persistence.ITmgrGlossaryBrowser;
+import org.gs4tr.termmanager.persistence.ITmgrGlossaryConnector;
+import org.gs4tr.tm3.api.TmException;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:org/gs4tr/termmanager/dao/spring/applicationContext-dao.xml",
+	"classpath:org/gs4tr/termmanager/io/spring/test/applicationContext-hibernate.xml",
+	"classpath:org/gs4tr/termmanager/io/spring/test/applicationContext-init.xml",
+	"classpath:org/gs4tr/termmanager/io/spring/applicationContext-io.xml" }, loader = TestEnvironmentAwareContextLoader.class)
+@Transactional
+@Category(SolrTest.class)
+public abstract class AbstractIOTest {
+
+    protected static final String LANGUAGE_ID = "en";
+
+    private ITmgrGlossaryConnector _connector;
+
+    @Autowired
+    private DbTermEntryDAO _dbTermEntryDAO;
+
+    @Autowired
+    private IndexConfiguration _indexConfiguration;
+
+    @Autowired
+    private IndexConnectionHandler _indexConnectionHandler;
+
+    @Autowired
+    private JdbcTemplate _jdbcTemplate;
+
+    @Autowired
+    private TransactionLogHandler _logHandler;
+
+    @Autowired
+    private ProjectDetailDAO _projectDetailDAO;
+
+    @Autowired
+    private ProjectLanguageDetailDAO _projectLanguageDetailDAO;
+
+    @Autowired
+    private StatisticsDAO _statisticsDAO;
+
+    @Autowired
+    private PersistentStoreHandler _storeHandler;
+
+    protected final Log LOGGER = LogFactory.getLog(this.getClass());
+
+    public TransactionLogHandler getLogHandler() {
+	return _logHandler;
+    }
+
+    public ProjectLanguageDetailDAO getProjectLanguageDetailDAO() {
+	return _projectLanguageDetailDAO;
+    }
+
+    @Before
+    public void setUp() throws Exception {
+	long start = System.currentTimeMillis();
+
+	initRegularConnector();
+
+	getRegularConnector().getTmgrUpdater().deleteAll();
+
+	cleanUpDB();
+
+	getStoreHandler().closeAndClear(TestHelper.PROJECT_ID_1);
+	getStoreHandler().closeAndClear(TestHelper.PROJECT_ID_2);
+
+	LOGGER.info("Time to startup: " + (System.currentTimeMillis() - start));
+    }
+
+    @After
+    public void tearDown() throws Exception {
+	if (Objects.nonNull(getRegularCollection())) {
+	    getRegularConnector().getTmgrUpdater().deleteAll();
+	}
+
+	cleanUpDB();
+
+	getStoreHandler().closeAndClear(TestHelper.PROJECT_ID_1);
+	getStoreHandler().closeAndClear(TestHelper.PROJECT_ID_2);
+    }
+
+    private void cleanUpDB() {
+	JdbcTemplate jdbcTemplate = getJdbcTemplate();
+
+	jdbcTemplate.update("SET FOREIGN_KEY_CHECKS = 0;");
+
+	String q1 = "DELETE FROM TM_TERMENTRY_DESCRIPTION";
+	jdbcTemplate.update(q1);
+
+	String q2 = "DELETE FROM TM_TERM_HISTORY";
+	jdbcTemplate.update(q2);
+
+	String q3 = "DELETE FROM TM_TERMENTRY_HISTORY";
+	jdbcTemplate.update(q3);
+
+	String q4 = "DELETE FROM TM_TERM_DESCRIPTION";
+	jdbcTemplate.update(q4);
+
+	String q5 = "DELETE FROM TM_TERM";
+	jdbcTemplate.update(q5);
+
+	String q6 = "DELETE FROM TM_TERMENTRY;";
+	jdbcTemplate.update(q6);
+
+	String q7 = "UPDATE TM_PROJECT_DETAIL SET TM_PROJECT_DETAIL.TERMENTRY_COUNT = 0, TM_PROJECT_DETAIL.TERM_COUNT = 0, TM_PROJECT_DETAIL.APPROVE_TERM_COUNT = 0, TM_PROJECT_DETAIL.PENDING_APPROVAL_TERM_COUNT= 0, TM_PROJECT_DETAIL.ON_HOLD_TERM_COUNT = 0, TM_PROJECT_DETAIL.FORBIDDEN_TERM_COUNT = 0, TM_PROJECT_DETAIL.ACTIVE_SUBMISSION_COUNT = 0, TM_PROJECT_DETAIL.COMPLETED_SUBMISSION_COUNT = 0, TM_PROJECT_DETAIL.TERM_IN_SUBMISSION_COUNT = 0;";
+	jdbcTemplate.update(q7);
+
+	String q8 = "UPDATE TM_PROJECT_LANGUAGE_DETAIL SET TM_PROJECT_LANGUAGE_DETAIL.APPROVE_TERM_COUNT = 0, TM_PROJECT_LANGUAGE_DETAIL.FORBIDDEN_TERM_COUNT = 0, TM_PROJECT_LANGUAGE_DETAIL.ON_HOLD_TERM_COUNT = 0, TM_PROJECT_LANGUAGE_DETAIL.PENDING_APPROVAL_TERM_COUNT = 0, TM_PROJECT_LANGUAGE_DETAIL.TERM_IN_SUBMISSION_COUNT= 0, TM_PROJECT_LANGUAGE_DETAIL.COMPLETED_SUBMISSION_COUNT = 0, TM_PROJECT_LANGUAGE_DETAIL.ACTIVE_SUBMISSION_COUNT= 0, TM_PROJECT_LANGUAGE_DETAIL.TERMENTRY_COUNT = 0, TM_PROJECT_LANGUAGE_DETAIL.TERM_COUNT = 0;";
+	jdbcTemplate.update(q8);
+
+	String q9 = "UPDATE TM_STATISTICS SET TM_STATISTICS.ADDED_APPROVED_COUNT = 0, TM_STATISTICS.ADDED_BLACKLISTED_COUNT = 0, TM_STATISTICS.ADDED_ON_HOLD_COUNT = 0, TM_STATISTICS.ADDED_PENDING_COUNT = 0, TM_STATISTICS.DELETED_COUNT = 0, TM_STATISTICS.DEMOTED_COUNT = 0, TM_STATISTICS.ON_HOLD_COUNT = 0, TM_STATISTICS.APPROVED_COUNT = 0, TM_STATISTICS.BLACKLISTED_COUNT=0, TM_STATISTICS.UPDATED_COUNT = 0;";
+	jdbcTemplate.update(q9);
+
+	jdbcTemplate.update("SET FOREIGN_KEY_CHECKS = 1;");
+    }
+
+    private IndexConfiguration getIndexConfiguration() {
+	return _indexConfiguration;
+    }
+
+    private IndexConnectionHandler getIndexConnectionHandler() {
+	return _indexConnectionHandler;
+    }
+
+    private JdbcTemplate getJdbcTemplate() {
+	return _jdbcTemplate;
+    }
+
+    private ITmgrGlossaryConnector getRegularConnector() {
+	return _connector;
+    }
+
+    private PersistentStoreHandler getStoreHandler() {
+	return _storeHandler;
+    }
+
+    private void initRegularConnector() throws TmException {
+	_connector = getIndexConnectionHandler().connect(getRegularCollection());
+	_connector.connect();
+    }
+
+    protected ITmgrGlossaryBrowser getBrowser() throws Exception {
+	return getRegularConnector().getTmgrBrowser();
+    }
+
+    protected DbTermEntryDAO getDbTermEntryDAO() {
+	return _dbTermEntryDAO;
+    }
+
+    protected ProjectDetailDAO getProjectDetailDAO() {
+	return _projectDetailDAO;
+    }
+
+    protected String getRegularCollection() {
+	return getIndexConfiguration().getRegular();
+    }
+
+    protected StatisticsDAO getStatisticsDAO() {
+	return _statisticsDAO;
+    }
+
+    protected String getSubmissionCollection() {
+	return getIndexConfiguration().getSubmission();
+    }
+}

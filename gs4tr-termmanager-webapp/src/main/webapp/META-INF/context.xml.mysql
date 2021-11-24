@@ -1,0 +1,18 @@
+<Context sessionCookiePathUsesTrailingSlash="false">
+    <Resource name="jdbc/termmanager" auth="Container"
+              type="com.mchange.v2.c3p0.ComboPooledDataSource" driverClass="net.sf.log4jdbc.DriverSpy"
+              jdbcUrl="jdbc:log4jdbc:mysql://localhost/term_manager?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF8"
+              user="dbuser" password="dbuser" factory="org.apache.naming.factory.BeanFactory"
+              acquireIncrement="3" minPoolSize="10" maxPoolSize="200"
+              idleConnectionTestPeriod="100" maxStatements="0" checkoutTimeout="30000"
+              unreturnedConnectionTimeout="0" debugUnreturnedConnectionStackTraces="false"/>
+
+    <Resource name="jdbc/jackrabbit" auth="Container"
+              type="com.mchange.v2.c3p0.ComboPooledDataSource" driverClass="com.mysql.jdbc.Driver"
+              jdbcUrl="jdbc:mysql://localhost/term_manager_jack?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF8"
+              user="dbuser" password="dbuser" factory="org.apache.naming.factory.BeanFactory"
+              acquireIncrement="2" minPoolSize="1" maxPoolSize="3"
+              idleConnectionTestPeriod="100" maxStatements="0" checkoutTimeout="30000"
+              unreturnedConnectionTimeout="0" debugUnreturnedConnectionStackTraces="false"/>
+
+</Context>

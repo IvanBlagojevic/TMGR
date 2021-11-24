@@ -1,0 +1,121 @@
+{
+  "gridConfig": [
+    {
+      "sortable": true,
+      "sortProperty": "sub.name",
+      "dataIndex": "submissionName",
+      "hidden": false,
+      "width": 240,
+      "headerKey": "submissionName",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "sub.submissionId",
+      "dataIndex": "submissionId",
+      "hidden": false,
+      "width": 30,
+      "headerKey": "submissionId",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "entityStatusPriority.status",
+      "dataIndex": "status",
+      "hidden": false,
+      "width": 40,
+      "headerKey": "status",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "project.projectInfo.name",
+      "dataIndex": "projectName",
+      "hidden": false,
+      "width": 240,
+      "headerKey": "projectName",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "sub.sourceLanguageId",
+      "dataIndex": "sourceLanguageId",
+      "hidden": false,
+      "width": 122,
+      "headerKey": "sourceLanguage",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "targetLanguageIds",
+      "hidden": false,
+      "width": 174,
+      "headerKey": "targetLanguages",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "termEntryCount",
+      "hidden": false,
+      "width": 135,
+      "headerKey": "termEntryCount",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "sub.submitter",
+      "dataIndex": "submitter",
+      "hidden": false,
+      "width": 151,
+      "headerKey": "submitter",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "assignees",
+      "hidden": false,
+      "width": 178,
+      "headerKey": "assignees",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "comments",
+      "hidden": false,
+      "width": 40,
+      "headerKey": "comments",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "sub.dateSubmitted",
+      "dataIndex": "dateSubmitted",
+      "hidden": false,
+      "width": 114,
+      "headerKey": "submittedDate",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "sub.dateModified",
+      "dataIndex": "dateModified",
+      "hidden": false,
+      "width": 114,
+      "headerKey": "modificationDate",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "entityStatusPriority.dateCompleted",
+      "dataIndex": "dateCompleted",
+      "hidden": false,
+      "width": 114,
+      "headerKey": "completedDate",
+      "systemHidden": false
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+	"projectTicket":"$projectTicket",
+	"exportFormat":"XLSX",
+	"targetStatuses":[
+		"PROCESSED",
+		"WAITING",
+		"MISSINGTRANSLATION",
+		"INFINALREVIEW",
+		"BLACKLISTED",
+		"INTRANSLATIONREVIEW"
+	],
+	"sourceLocale":"en-US",
+	"targetLocales":[
+		"de-DE"
+	],
+	"creationDate":{
+		"fromDate":null,
+		"toDate":null
+	},
+	"modificationDate":{
+		"fromDate":null,
+		"toDate":null
+	},
+	"termAttributesFilter":[
+		
+	],
+	"termEntryAttributesFilter":[
+		
+	],
+	"termAttributeTypes":[
+		"context"
+	],
+	"termEntryAttributeTypes":[
+		"definition"
+	],
+	"termNoteTypes":[
+		
+	],
+	"searchFilter":{
+		
+	}
+}

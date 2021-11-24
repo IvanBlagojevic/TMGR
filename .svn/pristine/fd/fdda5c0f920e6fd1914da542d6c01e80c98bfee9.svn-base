@@ -1,0 +1,5 @@
+DoNotOverwriteIndenticalAttributesUpdater.1=This update option [%s] is not supported by term manager.
+GlossaryStrategyUpdater.0=Unable to perform update. Update option must not be null.
+GlossaryStrategyUpdater.1=Unable to perform update. Invalid update option: %s.
+GlossaryStrategyUpdater.2=User [%s] is performing update with [%s] option. Project shortcode: [%s]. Number of processing items: [%d]
+OverwriteIndenticalAttributesUpdater.1=This update option [%s] is not supported by term manager.

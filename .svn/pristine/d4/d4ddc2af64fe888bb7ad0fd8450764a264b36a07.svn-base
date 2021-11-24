@@ -1,0 +1,39 @@
+{
+  "folder": "SUBMISSIONDETAILS",
+  "index": 0,
+  "size": 50,
+  "dateCreatedRange": {
+    "fromDate": 1270072800000,
+    "toDate": 1397512740000
+  },
+  "dateModifiedRange": {
+    "fromDate": 1270072800000,
+    "toDate": 1397512740000
+  },
+  "dateCompletedRange": {
+    "fromDate": 1270072800000,
+    "toDate": 1397512740000
+  },
+  "statuses": [
+    "COMPLETED"
+  ],
+  "submissionProjectComboBox": [
+    "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q"
+  ],
+  "languageDirectionSubmission": {
+    "value1": [
+      "en-US"
+    ],
+    "value2": [
+      "sr-RS"
+    ]
+  },
+  "submissionUsers": {
+    "value1": [
+      "submitter name"
+    ],
+    "value2": [
+      "assigner name"
+    ]
+  }
+}

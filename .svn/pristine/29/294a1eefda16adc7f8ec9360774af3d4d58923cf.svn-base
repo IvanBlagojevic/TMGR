@@ -1,0 +1,12 @@
+{
+	"autoSaveCommands":[
+		{
+			"term":"false",
+			"newAttribute":"true",
+			"text":"$text",
+			"type":"context",
+			"baseType":"ATTRIBUTE",
+			"parentEntityTicket":"$termTicket"
+		}
+	]
+}

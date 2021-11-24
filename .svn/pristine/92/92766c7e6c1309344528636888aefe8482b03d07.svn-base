@@ -1,0 +1,172 @@
+<beans xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mockito="http://www.mockito.org/spring/mockito"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.mockito.org/spring/mockito classpath:mockito.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!-- Service -->
+    <bean id="statisticsServiceImpl" class="org.gs4tr.termmanager.service.impl.StatisticsServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.ImportTermServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.MultilingualViewModelServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.OrganizationServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.PluginsServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.ProjectDetailServiceImpl"/>
+    <bean id="projectService" class="org.gs4tr.termmanager.service.impl.ProjectServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.ProjectLanguageDetailServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.RoleServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.SubmissionDetailViewServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.SubmissionLanguageDetailViewServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.SubmissionServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.SubmissionTermServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.TermEntryExporterImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.ProjectUserLanguageServiceImpl"/>
+
+
+    <bean class="org.gs4tr.termmanager.service.impl.DbSubmissionTermEntryServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.DbTermEntryServiceImpl"/>
+
+    <bean class="org.gs4tr.termmanager.service.impl.RegularBackupCleanerImpl"/>
+    <bean class="org.gs4tr.termmanager.service.impl.SubmissionBackupCleanerImpl"/>
+
+    <mockito:spy beanName="termEntryService"/>
+    <bean id="termEntryService" class="org.gs4tr.termmanager.service.impl.TermEntryServiceImpl"/>
+
+    <bean class="org.gs4tr.termmanager.service.impl.TermServiceImpl"/>
+
+    <bean class="org.gs4tr.termmanager.service.impl.SubmissionDetailServiceImpl"/>
+
+    <bean id="remoteGlossaryService" class="org.gs4tr.termmanager.service.RemoteUserServiceImplTest"/>
+
+    <bean id="batchJobRegister"
+          class="org.gs4tr.termmanager.service.batch.register.BatchJobRegisterImpl"/>
+    <bean id="batchJobExecutor"
+          class="org.gs4tr.termmanager.service.batch.executor.BatchJobExecutorImpl"/>
+    <bean id="batchJobInfoProvider"
+          class="org.gs4tr.termmanager.service.batch.info.provider.BatchJobsInfoProviderImpl"/>
+
+    <bean id="undoTerm" class="org.gs4tr.termmanager.service.undoterm.UndoTermImpl"/>
+    <!--<bean id="statisticsService" class="org.gs4tr.termmanager.service.impl.StatisticsServiceImpl"/>-->
+
+    <bean class="org.gs4tr.termmanager.service.impl.CacheGatewaySessionUpdaterServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.loghandler.ImportTransactionLogHandler"/>
+
+    <bean id="guavaCacheGateway" class="org.gs4tr.termmanager.cache.impl.GuavaCacheGateway"/>
+    <bean class="org.gs4tr.termmanager.cache.config.CacheConfig"/>
+
+    <!-- Manualtask -->
+    <bean class="org.gs4tr.termmanager.service.manualtask.DeleteTermTaskHandler"/>
+    <bean class="org.gs4tr.termmanager.service.manualtask.SendToTranslationTaskHandler"/>
+
+    <bean class="org.gs4tr.termmanager.service.impl.PowerUserProjectRoleServiceImpl"/>
+
+    <bean class="org.gs4tr.termmanager.dao.hibernate.PowerUserProjectRoleDAOImpl"/>
+
+    <!-- Notification listeners -->
+    <context:component-scan
+            base-package="org.gs4tr.termmanager.service.notification.listeners"/>
+    <!-- when do all listener use this scan instead one by one -->
+    <context:component-scan
+            base-package="org.gs4tr.termmanager.service.notification.listeners"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.service.listeners"/>
+    <context:component-scan base-package="org.gs4tr.foundation.modules.service.listener"/>
+
+
+    <!-- Notification -->
+    <bean class="org.gs4tr.termmanager.service.impl.NotificationReportServiceImpl"/>
+    <bean class="org.gs4tr.termmanager.service.notification.MailConstants"/>
+    <bean class="org.gs4tr.termmanager.service.notification.Messages"/>
+    <bean class="org.gs4tr.termmanager.service.notification.NotificationData"/>
+    <bean class="org.gs4tr.termmanager.service.notification.NotificationProvider"/>
+    <bean class="org.gs4tr.termmanager.service.notification.TaskNotification"/>
+
+
+    <!-- Utils -->
+    <bean class="org.gs4tr.termmanager.service.utils.AdminTasksHolderHelper"/>
+
+    <!-- strategy term counter -->
+    <bean class="org.gs4tr.termmanager.service.counter.StrategyTermCounter"/>
+
+    <!-- Foundation -->
+    <bean class="org.gs4tr.foundation.modules.mail.service.impl.MailTemplatesServiceImpl"/>
+    <bean class="org.gs4tr.foundation.modules.usermanager.service.impl.SessionServiceImpl"/>
+    <bean name="listenerSupport"
+          class="org.gs4tr.foundation.modules.service.listener.NotificationListenerSupport"/>
+
+    <!-- <bean name="abstractSolrGlossaryConnector" class="org.gs4tr.tm3.solr.glossary.AbstractSolrGlossaryConnector"/> -->
+    <security:authentication-manager alias="defaultAuthenticationManager">
+        <security:authentication-provider
+                user-service-ref="userProfileService">
+            <security:password-encoder hash="sha"/>
+        </security:authentication-provider>
+    </security:authentication-manager>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>environment:services.properties</value>
+                <value>environment:tptOAuth.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="customEditorConfigurer"
+          class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry
+                        key="org.gs4tr.foundation.modules.entities.model.types.EntityType"
+                        value="org.gs4tr.termmanager.service.utils.EntityTypePropertyEditor"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="passwordEncoder"
+          class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>environment:services.properties</value>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties">
+            <props>
+                <prop key="dynamic.serverAddress">http://localhost</prop>
+                <prop key="rest.communication.username">rest</prop>
+                <prop key="rest.communication.password">password</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="rememberMeCookieName" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="test-rememberme"/>
+    </bean>
+
+    <bean id="passwordRegexHolder"
+          class="org.gs4tr.foundation.modules.usermanager.utils.PasswordRegexHolder">
+        <property name="passwordRegex" value="^(?=.*\d)(?=.*[!@#\$%\^&amp;\*\(\)]).{8,}$"/>
+    </bean>
+
+    <bean id="policyAccessDecisionManager"
+          class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg>
+            <list>
+                <ref bean="policyVoter"/>
+            </list>
+        </constructor-arg>
+        <property name="allowIfAllAbstainDecisions">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <bean id="policyVoter" class="org.springframework.security.access.vote.RoleVoter">
+        <property name="rolePrefix" value="POLICY_"/>
+    </bean>
+
+    <bean id="recodeTermsService" class="org.gs4tr.termmanager.service.impl.RecodeTermsServiceImpl"/>
+
+    <bean id="cloneTermsService" class="org.gs4tr.termmanager.service.impl.CloneTermsServiceImpl"/>
+</beans>

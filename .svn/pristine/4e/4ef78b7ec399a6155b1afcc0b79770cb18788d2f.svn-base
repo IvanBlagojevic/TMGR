@@ -1,0 +1,426 @@
+package org.gs4tr.termmanager.service;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.gs4tr.foundation.locale.Locale;
+import org.gs4tr.foundation.modules.entities.model.PagedList;
+import org.gs4tr.foundation.modules.entities.model.PagedListInfo;
+import org.gs4tr.termmanager.model.ProjectLanguageDetail;
+import org.gs4tr.termmanager.model.ProjectUserLanguage;
+import org.gs4tr.termmanager.model.Statistics;
+import org.gs4tr.termmanager.model.Submission;
+import org.gs4tr.termmanager.model.SubmissionLanguage;
+import org.gs4tr.termmanager.model.glossary.backup.regular.DbTerm;
+import org.gs4tr.termmanager.model.glossary.backup.regular.DbTermEntry;
+import org.gs4tr.termmanager.model.glossary.backup.submission.DbSubmissionTerm;
+import org.gs4tr.termmanager.model.glossary.backup.submission.DbSubmissionTermEntry;
+import org.gs4tr.termmanager.model.glossary.backup.submission.DbSubmissionTermEntryHistory;
+import org.gs4tr.termmanager.model.glossary.backup.submission.DbSubmissionTermHistory;
+import org.gs4tr.termmanager.model.reindex.BackupSearchCommand;
+import org.gs4tr.termmanager.service.solr.restore.model.RecodeOrCloneCommand;
+import org.gs4tr.termmanager.service.utils.JsonUtils;
+import org.junit.Assert;
+import org.junit.Test;
+
+public class RecodeTermsServiceTest extends AbstractRecodeOrCloneTermsTest {
+
+    @Test
+    public void recodeProjectLanguageDetailTest() {
+	String languageFrom = Locale.GERMAN.getCode();
+	String languageTo = Locale.GERMANY.getCode();
+
+	ProjectLanguageDetail pldBefore = getProjectLanguageDetailService().findProjectLangDetailByLangId(PROJECT_ID1,
+		languageFrom);
+	Assert.assertNotNull(pldBefore);
+
+	RecodeOrCloneCommand command = createRecodeOrCloneCommand(PROJECT_ID1, languageFrom, languageTo);
+
+	// Perform Recode Operation
+	getRecodeTermsService().recodeProjectLanguageDetail(command);
+
+	// No projectLanguageDetail on languageFrom after recoding
+	ProjectLanguageDetail pldAfterOnLangFrom = getProjectLanguageDetailService()
+		.findProjectLangDetailByLangId(PROJECT_ID1, languageFrom);
+	Assert.assertNull(pldAfterOnLangFrom);
+
+	// Assert db state after recoding
+	ProjectLanguageDetail pldAfter = getProjectLanguageDetailService().findProjectLangDetailByLangId(PROJECT_ID1,
+		languageTo);
+	Assert.assertNotNull(pldAfter);
+	assertProjectLanguageDetail(pldBefore, pldAfter);
+    }
+
+    @Test
+    public void recodeProjectLanguageTest() {
+	List<String> projectLanguageBefore = getProjectService().getProjectLanguageCodes(PROJECT_ID1);
+	Assert.assertTrue(projectLanguageBefore.contains(EN));
+	Assert.assertFalse(projectLanguageBefore.contains(EN_US));
+
+	RecodeOrCloneCommand command = getRecodeOrCloneCommand();
+
+	// Perform Recode Operation
+	getRecodeTermsService().recodeProjectLanguage(command);
+
+	List<String> projectLanguageAfter = getProjectService().getProjectLanguageCodes(PROJECT_ID1);
+
+	// After recoding project doesn't have languageFrom but has languageTo
+	Assert.assertFalse(projectLanguageAfter.contains(EN));
+	Assert.assertTrue(projectLanguageAfter.contains(EN_US));
+	Assert.assertEquals(projectLanguageAfter.size(), projectLanguageBefore.size());
+    }
+
+    @Test
+    public void recodeProjectUserLanguageAndStatisticsTest() {
+	List<ProjectUserLanguage> pulListBefore = getProjectService().findProjectUserLanguageByProjectId(PROJECT_ID1);
+
+	List<ProjectUserLanguage> pulBefore = pulListBefore.stream().filter(pul -> pul.getLanguage().equals(EN))
+		.collect(Collectors.toList());
+	// Two users are assigned on languageFrom so we have two ProjectUserLanguages
+	assertEquals(pulBefore.size(), 2);
+
+	List<Statistics> statisticsBefore = getStatisticsService().findStatisticsByProjectId(PROJECT_ID1);
+
+	RecodeOrCloneCommand command = getRecodeOrCloneCommand();
+
+	// Perform Recode Operation
+	getRecodeTermsService().recodeProjectUserLanguage(command);
+
+	List<ProjectUserLanguage> pulListAfter = getProjectService().findProjectUserLanguageByProjectId(PROJECT_ID1);
+	// Number of projectUserLanguages remains the same
+	assertEquals(pulListAfter.size(), pulListBefore.size());
+
+	// No projectUserLanguage on languageFrom after recoding
+	List<ProjectUserLanguage> enPulAfter = pulListAfter.stream().filter(pul -> pul.getLanguage().equals(EN))
+		.collect(Collectors.toList());
+	assertTrue(CollectionUtils.isEmpty(enPulAfter));
+
+	// All two projectUserLanguages on languageFrom are recoded to languageTo
+	List<ProjectUserLanguage> enUsPulAfter = pulListAfter.stream().filter(pul -> pul.getLanguage().equals(EN_US))
+		.collect(Collectors.toList());
+	assertEquals(enUsPulAfter.size(), pulBefore.size());
+
+	// Number of Statistics remains the same
+	List<Statistics> statisticsAfter = getStatisticsService().findStatisticsByProjectId(PROJECT_ID1);
+	Assert.assertEquals(statisticsBefore.size(), statisticsAfter.size());
+    }
+
+    @Test
+    public void recodeSubmissionLanguagesTest() {
+	RecodeOrCloneCommand command = getRecodeOrCloneCommand();
+	command.setLocaleFrom("de");
+	command.setLocaleTo("de-DE");
+
+	List<Submission> submissionsBefore = getSubmissionService().findSubmissionsByIdsFetchChilds(Arrays.asList(1L));
+	Assert.assertEquals(1, submissionsBefore.size());
+
+	Set<SubmissionLanguage> submissionLanguagesBefore = submissionsBefore.get(0).getSubmissionLanguages();
+	Assert.assertEquals(2, submissionLanguagesBefore.size());
+
+	// Assert configuration before recode action
+	Iterator<SubmissionLanguage> submissionLanguageIteratorBefore = submissionLanguagesBefore.iterator();
+	SubmissionLanguage deSubmissionLanguageBefore = submissionLanguageIteratorBefore.next();
+	Assert.assertEquals("de", deSubmissionLanguageBefore.getLanguageId());
+	SubmissionLanguage frSubmissionLanguageBefore = submissionLanguageIteratorBefore.next();
+	Assert.assertEquals("fr", frSubmissionLanguageBefore.getLanguageId());
+
+	// Perform recode submission languages action
+	getRecodeTermsService().recodeSubmissionLanguages(command);
+
+	List<Submission> submissionsAfter = getSubmissionService().findSubmissionsByIdsFetchChilds(Arrays.asList(1L));
+	Assert.assertEquals(1, submissionsAfter.size());
+
+	Set<SubmissionLanguage> submissionLanguagesAfter = submissionsAfter.get(0).getSubmissionLanguages();
+	Assert.assertEquals(2, submissionLanguagesAfter.size());
+
+	Iterator<SubmissionLanguage> submissionLanguageIterator = submissionLanguagesAfter.iterator();
+
+	SubmissionLanguage deSubmissionLanguageAfter = submissionLanguageIterator.next();
+
+	// Language de should be updated to de-DE
+	Assert.assertEquals("de-DE", deSubmissionLanguageAfter.getLanguageId());
+
+	SubmissionLanguage frSubmissionLanguageAfter = submissionLanguageIterator.next();
+
+	// Language fr should be unchanged
+	Assert.assertEquals("fr", frSubmissionLanguageAfter.getLanguageId());
+
+    }
+
+    @Test
+    public void recodeSubmissionTerm() {
+	RecodeOrCloneCommand command = getRecodeOrCloneCommand();
+
+	Long projectId = command.getProjectId();
+
+	PagedListInfo info = new PagedListInfo();
+
+	BackupSearchCommand backupSearchCommand = new BackupSearchCommand(Collections.singletonList(projectId), null,
+		true);
+
+	PagedList<DbSubmissionTermEntry> pageBefore = getDbSubmissionTermEntryService().getDbSubmissionTermEntries(info,
+		backupSearchCommand);
+
+	DbSubmissionTermEntry[] entriesBefore = pageBefore.getElements();
+
+	// Assert configuration before recode action
+	Assert.assertEquals(1, entriesBefore.length);
+	DbSubmissionTermEntry dbSubmissionTermEntryBefore = entriesBefore[0];
+
+	Set<DbSubmissionTerm> submissionTermsBefore = dbSubmissionTermEntryBefore.getSubmissionTerms();
+	Assert.assertEquals(6, submissionTermsBefore.size());
+
+	// Before recoding term entry has submission term with en locale
+	List<String> expectedLanguagesBefore = new ArrayList<>(Arrays.asList("en", "de", "de", "fr", "fr", "fr"));
+	submissionTermsBefore.forEach(st -> expectedLanguagesBefore.remove(st.getLanguageId()));
+	Assert.assertEquals(0, expectedLanguagesBefore.size());
+
+	// Perform recode submission termEntry operation
+	getRecodeTermsService().recodeSubmissionTerms(command);
+
+	PagedList<DbSubmissionTermEntry> pageAfter = getDbSubmissionTermEntryService().getDbSubmissionTermEntries(info,
+		backupSearchCommand);
+
+	DbSubmissionTermEntry[] entriesAfter = pageAfter.getElements();
+
+	Assert.assertEquals(1, entriesAfter.length);
+
+	DbSubmissionTermEntry submissionTermEntryAfter = entriesAfter[0];
+
+	Set<DbSubmissionTerm> submissionTermsAfter = submissionTermEntryAfter.getSubmissionTerms();
+	Assert.assertEquals(6, submissionTermsAfter.size());
+
+	// After recoding term entry should have en-US locale instead of en
+	List<String> expectedLanguagesAfter = new ArrayList<>(Arrays.asList("en-US", "de", "de", "fr", "fr", "fr"));
+	submissionTermsAfter.forEach(st -> expectedLanguagesAfter.remove(st.getLanguageId()));
+	Assert.assertEquals(0, expectedLanguagesAfter.size());
+    }
+
+    @Test
+    public void recodeSubmissionTermEntryTest() {
+	RecodeOrCloneCommand command = getRecodeOrCloneCommand();
+
+	Long projectId = command.getProjectId();
+
+	PagedListInfo info = new PagedListInfo();
+
+	BackupSearchCommand backupSearchCommand = new BackupSearchCommand(Collections.singletonList(projectId), null,
+		true);
+
+	PagedList<DbSubmissionTermEntry> pageBefore = getDbSubmissionTermEntryService().getDbSubmissionTermEntries(info,
+		backupSearchCommand);
+
+	DbSubmissionTermEntry[] entriesBefore = pageBefore.getElements();
+
+	// Assert configuration before recode action
+	Assert.assertEquals(1, entriesBefore.length);
+	DbSubmissionTermEntry submissionTermEntryBefore = entriesBefore[0];
+	Set<DbSubmissionTermEntryHistory> submissionTermEntryHistoryBefore = submissionTermEntryBefore.getHistory();
+	Assert.assertEquals(1, submissionTermEntryHistoryBefore.size());
+	Iterator<DbSubmissionTermEntryHistory> submissionTermEntryHistoryBeforeIter = submissionTermEntryHistoryBefore
+		.iterator();
+
+	DbSubmissionTermEntryHistory termEntryHistoryBefore = submissionTermEntryHistoryBeforeIter.next();
+	Set<DbSubmissionTermHistory> submissionTermHistoriesBefore = termEntryHistoryBefore.getHistory();
+	Assert.assertEquals(6, submissionTermHistoriesBefore.size());
+
+	List<String> expectedLocalesBefore = new ArrayList<>(Arrays.asList("fr", "en", "de", "fr", "fr", "de"));
+
+	submissionTermHistoriesBefore
+		.forEach(st -> expectedLocalesBefore.remove(getDbSubmissionTermFromBlob(st).getLanguageId()));
+	Assert.assertEquals(0, expectedLocalesBefore.size());
+
+	// Perform recode submission termEntry operation
+	getRecodeTermsService().recodeSubmissionTermEntriesHistories(command);
+
+	PagedList<DbSubmissionTermEntry> pageAfter = getDbSubmissionTermEntryService().getDbSubmissionTermEntries(info,
+		backupSearchCommand);
+	DbSubmissionTermEntry[] entriesAfter = pageAfter.getElements();
+	Assert.assertEquals(1, entriesAfter.length);
+	DbSubmissionTermEntry submissionTermEntryAfter = entriesAfter[0];
+
+	Set<DbSubmissionTermEntryHistory> submissionTermEntryHistoriesAfter = submissionTermEntryAfter.getHistory();
+	Assert.assertEquals(1, submissionTermEntryHistoriesAfter.size());
+
+	Iterator<DbSubmissionTermEntryHistory> submissionTermEntryHistoryIter = submissionTermEntryHistoriesAfter
+		.iterator();
+
+	DbSubmissionTermEntryHistory termEntryHistory = submissionTermEntryHistoryIter.next();
+	Set<DbSubmissionTermHistory> submissionTermHistories = termEntryHistory.getHistory();
+	Assert.assertEquals(6, submissionTermHistories.size());
+
+	List<String> expectedLocalesAfter = new ArrayList<>(Arrays.asList("fr", "en-US", "de", "fr", "fr", "de"));
+
+	submissionTermHistories
+		.forEach(st -> expectedLocalesAfter.remove(getDbSubmissionTermFromBlob(st).getLanguageId()));
+	Assert.assertEquals(0, expectedLocalesAfter.size());
+
+    }
+
+    @Test
+    public void recodeSubmissionsTest() {
+
+	RecodeOrCloneCommand command = getRecodeOrCloneCommand();
+
+	List<Submission> submissionsBefore = getSubmissionService().findSubmissionsByIdsFetchChilds(Arrays.asList(1L));
+	Assert.assertEquals(1, submissionsBefore.size());
+
+	Assert.assertEquals(EN, submissionsBefore.get(0).getSourceLanguageId());
+
+	getRecodeTermsService().recodeSubmission(command);
+
+	List<Submission> submissionsAfter = getSubmissionService().findSubmissionsByIdsFetchChilds(Arrays.asList(1L));
+	Assert.assertEquals(1, submissionsAfter.size());
+
+	Assert.assertEquals(EN_US, submissionsAfter.get(0).getSourceLanguageId());
+    }
+
+    @Test
+    public void recodeTermEntryHistoryTest() {
+
+	RecodeOrCloneCommand command = getRecodeOrCloneCommand();
+
+	int numOfHistoriesForEnLocale = 18;
+
+	DbTermEntry[] dbTermEntriesBefore = getTermEntriesByProjectId(PROJECT_ID1);
+
+	List<DbTerm> enTermsFromHistoryBefore = getAllHistoryDbTermsByLanguage(dbTermEntriesBefore, EN);
+
+	Assert.assertEquals(numOfHistoriesForEnLocale, enTermsFromHistoryBefore.size());
+
+	List<DbTerm> enUsTermsFromHistoryBefore = getAllHistoryDbTermsByLanguage(dbTermEntriesBefore, EN_US);
+
+	Assert.assertEquals(0, enUsTermsFromHistoryBefore.size());
+
+	// Perform locale recoding
+	getRecodeTermsService().recodeTermEntriesHistories(command);
+
+	DbTermEntry[] dbTermEntriesAfter = getTermEntriesByProjectId(PROJECT_ID1);
+
+	List<DbTerm> enTermsFromHistoryAfter = getAllHistoryDbTermsByLanguage(dbTermEntriesAfter, EN);
+
+	Assert.assertEquals(0, enTermsFromHistoryAfter.size());
+
+	List<DbTerm> enUsTermsFromHistoryAfter = getAllHistoryDbTermsByLanguage(dbTermEntriesAfter, EN_US);
+
+	Assert.assertEquals(numOfHistoriesForEnLocale, enUsTermsFromHistoryAfter.size());
+
+	for (DbTerm enHistoryTerm : enTermsFromHistoryBefore) {
+
+	    DbTerm enUsHistoryTerm = enUsTermsFromHistoryAfter.stream().filter(th -> isDbTermsEquals(enHistoryTerm, th))
+		    .findFirst().orElse(null);
+
+	    Assert.assertNotNull(enUsHistoryTerm);
+	}
+
+    }
+
+    @Test
+    public void recodeTermTest() {
+
+	RecodeOrCloneCommand command = getRecodeOrCloneCommand();
+
+	DbTermEntry[] dbTermEntriesBefore = getTermEntriesByProjectId(PROJECT_ID1);
+
+	Assert.assertEquals(2, dbTermEntriesBefore.length);
+
+	// Assert setup before Recode operation
+	Set<DbTerm> dbTermsBefore = dbTermEntriesBefore[0].getTerms();
+	List<DbTerm> enDbTermsBefore = findTermsByLanguage(dbTermsBefore, EN);
+	Assert.assertNotNull(enDbTermsBefore);
+	Assert.assertEquals(2, enDbTermsBefore.size());
+
+	List<DbTerm> enUsDbTermsBefore = findTermsByLanguage(dbTermsBefore, EN_US);
+	Assert.assertNotNull(enUsDbTermsBefore);
+	Assert.assertEquals(0, enUsDbTermsBefore.size());
+
+	dbTermsBefore = dbTermEntriesBefore[1].getTerms();
+	enDbTermsBefore = findTermsByLanguage(dbTermsBefore, EN);
+	Assert.assertNotNull(enDbTermsBefore);
+	Assert.assertEquals(2, enDbTermsBefore.size());
+
+	enUsDbTermsBefore = findTermsByLanguage(dbTermsBefore, EN_US);
+	Assert.assertNotNull(enUsDbTermsBefore);
+	Assert.assertEquals(0, enUsDbTermsBefore.size());
+
+	// Perform recode en locales
+	getRecodeTermsService().recodeTerms(command);
+
+	// Assert Recoded en locale for project 1
+	DbTermEntry[] dbTermEntries = getTermEntriesByProjectId(PROJECT_ID1);
+
+	Assert.assertEquals(2, dbTermEntries.length);
+
+	// Assert first TermEntry en locales
+	Set<DbTerm> dbTerms = dbTermEntries[0].getTerms();
+	List<DbTerm> enUsDbTerms = findTermsByLanguage(dbTerms, EN_US);
+	Assert.assertNotNull(enUsDbTerms);
+	Assert.assertEquals(2, enUsDbTerms.size());
+
+	// Assert second TermEntry en locales
+	dbTerms = dbTermEntries[1].getTerms();
+	enUsDbTerms = findTermsByLanguage(dbTerms, EN_US);
+	Assert.assertNotNull(enUsDbTerms);
+	Assert.assertEquals(2, enUsDbTerms.size());
+
+	// en-US locale should not exists in project 2
+	dbTermEntries = getTermEntriesByProjectId(PROJECT_ID2);
+	Assert.assertEquals(1, dbTermEntries.length);
+	dbTerms = dbTermEntries[0].getTerms();
+	enUsDbTerms = findTermsByLanguage(dbTerms, EN_US);
+	Assert.assertEquals(0, enUsDbTerms.size());
+
+	// en locales in the project 2 should not be changed
+	enUsDbTerms = findTermsByLanguage(dbTerms, EN);
+	Assert.assertEquals(2, enUsDbTerms.size());
+    }
+
+    private void assertProjectLanguageDetail(ProjectLanguageDetail pldBefore, ProjectLanguageDetail pldAfter) {
+	Assert.assertEquals(pldBefore.getApprovedTermCount(), pldAfter.getApprovedTermCount());
+	Assert.assertEquals(pldBefore.getOnHoldTermCount(), pldAfter.getOnHoldTermCount());
+	Assert.assertEquals(pldBefore.getPendingApprovalCount(), pldAfter.getPendingApprovalCount());
+	Assert.assertEquals(pldBefore.getTermCount(), pldAfter.getTermCount());
+	Assert.assertEquals(pldBefore.getTermEntryCount(), pldAfter.getTermEntryCount());
+	Assert.assertEquals(pldBefore.getForbiddenTermCount(), pldAfter.getForbiddenTermCount());
+	Assert.assertEquals(pldBefore.getCompletedSubmissionCount(), pldAfter.getCompletedSubmissionCount());
+	Assert.assertEquals(pldBefore.getTermInSubmissionCount(), pldAfter.getTermInSubmissionCount());
+	Assert.assertEquals(pldBefore.getActiveSubmissionCount(), pldAfter.getActiveSubmissionCount());
+	Assert.assertEquals(pldBefore.getDateModified(), pldAfter.getDateModified());
+	Assert.assertFalse(pldAfter.isDisabled());
+    }
+
+    private DbSubmissionTerm getDbSubmissionTermFromBlob(DbSubmissionTermHistory submissionTermHistory) {
+	return JsonUtils.readValue(submissionTermHistory.getRevision(), DbSubmissionTerm.class);
+    }
+
+    // Must check all fields to confirm if DbTerms for history are equals.
+    private boolean isDbTermsEquals(DbTerm enHistoryTerm, DbTerm enUsHistoryTerm) {
+	EqualsBuilder equalsBuilder = new EqualsBuilder();
+
+	equalsBuilder.append(enHistoryTerm.getProjectId(), enUsHistoryTerm.getProjectId());
+	equalsBuilder.append(enHistoryTerm.getStatusOld(), enUsHistoryTerm.getStatusOld());
+	equalsBuilder.append(enHistoryTerm.getTermEntryUuid(), enUsHistoryTerm.getTermEntryUuid());
+	equalsBuilder.append(enHistoryTerm.getUuId(), enUsHistoryTerm.getUuId());
+	equalsBuilder.append(enHistoryTerm.getStatus(), enUsHistoryTerm.getStatus());
+	equalsBuilder.append(enHistoryTerm.getUserCreated(), enUsHistoryTerm.getUserCreated());
+	equalsBuilder.append(enHistoryTerm.getDisabled(), enUsHistoryTerm.getDisabled());
+	equalsBuilder.append(enHistoryTerm.getUserLatestChange(), enUsHistoryTerm.getUserLatestChange());
+	equalsBuilder.append(enHistoryTerm.getDescriptions(), enUsHistoryTerm.getDescriptions());
+	equalsBuilder.append(enHistoryTerm.getDateCreated(), enUsHistoryTerm.getDateCreated());
+	equalsBuilder.append(enHistoryTerm.getDateModified(), enUsHistoryTerm.getDateModified());
+	equalsBuilder.append(enHistoryTerm.getFirst(), enUsHistoryTerm.getFirst());
+	equalsBuilder.append(enHistoryTerm.getForbidden(), enUsHistoryTerm.getForbidden());
+	return equalsBuilder.isEquals();
+    }
+
+}

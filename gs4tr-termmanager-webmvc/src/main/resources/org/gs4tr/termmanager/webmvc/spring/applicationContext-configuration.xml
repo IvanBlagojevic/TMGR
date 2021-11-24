@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+	<bean id="applicationConfigurationFactory"
+		class="org.gs4tr.foundation.modules.configuration.ApplicationConfigurationFactoryImpl">
+		<property name="configurationMap">
+			<map>
+				<entry
+					key="org.gs4tr.termmanager.webmvc.configuration.FolderViewConfiguration">
+					<bean
+						class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
+						<property name="targetBeanName">
+							<idref bean="folderViewConfiguration" />
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="folderViewConfiguration"
+		class="org.gs4tr.termmanager.webmvc.configuration.FolderViewConfiguration"
+		scope="prototype">
+		<property name="configurationResource">
+			<value>environment:folderViewConfiguration.xml</value>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,104 @@
+package org.gs4tr.termmanager.service;
+
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.gs4tr.termmanager.dao.ProjectLanguageUserDetailDAO;
+import org.gs4tr.termmanager.model.ProjectLanguageDetail;
+import org.gs4tr.termmanager.model.ProjectLanguageUserDetail;
+import org.gs4tr.termmanager.model.TmUserProfile;
+import org.gs4tr.termmanager.service.solr.restore.model.RecodeOrCloneCommand;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
+public class RecodeOrCloneProjectLanguageUserDetailTest extends AbstractRecodeOrCloneTermsTest {
+
+    @Autowired
+    private ProjectLanguageUserDetailDAO _projectLanguageUserDetailDAO;
+
+    @Test
+    public void cloneProjectLanguageUserDetailTest() {
+	ProjectLanguageDetail pldBefore = getProjectLanguageDetailService().findProjectLangDetailByLangId(PROJECT_ID1,
+		EN);
+	Assert.assertNotNull(pldBefore);
+
+	Set<TmUserProfile> projectUsers = getProjectService().getProjectUsers(PROJECT_ID1);
+	assertEquals(projectUsers.size(), 2);
+
+	// Perform ProjectLanguageDetail Clone operation
+	getProjectLanguageDetailService().cloneProjectLangDetail(pldBefore, EN_US, PROJECT_ID1);
+
+	// ProjectLanguageDetail has been cloned to "en-US" language
+	ProjectLanguageDetail pldAfter = getProjectLanguageDetailService().findProjectLangDetailByLangId(PROJECT_ID1,
+		EN_US);
+	Assert.assertNotNull(pldAfter);
+
+	// Number of ProjectLangUserDetail before projectUserLang clone action
+	List<ProjectLanguageUserDetail> userDetailsBefore = getAllUserDetails();
+	Assert.assertEquals(userDetailsBefore.size(), 9);
+
+	RecodeOrCloneCommand command = getRecodeOrCloneCommand();
+
+	// Perform projectUserLanguage clone action
+	getCloneTermsService().cloneProjectUserLanguage(command);
+
+	List<ProjectLanguageUserDetail> userDetailListAfter = getAllUserDetails();
+	// List of ProjectLanguageUserDetail has been increased for number of users
+	Assert.assertEquals(userDetailListAfter.size(), userDetailsBefore.size() + projectUsers.size());
+
+	List<ProjectLanguageUserDetail> clonedUserDetails = userDetailListAfter.stream()
+		.filter(userDetail -> userDetail.getLanguageDetail().equals(pldAfter)).collect(Collectors.toList());
+	Assert.assertNotNull(clonedUserDetails);
+	Assert.assertEquals(clonedUserDetails.size(), projectUsers.size());
+
+	clonedUserDetails.forEach(userDetail -> {
+	    assertEquals(userDetail.getActiveSubmissionCount(), 0);
+	    assertEquals(userDetail.getCompletedSubmissionCount(), 0);
+	});
+    }
+
+    @Test
+    public void recodeProjectLanguageUserDetailTest() {
+	// Recode ProjectLanguageDetail
+	getProjectLanguageDetailService().recodeProjectLanguageDetail(PROJECT_ID1, EN, EN_US);
+
+	// Number of ProjectLangUserDetail before projectUserLang recode action
+	List<ProjectLanguageUserDetail> userDetailsBefore = getAllUserDetails();
+	Assert.assertEquals(userDetailsBefore.size(), 9);
+
+	RecodeOrCloneCommand command = getRecodeOrCloneCommand();
+
+	// Perform projectUserLanguage recode action
+	getRecodeTermsService().recodeProjectUserLanguage(command);
+
+	// Assert ProjectLanguageUserDetail
+	List<ProjectLanguageUserDetail> userDetailListAfter = getAllUserDetails();
+	// Number of ProjectLanguageUserDetail remains the same
+	Assert.assertEquals(userDetailsBefore.size(), userDetailListAfter.size());
+	assertProjectLanguageUserDetail(userDetailsBefore, userDetailListAfter);
+    }
+
+    private void assertProjectLanguageUserDetail(List<ProjectLanguageUserDetail> userDetailsBefore,
+	    List<ProjectLanguageUserDetail> userDetailsAfter) {
+	userDetailsBefore.forEach(udBefore -> userDetailsAfter.forEach(udAfter -> {
+	    if (udBefore.getProjectLanguageUserDetailId().equals(udAfter.getProjectLanguageUserDetailId())) {
+		assertEquals(udBefore.getCompletedSubmissionCount(), udAfter.getCompletedSubmissionCount());
+		assertEquals(udBefore.getActiveSubmissionCount(), udAfter.getActiveSubmissionCount());
+	    }
+	}));
+    }
+
+    private List<ProjectLanguageUserDetail> getAllUserDetails() {
+	return getProjectLanguageUserDetailDAO().findAll();
+    }
+
+    private ProjectLanguageUserDetailDAO getProjectLanguageUserDetailDAO() {
+	return _projectLanguageUserDetailDAO;
+    }
+}

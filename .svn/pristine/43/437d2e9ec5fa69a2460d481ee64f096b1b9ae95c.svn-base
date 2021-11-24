@@ -1,0 +1,54 @@
+{
+    "translationUnits":[
+        {
+            "sourceTermUpdateCommands":[
+                
+            ],
+            "sourceTermMarkerId":"46dc99ce-9aaa-4a70-8f2a-2ea67e759d84",
+            "targetTermUpdateCommands":[
+                {
+                    "command":"add",
+                    "markerId":"c502608e-52fa-4e60-bd40-9aa63408f925",
+                    "parentMarkerId":"f067afd0-992a-4660-945f-264fc7ea8644",
+                    "subType":"",
+                    "type":"term",
+                    "value":"Mind Owner",
+                    "comment":""
+                },
+                {
+                    "command":"add",
+                    "markerId":"d502608e-52fa-4e60-bd40-9aa63408f925",
+                    "parentMarkerId":"c502608e-52fa-4e60-bd40-9aa63408f925",
+                    "subType":"customNote",
+                    "type":"note",
+                    "value":"Note Owner",
+                    "comment":""
+                },
+                {
+                    "command":"add",
+                    "markerId":"e502608e-52fa-4e60-bd40-9aa63408f925",
+                    "parentMarkerId":"c502608e-52fa-4e60-bd40-9aa63408f925",
+                    "subType":"customDescription",
+                    "type":"description",
+                    "value":"Desc Owner",
+                    "comment":""
+                }
+            ],
+            "sourceLanguage":{
+                "locale":"en-US"
+            },
+            "targetLanguage":{
+                "locale":"es-ES"
+            },
+            "sourceLanguageMarkerId":"",
+            "targetLanguageMarkerId":"f067afd0-992a-4660-945f-264fc7ea8644",
+            "termEntryMarkerId":"f067afd0-992a-4660-945f-264fc7ea8640",
+            "termEntryTicket":"4YESyxwCtA0+r+L/t0YMEsIQiCtVoqCI",
+            "workflowTicket":"",
+            "termTicket":"",
+            "comment":""
+        }
+    ],
+    "projectTicket":"4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+    "taskName":"add translation language"
+}

@@ -1,0 +1,94 @@
+{
+  "configuration": [
+    {
+      "classifier": "readyForTranslation",
+      "sendDailyMailNotification": false,
+      "sendWeeklyMailNotification": false,
+      "sendTaskMailNotification": false,
+      "displayDashboardNotification": false,
+      "notificationPriority": {
+        "notificationPriorityName": "NORMAL"
+      }
+    },
+    {
+      "classifier": "translationCanceled",
+      "sendDailyMailNotification": false,
+      "sendWeeklyMailNotification": false,
+      "sendTaskMailNotification": false,
+      "displayDashboardNotification": false,
+      "notificationPriority": {
+        "notificationPriorityName": "NORMAL"
+      }
+    },
+    {
+      "classifier": "translationCompleted",
+      "sendDailyMailNotification": false,
+      "sendWeeklyMailNotification": false,
+      "sendTaskMailNotification": false,
+      "displayDashboardNotification": false,
+      "notificationPriority": {
+        "notificationPriorityName": "NORMAL"
+      }
+    },
+    {
+      "classifier": "addedApprovedTerm",
+      "sendDailyMailNotification": false,
+      "sendWeeklyMailNotification": false,
+      "sendTaskMailNotification": false,
+      "displayDashboardNotification": false,
+      "notificationPriority": {
+        "notificationPriorityName": "NORMAL"
+      }
+    },
+    {
+      "classifier": "addedPendingTerm",
+      "sendDailyMailNotification": false,
+      "sendWeeklyMailNotification": false,
+      "sendTaskMailNotification": false,
+      "displayDashboardNotification": false,
+      "notificationPriority": {
+        "notificationPriorityName": "NORMAL"
+      }
+    },
+    {
+      "classifier": "approveTerm",
+      "sendDailyMailNotification": false,
+      "sendWeeklyMailNotification": false,
+      "sendTaskMailNotification": false,
+      "displayDashboardNotification": false,
+      "notificationPriority": {
+        "notificationPriorityName": "NORMAL"
+      }
+    },
+    {
+      "classifier": "deletedTerm",
+      "sendDailyMailNotification": false,
+      "sendWeeklyMailNotification": false,
+      "sendTaskMailNotification": false,
+      "displayDashboardNotification": false,
+      "notificationPriority": {
+        "notificationPriorityName": "NORMAL"
+      }
+    },
+    {
+      "classifier": "demoteTerm",
+      "sendDailyMailNotification": false,
+      "sendWeeklyMailNotification": false,
+      "sendTaskMailNotification": false,
+      "displayDashboardNotification": false,
+      "notificationPriority": {
+        "notificationPriorityName": "NORMAL"
+      }
+    },
+    {
+      "classifier": "editTerm",
+      "sendDailyMailNotification": false,
+      "sendWeeklyMailNotification": false,
+      "sendTaskMailNotification": false,
+      "displayDashboardNotification": false,
+      "notificationPriority": {
+        "notificationPriorityName": "NORMAL"
+      }
+    }
+  ]
+}

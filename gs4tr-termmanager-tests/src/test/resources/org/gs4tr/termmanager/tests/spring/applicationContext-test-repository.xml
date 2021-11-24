@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <bean id="repository"
+          class="org.gs4tr.foundation.modules.repository.jack.factory.JackRabbitRepositoryFactoryBean"
+          depends-on="jackRepositoryHomeDir, jackRepositoryConfigurationPath">
+        <property name="configurationPath" ref="jackRepositoryConfigurationPath"/>
+        <property name="homeDirPath" ref="jackRepositoryHomeDir"/>
+    </bean>
+
+    <bean id="jackRepositoryConfigurationPath"
+          class="org.gs4tr.foundation.modules.spring.EnvironmentResourcePathExtractor">
+        <property name="resource" value="environment:repository.xml"/>
+    </bean>
+    <bean id="jackRepositoryHomeDir"
+          class="org.gs4tr.foundation.modules.spring.EnvironmentResourcePathExtractor">
+        <property name="resource" value="environment:repository"/>
+    </bean>
+
+    <bean id="jcrOperations"
+          class="org.gs4tr.foundation.modules.repository.jack.jcr.CustomJcrTemplate" init-method="initialize">
+        <property name="repository" ref="repository"/>
+        <property name="credentials">
+            <bean class="javax.jcr.SimpleCredentials">
+                <constructor-arg index="0" value="bogus"/>
+                <constructor-arg index="1" value="password"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="repositoryManager"
+          class="org.gs4tr.foundation.modules.repository.jack.JackRabbitRepositoryManagerImpl">
+        <property name="jcrOperations" ref="jcrOperations"/>
+        <property name="chunkSize" value="${repository.chunkSize}"/>
+    </bean>
+
+</beans>

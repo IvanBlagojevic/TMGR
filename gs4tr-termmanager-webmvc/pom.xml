@@ -1,0 +1,121 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>org.gs4tr.termmanager</groupId>
+		<artifactId>gs4tr-termmanager</artifactId>
+		<version>5.5.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.gs4tr.termmanager</groupId>
+	<artifactId>gs4tr-termmanager-webmvc</artifactId>
+	<name>Term Manager Web MVC</name>
+
+	<properties>
+		<versionPackageName>org.gs4tr.termmanager.webmvc</versionPackageName>
+		<foundation.groupId>org.gs4tr.foundation</foundation.groupId>
+		<foundationModules.groupId>org.gs4tr.foundation.modules</foundationModules.groupId>
+		<spring.groupId>org.springframework</spring.groupId>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>gs4tr-termmanager-service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${foundationModules.groupId}</groupId>
+			<artifactId>gs4tr-foundation-modules-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${foundationModules.groupId}</groupId>
+			<artifactId>gs4tr-foundation-modules-mvc</artifactId>
+			<classifier>${foundation.modules.mvc.classifier}</classifier>
+		</dependency>
+		<dependency>
+			<groupId>${foundationModules.groupId}</groupId>
+			<artifactId>gs4tr-foundation-modules-configuration</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>${spring.groupId}</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${spring.groupId}</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${spring.groupId}</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${spring.groupId}</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${spring.groupId}</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore-osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient-osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>gs4tr.org.xmlpull</groupId>
+			<artifactId>org.xmlpull.v1</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

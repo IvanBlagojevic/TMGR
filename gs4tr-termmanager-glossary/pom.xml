@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>org.gs4tr.termmanager</groupId>
+		<artifactId>gs4tr-termmanager</artifactId>
+		<version>5.5.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.gs4tr.termmanager</groupId>
+	<artifactId>gs4tr-termmanager-glossary</artifactId>
+	<name>Term Manager Glossary Service</name>
+
+	<properties>
+		<versionPackageName>org.gs4tr.termmanager.glossary</versionPackageName>
+		<foundation.groupId>org.gs4tr.foundation</foundation.groupId>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${foundationModules.groupId}</groupId>
+			<artifactId>gs4tr-foundation-modules-usermanager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>gs4tr-termmanager-service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>gs4tr-termmanager-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${tm.groupId}</groupId>
+			<artifactId>gs4tr-tm3-commonlayer</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.gs4tr.tm</groupId>
+					<artifactId>gs4tr-tm3-penalizer</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>${tm.groupId}</groupId>
+			<artifactId>gs4tr-tm3-httpconnector</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>gs4tr.org.restlet</groupId>
+					<artifactId>org.restlet</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.gs4tr.tm</groupId>
+					<artifactId>gs4tr-tm3-commonlayer</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

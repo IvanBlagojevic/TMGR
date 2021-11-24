@@ -1,0 +1,17 @@
+package org.gs4tr.termmanager.service;
+
+import org.gs4tr.termmanager.service.solr.restore.model.RecodeOrCloneCommand;
+
+public interface CloneTermsService {
+
+    void cloneProjectDetail(RecodeOrCloneCommand command);
+
+    void cloneProjectLanguage(RecodeOrCloneCommand command);
+
+    void cloneProjectLanguageDetail(RecodeOrCloneCommand command);
+
+    void cloneProjectUserLanguage(RecodeOrCloneCommand command);
+
+    void cloneTerms(RecodeOrCloneCommand command);
+
+}

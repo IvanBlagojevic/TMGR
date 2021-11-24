@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-cache" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-cache/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-cache/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-dao/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-dao/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-glossary" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-glossary/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-glossary/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-io" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-io/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-io/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-migration" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-migration/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-migration/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-model/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-model/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-persistence" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-persistence/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-persistence/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-solr-plugin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-solr-plugin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-solr-plugin/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-tests" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-tests/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-webmvc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-webmvc/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-webmvc/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-webservice" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gs4tr-termmanager-webservice/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

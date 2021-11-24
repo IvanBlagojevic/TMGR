@@ -1,0 +1,12 @@
+{
+  "multipleTermEntriesMergeCommand": {
+    "projectTicket": "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+    "sourceLanguage": "en-US",
+    "termEntryTickets": [
+      "$matchedTermEntryId1",
+      "$matchedTermEntryId2",
+      "$matchedTermEntryId3",
+      "$matchedTermEntryId4"
+    ]
+  }
+}

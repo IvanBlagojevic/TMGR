@@ -1,0 +1,13 @@
+{
+	"approveCommands":[
+		{
+			"matchedTermEntryTicket":"$matchedTermEntryTicket",
+			"sourceLanguage":"$sourceLanguage",
+			"projectTicket":"$projectTicket",
+			"termIds":[
+				"$termId1",
+				"$termId2"
+			]
+		}
+	]
+}

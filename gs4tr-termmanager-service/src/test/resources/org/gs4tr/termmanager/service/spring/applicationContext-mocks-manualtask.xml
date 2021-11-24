@@ -1,0 +1,102 @@
+<beans xmlns:mockito="http://www.mockito.org/spring/mockito"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+              http://www.mockito.org/spring/mockito classpath:mockito.xsd">
+
+    <!-- SOLR connection manager -->
+    <mockito:mock id="glossaryConnectionManager"
+                  class="org.gs4tr.termmanager.service.solr.GlossaryConnectionManager"/>
+
+    <!-- Service -->
+    <mockito:mock id="StatisticsService"
+                  class="org.gs4tr.termmanager.service.impl.StatisticsServiceImpl"/>
+    <mockito:mock id="ImportTermService"
+                  class="org.gs4tr.termmanager.service.impl.ImportTermServiceImpl"/>
+    <mockito:mock id="NotificationReportService"
+                  class="org.gs4tr.termmanager.service.impl.NotificationReportServiceImpl"/>
+    <mockito:mock id="OrganizationService"
+                  class="org.gs4tr.termmanager.service.impl.OrganizationServiceImpl"/>
+    <mockito:mock id="PluginsService"
+                  class="org.gs4tr.termmanager.service.impl.PluginsServiceImpl"/>
+    <mockito:mock id="ProjectDetailService"
+                  class="org.gs4tr.termmanager.service.impl.ProjectDetailServiceImpl"/>
+    <mockito:mock id="ProjectLanguageDetailService"
+                  class="org.gs4tr.termmanager.service.impl.ProjectLanguageDetailServiceImpl"/>
+    <mockito:mock id="projectService"
+                  class="org.gs4tr.termmanager.service.ProjectService"/>
+    <mockito:mock id="RoleService"
+                  class="org.gs4tr.termmanager.service.impl.RoleServiceImpl"/>
+    <mockito:mock id="SetupService"
+                  class="org.gs4tr.termmanager.service.impl.SetupServiceImpl"/>
+    <mockito:mock id="SubmissionDetailViewService"
+                  class="org.gs4tr.termmanager.service.impl.SubmissionDetailViewServiceImpl"/>
+    <mockito:mock id="SubmissionLanguageDetailViewService"
+                  class="org.gs4tr.termmanager.service.impl.SubmissionLanguageDetailViewServiceImpl"/>
+    <mockito:mock id="SubmissionService"
+                  class="org.gs4tr.termmanager.service.impl.SubmissionServiceImpl"/>
+    <mockito:mock id="SubmissionTermService"
+                  class="org.gs4tr.termmanager.service.impl.SubmissionTermServiceImpl"/>
+    <mockito:mock id="TermEntryExporter"
+                  class="org.gs4tr.termmanager.service.impl.TermEntryExporterImpl"/>
+    <mockito:mock id="TermEntryService"
+                  class="org.gs4tr.termmanager.service.impl.TermEntryServiceImpl"/>
+    <mockito:mock id="TermService"
+                  class="org.gs4tr.termmanager.service.impl.TermServiceImpl"/>
+    <mockito:mock id="AdminTasksHolderHelper"
+                  class="org.gs4tr.termmanager.service.utils.AdminTasksHolderHelper"/>
+    <mockito:mock id="batchJobRegister"
+                  class="org.gs4tr.termmanager.service.batch.register.BatchJobRegister"/>
+    <mockito:mock id="batchJobExecutor"
+                  class="org.gs4tr.termmanager.service.batch.executor.BatchJobExecutor"/>
+    <mockito:mock id="exclusiveWriteLockManager"
+                  class="org.gs4tr.termmanager.service.lock.manager.ExclusiveWriteLockManager"/>
+    <mockito:mock id="ProjectDescriptionService"
+                  class="org.gs4tr.termmanager.service.impl.ProjectDescriptionServiceImpl"/>
+
+    <mockito:mock id="filesAnalysisRequestHandler"
+                  class="org.gs4tr.termmanager.service.file.analysis.FilesAnalysisRequestHandler"/>
+
+    <mockito:mock id="projectTerminologyCountsProvider"
+                  class="org.gs4tr.termmanager.service.project.terminology.counts.ProjectTerminologyCountsProvider"/>
+
+    <mockito:mock id="dbTermEntryService"
+                  class="org.gs4tr.termmanager.service.DbTermEntryService"/>
+    <mockito:mock id="dbSubmissionTermEntryService"
+                  class="org.gs4tr.termmanager.service.DbSubmissionTermEntryService"/>
+    <mockito:mock id="recodeTermsService"
+                  class="org.gs4tr.termmanager.service.RecodeTermsService"/>
+    <mockito:mock id="cloneTermsService"
+                  class="org.gs4tr.termmanager.service.CloneTermsService"/>
+    <mockito:mock id="regularBackupCleaner"
+                  class="org.gs4tr.termmanager.service.RegularBackupCleaner"/>
+    <mockito:mock id="submissionBackupCleaner"
+                  class="org.gs4tr.termmanager.service.SubmissionBackupCleaner"/>
+
+    <!-- Service notification -->
+    <mockito:mock id="MailConstants"
+                  class="org.gs4tr.termmanager.service.notification.MailConstants"/>
+    <mockito:mock id="NotificationData"
+                  class="org.gs4tr.termmanager.service.notification.NotificationData"/>
+    <mockito:mock id="NotificationProvider"
+                  class="org.gs4tr.termmanager.service.notification.NotificationProvider"/>
+    <mockito:mock id="TaskNotification"
+                  class="org.gs4tr.termmanager.service.notification.TaskNotification"/>
+
+    <mockito:mock id="repositoryManager"
+                  class="org.gs4tr.foundation.modules.repository.RepositoryManager"/>
+
+
+    <mockito:mock id="userProfileService"
+                  class="org.gs4tr.termmanager.service.UserProfileService"/>
+
+    <!-- email helper -->
+    <mockito:mock id="mailHelper"
+                  class="org.gs4tr.termmanager.service.utils.MailHelper"/>
+    <mockito:mock id="eMailMessageSender"
+                  class="org.gs4tr.foundation.modules.mail.EMailMessageSender"/>
+
+    <mockito:mock id="tLogHandler" class="org.gs4tr.termmanager.io.tlog.impl.TransactionLogHandler"/>
+    <mockito:mock id="persistentStoreHandler" class="org.gs4tr.termmanager.io.tlog.config.PersistentStoreHandler"/>
+
+</beans>

@@ -1,0 +1,42 @@
+{
+  "gridConfig": [
+    {
+      "sortable": true,
+      "sortProperty": "entity.organizationInfo.name",
+      "dataIndex": "organizationInfo.name",
+      "hidden": false,
+      "width": 277,
+      "headerKey": "name",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "parentOrganization.organizationInfo.name",
+      "dataIndex": "parentOrganization.organizationInfo.name",
+      "hidden": false,
+      "width": 274,
+      "headerKey": "parentOrganization",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "entity.organizationInfo.enabled",
+      "dataIndex": "organizationInfo.enabled",
+      "hidden": false,
+      "width": 50,
+      "headerKey": "enabled",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "entity.organizationInfo.name",
+      "dataIndex": "defaultSortProperty",
+      "hidden": true,
+      "width": 70,
+      "headerKey": "defaultSortProperty",
+      "systemHidden": true
+    }
+  ],
+  "sortProperty": "entity.organizationInfo.name",
+  "ascending": true
+}

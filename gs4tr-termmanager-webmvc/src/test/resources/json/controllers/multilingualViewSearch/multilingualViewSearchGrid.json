@@ -1,0 +1,159 @@
+{
+  "folder": "TERM_LIST",
+  "index": 0,
+  "size": 50,
+  "searchUserLatestChanges": false,
+  "filterSearch": [
+    {
+      "name": "creationUsers",
+      "values": [
+        {
+          "name": "creationUsers",
+          "values": [
+            "iblagojevic"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dateCreatedRange",
+      "values": [
+        {
+          "name": "fromDate",
+          "values": [
+            "1530020171988"
+          ]
+        },
+        {
+          "name": "toDate",
+          "values": [
+            "1530020171988"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dateModifiedRange",
+      "values": [
+        {
+          "name": "fromDate",
+          "values": [
+            "1530020171988"
+          ]
+        },
+        {
+          "name": "toDate",
+          "values": [
+            "1530020171988"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "entityType",
+      "values": [
+        {
+          "name": "searchIn",
+          "values": [
+            "TERM"
+          ]
+        },
+        {
+          "name": "include",
+          "values": [
+            "SOURCE",
+            "TARGET"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hideBlanks",
+      "values": [
+        {
+          "name": "hideBlanks",
+          "values": [
+            "fr-FR",
+            "ar"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "languageDirection",
+      "values": [
+        {
+          "name": "source",
+          "values": [
+            "en-US"
+          ]
+        },
+        {
+          "name": "target",
+          "values": [
+            "fr-FR",
+            "de-DE",
+            "es-ES"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "modificationUsers",
+      "values": [
+        {
+          "name": "modificationUsers",
+          "values": [
+            "iblagojevic"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "projectComboBox",
+      "values": [
+        {
+          "name": "projectComboBox",
+          "values": [
+            "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "termNameAndSearchType",
+      "values": [
+        {
+          "name": "term",
+          "values": [
+            "some term text"
+          ]
+        },
+        {
+          "name": "options",
+          "values": [
+            "DEFAULT"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "statuses",
+      "values": [
+        {
+          "name": "statuses",
+          "values": [
+            "PROCESSED",
+            "WAITING"
+          ]
+        }
+      ]
+    }
+  ],
+  "sorter": {
+    "ascending": true,
+    "sortProperty": "ar_termName_STRING_STORE_SORT"
+  },
+  "ascending": true,
+  "sortProperty": "ar_termName_STRING_STORE_SORT"
+}

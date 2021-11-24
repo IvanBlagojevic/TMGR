@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <context:component-scan base-package="org.gs4tr.termmanager.service.mail.schedule"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.service.schedule"/>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+          lazy-init="false" destroy-method="destroy">
+        <property name="triggers">
+            <list>
+                <ref bean="mailNotificationTrigger"/>
+                <ref bean="userInactivityCheckTrigger"/>
+            </list>
+        </property>
+        <property name="waitForJobsToCompleteOnShutdown" value="true"/>
+    </bean>
+
+
+    <bean id="mailNotificationTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="mailNotificationJob"/>
+        <property name="cronExpression" value="${schedule.notificationTriggerPeriod:0 0 0/1 * * ?}" />
+        <!-- <property name="cronExpression" value="0 0/1 * 1/1 * ? *" /> -->
+    </bean>
+
+    <bean id="mailNotificationJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="scheduledNotificationTaskHandler"/>
+        <property name="targetMethod" value="send"/>
+    </bean>
+
+    <!-- inactive users check START -->
+    <bean id="userInactivityCheckTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="userInactivityCheckJob"/>
+        <property name="cronExpression" value="${schedule.userInactivityCheckPeriod:0 55 23 * * ?}"/>
+    </bean>
+
+    <bean id="userInactivityCheckJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="userProfileInactivityCheckHandler"/>
+        <property name="targetMethod" value="disableInactiveUsers"/>
+    </bean>
+
+    <!-- inactive users check END -->
+
+</beans>

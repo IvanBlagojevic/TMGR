@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<bean id="notificationProvider"
+		class="org.gs4tr.termmanager.service.notification.NotificationProvider">
+		<property name="taskNotifications">
+			<map>
+				<entry key="NOTIFICATION_REPORT">
+					<bean class="org.gs4tr.termmanager.service.notification.TaskNotification">
+						<property name="mailTemplate" value="notificationReport" />
+					</bean>
+				</entry>
+				<entry key="READY_FOR_TRANSLATION">
+					<bean class="org.gs4tr.termmanager.service.notification.TaskNotification">
+						<property name="mailTemplate" value="readyForTranslation" />
+					</bean>
+				</entry>
+				<entry key="TRANSLATION_CANCELED">
+					<bean class="org.gs4tr.termmanager.service.notification.TaskNotification">
+						<property name="mailTemplate" value="translationCanceled" />
+					</bean>
+				</entry>
+				<entry key="TRANSLATION_COMPLETED">
+					<bean class="org.gs4tr.termmanager.service.notification.TaskNotification">
+						<property name="mailTemplate" value="translationCompleted" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>

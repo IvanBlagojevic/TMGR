@@ -1,0 +1,23 @@
+{
+	"folder":"SUBMISSIONTERMLIST",
+	"index":0,
+	"size":50,
+	"submissionTermLanguage":"$submissionTermLanguage",
+	"entityType":{
+		"value1":[
+			"TERM"
+		],
+		"value2":[
+			"SOURCE",
+			"TARGET"
+		]
+	},
+	"sourceLanguage":"$sourceLanguage",
+	"languageDirection":{
+		"value1":"$sourceLanguage",
+		"value2":[
+			"$submissionTermLanguage"
+		]
+	},
+	"submissionTicket":"$submissionTicket"
+}

@@ -1,0 +1,5 @@
+solr.zkhosts=localhost:9983
+solr.regular.terms.path=regular
+solr.submission.terms.path=submission
+solr.regularv2.terms.path=regularV2
+solr.submissionv2.terms.path=submissionV2

@@ -1,0 +1,16 @@
+{
+  "projectUnits":[
+    {
+      "projectTicket":"$projectTicket",
+      "languageId":"$languageId",
+      "terms":[
+        "$termName"
+      ],
+      "termEntryTickets":[
+        "$ticket1"
+      ]
+
+    }
+
+  ]
+}

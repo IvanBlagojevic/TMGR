@@ -1,0 +1,14 @@
+{
+  "projectLanguages": [
+    {
+      "language": {
+        "locale": "en-US"
+      }
+    },
+    {
+      "language": {
+        "locale": "de-DE"
+      }
+    }
+  ]
+}

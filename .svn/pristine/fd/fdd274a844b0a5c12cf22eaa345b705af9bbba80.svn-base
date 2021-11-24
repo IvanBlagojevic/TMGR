@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:component-scan base-package="org.gs4tr.termmanager.io"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.io.config"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.io.edd"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.io.edd.api"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.io.edd.handler"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.io.tlog.config"/>
+    <context:component-scan base-package="org.gs4tr.termmanager.io.tlog.impl"/>
+
+    <bean id="indexConfiguration"
+          class="org.gs4tr.termmanager.io.config.IndexConfiguration">
+        <constructor-arg index="0" type="java.io.File">
+            <value>environment:solrservice.properties</value>
+        </constructor-arg>
+    </bean>
+
+    <util:list id="processDataEventHandlers">
+        <bean id="solrUpdateHandler" class="org.gs4tr.termmanager.io.edd.handler.SolrUpdateHandler"/>
+        <bean id="backupUpdateHandler" class="org.gs4tr.termmanager.io.edd.handler.BackupUpdateHandler"/>
+    </util:list>
+
+    <util:list id="updateCountsEventHandlers">
+        <bean id="countsUpdateHandler" class="org.gs4tr.termmanager.io.edd.handler.CountsUpdateHandler"/>
+        <bean id="statisticsUpdateHandler" class="org.gs4tr.termmanager.io.edd.handler.StatisticsUpdateHandler"/>
+    </util:list>
+
+    <util:list id="revertCountsEventHandlers">
+        <bean id="countsRevertHandler" class="org.gs4tr.termmanager.io.edd.handler.CountsRevertHandler"/>
+    </util:list>
+
+    <util:list id="revertDataEventHandlers">
+        <bean id="solrRevertHandler" class="org.gs4tr.termmanager.io.edd.handler.SolrRevertHandler"/>
+    </util:list>
+
+    <bean id="handlersMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map key-type="java.lang.Class" value-type="java.util.ArrayList">
+                <entry key="org.gs4tr.termmanager.io.edd.event.ProcessDataEvent" value-ref="processDataEventHandlers"/>
+                <entry key="org.gs4tr.termmanager.io.edd.event.RevertDataEvent" value-ref="revertDataEventHandlers"/>
+                <entry key="org.gs4tr.termmanager.io.edd.event.UpdateCountEvent" value-ref="updateCountsEventHandlers"/>
+                <entry key="org.gs4tr.termmanager.io.edd.event.RevertCountEvent" value-ref="revertCountsEventHandlers"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+</beans>

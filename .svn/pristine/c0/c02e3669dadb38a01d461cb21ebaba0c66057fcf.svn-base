@@ -1,0 +1,99 @@
+package org.gs4tr.termmanager.tests;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.gs4tr.termmanager.model.Attribute;
+import org.gs4tr.termmanager.model.TaskModel;
+import org.gs4tr.termmanager.model.glossary.Description;
+import org.gs4tr.termmanager.model.glossary.Term;
+import org.gs4tr.termmanager.service.manualtask.ManualTaskHandler;
+import org.gs4tr.termmanager.service.utils.JsonUtils;
+import org.gs4tr.termmanager.tests.model.TestCase;
+import org.gs4tr.termmanager.tests.model.TestSuite;
+import org.junit.Assert;
+import org.junit.Test;
+
+@TestSuite("assign_project_attributes")
+public class AssignProjectAttributesTaskHandlerTest extends AbstractSolrGlossaryTest {
+
+    @Test
+    @TestCase("get_task_infos")
+    public void assignAttributesGetTest() throws Exception {
+	ManualTaskHandler taskHandler = getHandler("assign project attributes");
+
+	TaskModel[] taskInfos = taskHandler.getTaskInfos(new Long[] { new Long(1), new Long(1) },
+		"assign project attributes", null);
+
+	String result = JsonUtils.writeValueAsString(taskInfos);
+
+	System.out.println(result);
+
+	assertJSONResponse(result, "assingProjectAttributes.json");
+    }
+
+    @Test
+    @TestCase("process_tasks")
+    public void assignAttributesProcessTasksTest() throws Exception {
+	ManualTaskHandler taskHandler = getHandler("assign project attributes");
+
+	String renameValue = "definition";
+
+	Object command = getTaskHandlerCommand(taskHandler, "assingProjectAttributes.json",
+		new String[] { "$renameValue", renameValue });
+
+	Long projectId = 1L;
+
+	Long[] taskIds = { projectId };
+
+	taskHandler.processTasks(null, taskIds, command, null);
+
+	List<Long> projectIds = Arrays.asList(taskIds);
+
+	Map<Long, List<Attribute>> projectAttributes = getProjectService().findAttributesByProjectId(projectIds);
+
+	Assert.assertTrue(!projectAttributes.isEmpty());
+
+	List<Attribute> attributes = projectAttributes.get(projectId);
+
+	boolean flag = false;
+	for (Attribute attribute : attributes) {
+	    if (renameValue.equals(attribute.getName())) {
+		flag = true;
+		break;
+	    }
+	}
+
+	Assert.assertTrue(flag);
+
+	Term term = getTermService().findTermById(TERM_ID_01, projectId);
+
+	Set<Description> descriptions = term.getDescriptions();
+	CollectionUtils.filter(descriptions, new Predicate() {
+	    @Override
+	    public boolean evaluate(Object item) {
+		Description description = (Description) item;
+		if (description.getBaseType().equals(Description.ATTRIBUTE)) {
+		    return true;
+		}
+		return false;
+	    }
+	});
+
+	Assert.assertTrue(CollectionUtils.isNotEmpty(descriptions));
+
+	flag = false;
+	for (Description description : descriptions) {
+	    if (renameValue.equals(description.getType())) {
+		flag = true;
+		break;
+	    }
+	}
+
+	Thread.sleep(500);
+    }
+}

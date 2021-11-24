@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <!--For ws testing purpose, we are using exact security setup as the application will use in production.
+        I am not using the exact security applicationContext(applicationContext-webservice-security.xml is the copy
+        of applicationContext-mvc-security.xml) because applicationContext-mvc-security.xml is not reachable.  -->
+
+    <!-- regex which contains all patterns which should be matched against CSRF filter -->
+    <bean id="includedCSRFRequestMatcher"
+          class="org.springframework.security.web.util.matcher.RegexRequestMatcher">
+        <constructor-arg name="pattern"
+                         value="\/(?!processLogin.gs4tr|loginForm.gs4tr.*|login.gs4tr|login|theme.json|uiLog.gs4tr|passwordReset.gs4tr|initializeUser.ter|changeUserPassword.gs4tr|internal.*).*"/>
+        <constructor-arg name="httpMethod" value="POST"/>
+    </bean>
+
+    <!-- url patterns which should be excluded from security search -->
+    <bean id="excludedSecurityRequestMatcher"
+          class="org.springframework.security.web.util.matcher.OrRequestMatcher">
+        <constructor-arg type="java.util.List">
+            <list value-type="org.springframework.security.web.util.matcher.RequestMatcher">
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/loginForm.gs4tr*"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/resources/**"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/classic*/**"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/modern*/**"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/server_error.html"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/robots.txt"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/forgotPasswordForm.gs4tr"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/*.json"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/uiLog.gs4tr*"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/favicon.ico"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/passwordReset.gs4tr*"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/v2/glossary/**"/>
+                </bean>
+
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/v2/blacklist/**"/>
+                </bean>
+                <bean
+                        class=" org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="/rest/**"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+</beans>

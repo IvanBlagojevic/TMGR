@@ -1,0 +1,8 @@
+{
+	"text":"$commentText",
+	"submissionTicket":"$submissionTicket",
+	"termTickets":[
+		"$ticket1",
+		"$ticket2"
+	]
+}

@@ -1,0 +1,14 @@
+{
+    "projectTicket":"4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+    "sourceLanguage":{
+        "locale":"en-US"
+    },
+    "targetLanguages":[
+        {
+            "locale":"fr-FR"
+        },
+        {
+            "locale":"de-DE"
+        }
+    ]
+}

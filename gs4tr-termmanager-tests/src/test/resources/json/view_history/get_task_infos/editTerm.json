@@ -1,0 +1,44 @@
+{
+    "translationUnits":[
+        {
+            "sourceTermUpdateCommands":[
+                
+            ],
+            "sourceTermMarkerId":"46dc99ce-9aaa-4a70-8f2a-2ea67e759d84",
+            "targetTermUpdateCommands":[
+                {
+                    "command":"update",
+                    "markerId":"46dc99ce-9aaa-4a70-8f2a-2ea67e759d84",
+                    "parentMarkerId":"",
+                    "subType":"",
+                    "type":"term",
+                    "value":"junior suites plus",
+                    "comment":""
+                },
+                {
+                    "command":"add",
+                    "markerId":"4a87a042-e4a2-4db6-b868-174d36c8ae59",
+                    "parentMarkerId":"46dc99ce-9aaa-4a70-8f2a-2ea67e759d84",
+                    "subType":"context",
+                    "type":"description",
+                    "value":"assaas"
+                }
+            ],
+            "sourceLanguage":{
+                
+            },
+            "targetLanguage":{
+                
+            },
+            "sourceLanguageMarkerId":"",
+            "targetLanguageMarkerId":"",
+            "termEntryMarkerId":"",
+            "termEntryTicket":"4YESyxwCtA0+r+L/t0YMEsIQiCtVoqCI",
+            "workflowTicket":null,
+            "termTicket":"4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+            "comment":""
+        }
+    ],
+    "projectTicket":"4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+    "taskName":"edit term"
+}

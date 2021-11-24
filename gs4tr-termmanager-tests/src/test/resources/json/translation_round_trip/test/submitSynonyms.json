@@ -1,0 +1,31 @@
+{
+	"submissionMarkerId":"$submissionMarkerId",
+	"submissionName":"$submissionName",
+	"reviewRequired":"true",
+	"projectTicket":"$projectTicket",
+	"sourceLanguage":"en-US",
+	"sourceTermTickets":[
+		"$sourceTermTicket"
+	],
+	"translationUnits":[
+		{
+			"updateCommands":[
+				{
+					"command":"review",
+					"markerId":"$termMarkerId1",
+					"type":"term",
+					"assignee":"generic1"
+				},
+				{
+					"command":"review",
+					"markerId":"$termMarkerId2",
+					"type":"term",
+					"assignee":"generic1"
+				}
+			],
+			"projectTicket":"$projectTicket",
+			"termEntryTicket":"$termEntryTicket"
+		}
+		
+	]
+}

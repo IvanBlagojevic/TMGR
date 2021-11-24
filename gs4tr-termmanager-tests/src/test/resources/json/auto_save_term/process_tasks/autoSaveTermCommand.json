@@ -1,0 +1,9 @@
+{
+	"autoSaveCommands":[
+		{
+			"term":"true",
+			"text":"$termText",
+			"entityTicket":"$termTicket"
+		}
+	]
+}

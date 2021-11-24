@@ -1,0 +1,367 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
+CREATE INDEX PROJECT_ID_IDX ON TM_TERMENTRY (PROJECT_ID);
+
+DELETE
+FROM
+	TM_TERMENTRY_DESCRIPTION
+WHERE
+	TM_TERMENTRY_DESCRIPTION.TERMENTRY_ID IN (
+		SELECT
+			TM_TERMENTRY.TERMENTRY_ID
+		FROM
+			TM_TERMENTRY
+		WHERE
+			TM_TERMENTRY.PROJECT_ID IN (
+				2,
+				78,
+				109,
+				139,
+				152,
+				171,
+				595,
+				641,
+				702,
+				760,
+				777,
+				778,
+				779,
+				807,
+				808,
+				811,
+				812,
+				869,
+				938,
+				974,
+				1204,
+				1315,
+				1434,
+				1435,
+				1704,
+				1772,
+				1773,
+				1858,
+				1919,
+				2180,
+				2232
+			)
+	);
+
+DELETE
+FROM
+	TM_TERM_HISTORY
+WHERE
+	TM_TERM_HISTORY.TERMENTRY_HISTORY_ID IN (
+		SELECT
+			TM_TERMENTRY_HISTORY.TERMENTRY_HISTORY_ID
+		FROM
+			TM_TERMENTRY_HISTORY
+		INNER JOIN TM_TERMENTRY ON TM_TERMENTRY.TERMENTRY_ID = TM_TERMENTRY_HISTORY.TERMENTRY_ID
+		WHERE
+			TM_TERMENTRY.PROJECT_ID IN (
+				2,
+				78,
+				109,
+				139,
+				152,
+				171,
+				595,
+				641,
+				702,
+				760,
+				777,
+				778,
+				779,
+				807,
+				808,
+				811,
+				812,
+				869,
+				938,
+				974,
+				1204,
+				1315,
+				1434,
+				1435,
+				1704,
+				1772,
+				1773,
+				1858,
+				1919,
+				2180,
+				2232
+			)
+	);
+
+DELETE
+FROM
+	TM_TERMENTRY_HISTORY
+WHERE
+	TM_TERMENTRY_HISTORY.TERMENTRY_ID IN (
+		SELECT
+			TM_TERMENTRY.TERMENTRY_ID
+		FROM
+			TM_TERMENTRY
+		WHERE
+			TM_TERMENTRY.PROJECT_ID IN (
+				2,
+				78,
+				109,
+				139,
+				152,
+				171,
+				595,
+				641,
+				702,
+				760,
+				777,
+				778,
+				779,
+				807,
+				808,
+				811,
+				812,
+				869,
+				938,
+				974,
+				1204,
+				1315,
+				1434,
+				1435,
+				1704,
+				1772,
+				1773,
+				1858,
+				1919,
+				2180,
+				2232
+			)
+	);
+
+DELETE
+FROM
+	TM_TERM_DESCRIPTION
+WHERE
+	TM_TERM_DESCRIPTION.TERM_ID IN (
+		SELECT
+			TM_TERM.TERM_ID
+		FROM
+			TM_TERM
+		INNER JOIN TM_TERMENTRY ON TM_TERMENTRY.TERMENTRY_ID = TM_TERM.TERMENTRY_ID
+		WHERE
+			TM_TERMENTRY.PROJECT_ID IN (
+				2,
+				78,
+				109,
+				139,
+				152,
+				171,
+				595,
+				641,
+				702,
+				760,
+				777,
+				778,
+				779,
+				807,
+				808,
+				811,
+				812,
+				869,
+				938,
+				974,
+				1204,
+				1315,
+				1434,
+				1435,
+				1704,
+				1772,
+				1773,
+				1858,
+				1919,
+				2180,
+				2232
+			)
+	);
+
+DELETE
+FROM
+	TM_TERM
+WHERE
+	TM_TERM.TERMENTRY_ID IN (
+		SELECT
+			TM_TERMENTRY.TERMENTRY_ID
+		FROM
+			TM_TERMENTRY
+		WHERE
+			TM_TERMENTRY.PROJECT_ID IN (
+				2,
+				78,
+				109,
+				139,
+				152,
+				171,
+				595,
+				641,
+				702,
+				760,
+				777,
+				778,
+				779,
+				807,
+				808,
+				811,
+				812,
+				869,
+				938,
+				974,
+				1204,
+				1315,
+				1434,
+				1435,
+				1704,
+				1772,
+				1773,
+				1858,
+				1919,
+				2180,
+				2232
+			)
+	);
+
+DELETE
+FROM
+	TM_TERMENTRY
+WHERE
+	TM_TERMENTRY.PROJECT_ID IN (
+		2,
+		78,
+		109,
+		139,
+		152,
+		171,
+		595,
+		641,
+		702,
+		760,
+		777,
+		778,
+		779,
+		807,
+		808,
+		811,
+		812,
+		869,
+		938,
+		974,
+		1204,
+		1315,
+		1434,
+		1435,
+		1704,
+		1772,
+		1773,
+		1858,
+		1919,
+		2180,
+		2232
+	);
+
+UPDATE TM_PROJECT_DETAIL
+SET TM_PROJECT_DETAIL.TERMENTRY_COUNT = 0,
+ TM_PROJECT_DETAIL.TERM_COUNT = 0,
+ TM_PROJECT_DETAIL.APPROVE_TERM_COUNT = 0,
+ TM_PROJECT_DETAIL.FORBIDDEN_TERM_COUNT = 0
+WHERE
+	TM_PROJECT_DETAIL.PROJECT_ID IN (
+		SELECT
+			TM_PROJECT.PROJECT_ID
+		FROM
+			TM_PROJECT
+		WHERE
+			TM_PROJECT.PROJECT_ID IN (
+				2,
+				78,
+				109,
+				139,
+				152,
+				171,
+				595,
+				641,
+				702,
+				760,
+				777,
+				778,
+				779,
+				807,
+				808,
+				811,
+				812,
+				869,
+				938,
+				974,
+				1204,
+				1315,
+				1434,
+				1435,
+				1704,
+				1772,
+				1773,
+				1858,
+				1919,
+				2180,
+				2232
+			)
+	);
+
+UPDATE TM_PROJECT_LANGUAGE_DETAIL
+SET TM_PROJECT_LANGUAGE_DETAIL.APPROVE_TERM_COUNT = 0,
+ TM_PROJECT_LANGUAGE_DETAIL.FORBIDDEN_TERM_COUNT = 0,
+ TM_PROJECT_LANGUAGE_DETAIL.TERMENTRY_COUNT = 0,
+ TM_PROJECT_LANGUAGE_DETAIL.TERM_COUNT = 0
+WHERE
+	TM_PROJECT_LANGUAGE_DETAIL.PROJECT_DETAIL_ID IN (
+		SELECT
+			TM_PROJECT_DETAIL.PROJECT_DETAIL_ID
+		FROM
+			TM_PROJECT_DETAIL
+		INNER JOIN TM_PROJECT ON TM_PROJECT.PROJECT_ID = TM_PROJECT_DETAIL.PROJECT_ID
+		WHERE
+			TM_PROJECT.PROJECT_ID IN (
+				2,
+				78,
+				109,
+				139,
+				152,
+				171,
+				595,
+				641,
+				702,
+				760,
+				777,
+				778,
+				779,
+				807,
+				808,
+				811,
+				812,
+				869,
+				938,
+				974,
+				1204,
+				1315,
+				1434,
+				1435,
+				1704,
+				1772,
+				1773,
+				1858,
+				1919,
+				2180,
+				2232
+			)
+	);
+
+ALTER TABLE TM_TERMENTRY DROP INDEX PROJECT_ID_IDX;
+
+SET FOREIGN_KEY_CHECKS = 1;

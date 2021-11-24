@@ -1,0 +1,7 @@
+{
+  "folder": "PROJECTDETAILS",
+  "index": 0,
+  "size": 50,
+  "ascending": true,
+  "sortProperty": "project.projectInfo.name"
+}

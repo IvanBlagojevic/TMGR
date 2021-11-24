@@ -1,0 +1,164 @@
+{
+  "folder": "TERM_LIST",
+  "index": 0,
+  "size": 50,
+  "searchUserLatestChanges": false,
+  "filterSearch": [
+    {
+      "name": "entityType",
+      "values": [
+        {
+          "name": "searchIn",
+          "values": [
+            "TERM"
+          ]
+        },
+        {
+          "name": "include",
+          "values": [
+            "SOURCE",
+            "TARGET"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "languageDirection",
+      "values": [
+        {
+          "name": "source",
+          "values": [
+            "en-US"
+          ]
+        },
+        {
+          "name": "target",
+          "values": [
+            "fr-FR",
+            "de-DE",
+            "it-IT",
+            "es-ES"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "projectComboBox",
+      "values": [
+        {
+          "name": "projectComboBox",
+          "values": [
+            "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+            "4YESyxwCtA1Wj8ujUmCA18npTWF1uD/q"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "creationUsers",
+      "values": [
+        {
+          "name": "creationUsers",
+          "values": [
+            "jjevtic"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dateCreatedRange",
+      "values": [
+        {
+          "name": "fromDate",
+          "values": [
+            "1544482800000"
+          ]
+        },
+        {
+          "name": "toDate",
+          "values": [
+            "1544828340000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dateModifiedRange",
+      "values": [
+        {
+          "name": "fromDate",
+          "values": [
+            "1544569200000"
+          ]
+        },
+        {
+          "name": "toDate",
+          "values": [
+            "1544828340000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "modificationUsers",
+      "values": [
+        {
+          "name": "modificationUsers",
+          "values": [
+            "jjevtic",
+            "inikolic"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "termNameAndSearchType",
+      "values": [
+        {
+          "name": "term",
+          "values": [
+            "account"
+          ]
+        },
+        {
+          "name": "options",
+          "values": [
+            "DEFAULT"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "statuses",
+      "values": [
+        {
+          "name": "statuses",
+          "values": [
+            "PROCESSED",
+            "WAITING",
+            "MISSINGTRANSLATION",
+            "INFINALREVIEW"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hideBlanks",
+      "values": [
+        {
+          "name": "hideBlanks",
+          "values": [
+            "en-US",
+            "de-DE"
+          ]
+        }
+      ]
+    }
+  ],
+  "sorter": {
+    "ascending": true,
+    "sortProperty": "ar_termName_STRING_STORE_SORT"
+  },
+  "ascending": true,
+  "sortProperty": "ar_termName_STRING_STORE_SORT"
+}

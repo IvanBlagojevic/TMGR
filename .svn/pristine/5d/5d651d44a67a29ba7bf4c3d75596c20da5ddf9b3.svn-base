@@ -1,0 +1,320 @@
+package org.gs4tr.termmanager.webservice.controllers;
+
+import static com.google.common.collect.Sets.newHashSet;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonList;
+import static java.util.Collections.singletonMap;
+import static org.gs4tr.foundation.modules.organization.model.BaseOrganizationPolicyEnum.POLICY_FOUNDATION_ORGANIZATION_VIEW;
+import static org.gs4tr.foundation.modules.project.model.BaseProjectPolicyEnum.POLICY_FOUNDATION_PROJECT_VIEW;
+import static org.gs4tr.foundation.modules.security.model.SecurityPolicyEnum.POLICY_FOUNDATION_SECURITY_ROLE_VIEW;
+import static org.gs4tr.foundation.modules.usermanager.model.UserManagerPolicyEnum.POLICY_FOUNDATION_USERPROFILE_VIEW;
+import static org.gs4tr.foundation.modules.webmvc.test.utils.RequestHelper.createRequest;
+import static org.gs4tr.foundation.modules.webmvc.test.utils.RequestHelper.sendRecieve;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.eclipse.jetty.http.HttpTester.Request;
+import org.eclipse.jetty.http.HttpTester.Response;
+import org.eclipse.jetty.server.LocalConnector;
+import org.gs4tr.foundation.locale.Locale;
+import org.gs4tr.foundation.modules.entities.model.OrganizationInfo;
+import org.gs4tr.foundation.modules.entities.model.ProjectInfo;
+import org.gs4tr.foundation.modules.entities.model.UserInfo;
+import org.gs4tr.foundation.modules.entities.model.UserTypeEnum;
+import org.gs4tr.foundation.modules.security.model.Policy;
+import org.gs4tr.foundation.modules.security.model.Role;
+import org.gs4tr.foundation.modules.security.model.RoleTypeEnum;
+import org.gs4tr.foundation.modules.usermanager.model.AbstractUserProfile;
+import org.gs4tr.foundation.modules.usermanager.service.SessionService;
+import org.gs4tr.foundation.modules.usermanager.service.security.DefaultUserDetails;
+import org.gs4tr.foundation.modules.webmvc.test.AbstractJettyTest;
+import org.gs4tr.foundation.modules.webmvc.test.annotations.ClientBean;
+import org.gs4tr.foundation.modules.webmvc.test.annotations.Connector;
+import org.gs4tr.foundation.modules.webmvc.test.annotations.MvcTestConfig;
+import org.gs4tr.foundation.modules.webmvc.test.runner.JettyJunit4ClassRunner;
+import org.gs4tr.termmanager.model.FolderPolicy;
+import org.gs4tr.termmanager.model.ProjectDetail;
+import org.gs4tr.termmanager.model.ProjectPolicyEnum;
+import org.gs4tr.termmanager.model.ProjectUserLanguage;
+import org.gs4tr.termmanager.model.TmOrganization;
+import org.gs4tr.termmanager.model.TmPolicyEnum;
+import org.gs4tr.termmanager.model.TmProject;
+import org.gs4tr.termmanager.model.TmUserProfile;
+import org.gs4tr.termmanager.model.search.ItemFolderEnum;
+import org.gs4tr.termmanager.service.ImportTermService;
+import org.gs4tr.termmanager.service.ProjectService;
+import org.gs4tr.termmanager.service.StatisticsService;
+import org.gs4tr.termmanager.service.TermEntryService;
+import org.gs4tr.termmanager.service.UserProfileService;
+import org.gs4tr.termmanager.webservice.model.request.LoginCommand;
+import org.junit.After;
+import org.junit.runner.RunWith;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
+@RunWith(JettyJunit4ClassRunner.class)
+@MvcTestConfig
+public abstract class AbstractWebServiceTest extends AbstractJettyTest {
+
+    private static final Boolean ACCOUNT_NON_EXPIRED = true;
+
+    private static final Boolean ACCOUNT_NON_LOCKED = true;
+
+    private static final String DEFAULT_PASSWORD = "sumadija01!";
+
+    protected static final String DEFAULT_USERNAME = "blagojevic";
+
+    static final String SECURITY_TICKET_KEY = "securityTicket";
+
+    @ClientBean
+    private ImportTermService _importTermService;
+
+    @Connector
+    private LocalConnector _localConnector;
+
+    @ClientBean
+    private PasswordEncoder _passwordEncoder;
+
+    @ClientBean
+    private ProjectService _projectService;
+
+    // Security ticket which is used for all subsequent requests.
+    private String _securityTicket;
+
+    @ClientBean
+    private SessionService _sessionService;
+
+    @ClientBean
+    private StatisticsService _statisticsService;
+
+    @ClientBean
+    private TermEntryService _termEntyService;
+
+    @ClientBean
+    private UserProfileService _userProfileService;
+
+    protected static String ROLE_ID = "system_super_user";
+
+    protected static UserTypeEnum USER_TYPE_ENUM = UserTypeEnum.ORGANIZATION;
+
+    @Override
+    public void beforeTest() throws Exception {
+	super.beforeTest();
+	setUserRoleAndType("system_super_user", UserTypeEnum.ORGANIZATION);
+	if (isLoginRequired()) {
+	    loginBeforeTest();
+	}
+    }
+
+    public StatisticsService getStatisticsService() {
+	return _statisticsService;
+    }
+
+    @After
+    public void resetMocks() {
+	reset(getTermEntyService());
+    }
+
+    private List<FolderPolicy> createAdminFolderPolicies() {
+	List<FolderPolicy> policies = new ArrayList<>(4);
+	policies.add(new FolderPolicy(ItemFolderEnum.USERS, POLICY_FOUNDATION_USERPROFILE_VIEW.name()));
+	policies.add(new FolderPolicy(ItemFolderEnum.PROJECTS, POLICY_FOUNDATION_PROJECT_VIEW.name()));
+	policies.add(new FolderPolicy(ItemFolderEnum.ORGANIZATIONS, POLICY_FOUNDATION_ORGANIZATION_VIEW.name()));
+	policies.add(new FolderPolicy(ItemFolderEnum.SECURITY, POLICY_FOUNDATION_SECURITY_ROLE_VIEW.name()));
+	return policies;
+    }
+
+    private List<FolderPolicy> createFolderPolicies() {
+	List<FolderPolicy> policies = new ArrayList<>(4);
+	policies.add(new FolderPolicy(ItemFolderEnum.PROJECTDETAILS, TmPolicyEnum.POLICY_TM_MENU_TERMS.name()));
+	policies.add(new FolderPolicy(ItemFolderEnum.TERM_LIST, TmPolicyEnum.POLICY_TM_MENU_TERMS.name()));
+	policies.add(new FolderPolicy(ItemFolderEnum.SUBMISSIONDETAILS,
+		TmPolicyEnum.POLICY_TM_VIEW_TRANSLATOR_INBOX.name()));
+	policies.add(new FolderPolicy(ItemFolderEnum.SUBMISSIONTERMLIST,
+		TmPolicyEnum.POLICY_TM_VIEW_TRANSLATOR_INBOX.name()));
+	return policies;
+    }
+
+    private Policy createPolicy(String policyId, RoleTypeEnum policyType, String category) {
+	Policy termEntryImportPolicy = new Policy();
+	termEntryImportPolicy.setPolicyId(policyId);
+	termEntryImportPolicy.setPolicyType(policyType);
+	termEntryImportPolicy.setCategory(category);
+	return termEntryImportPolicy;
+    }
+
+    private Role createSuperUserRole() {
+	final Role superUserRole = new Role();
+	superUserRole.setRoleId("super_user");
+	superUserRole.setRoleType(RoleTypeEnum.CONTEXT);
+	superUserRole.setGeneric(Boolean.TRUE);
+
+	Set<Policy> policies = new HashSet<>(5);
+
+	Policy termEntryImportPolicy = createPolicy(ProjectPolicyEnum.POLICY_TM_TERMENTRY_IMPORT.toString(),
+		RoleTypeEnum.CONTEXT, "Task");
+	Policy termEntryExportPolicy = createPolicy(ProjectPolicyEnum.POLICY_TM_TERMENTRY_EXPORT.toString(),
+		RoleTypeEnum.CONTEXT, "Task");
+	Policy addApprovedTermPolicy = createPolicy(ProjectPolicyEnum.POLICY_TM_TERM_ADD_APPROVED_TERM.toString(),
+		RoleTypeEnum.CONTEXT, "Task");
+	Policy addPendingTermPolicy = createPolicy(ProjectPolicyEnum.POLICY_TM_TERM_ADD_PENDING_TERM.toString(),
+		RoleTypeEnum.CONTEXT, "Task");
+	Policy approveTermStatusPolicy = createPolicy(ProjectPolicyEnum.POLICY_TM_TERM_APPROVE_TERM_STATUS.toString(),
+		RoleTypeEnum.CONTEXT, "Task");
+
+	policies.add(termEntryImportPolicy);
+	policies.add(termEntryExportPolicy);
+	policies.add(addApprovedTermPolicy);
+	policies.add(addPendingTermPolicy);
+	policies.add(approveTermStatusPolicy);
+
+	superUserRole.setPolicies(policies);
+
+	return superUserRole;
+    }
+
+    private Role createSystemSuperUserRole() {
+	final Role systemSuperUserRole = new Role();
+	systemSuperUserRole.setRoleId(ROLE_ID);
+	systemSuperUserRole.setRoleType(RoleTypeEnum.SYSTEM);
+
+	Set<Policy> policies = new HashSet<>(2);
+
+	policies.add(createPolicy(TmPolicyEnum.POLICY_TM_MENU_TERMS.name(), RoleTypeEnum.SYSTEM, "Task"));
+	policies.add(createPolicy(TmPolicyEnum.POLICY_TM_VIEW_TRANSLATOR_INBOX.name(), RoleTypeEnum.SYSTEM, "Task"));
+
+	systemSuperUserRole.setPolicies(policies);
+
+	return systemSuperUserRole;
+    }
+
+    private PasswordEncoder getPasswordEncoder() {
+	return _passwordEncoder;
+    }
+
+    private TmUserProfile initializeUser(TmProject project) {
+	UserInfo userInfo = new UserInfo();
+	userInfo.setUserName(DEFAULT_USERNAME);
+	userInfo.setPassword(getPasswordEncoder().encode(DEFAULT_PASSWORD));
+	userInfo.setUserType(USER_TYPE_ENUM);
+	userInfo.setAccountNonExpired(ACCOUNT_NON_EXPIRED);
+	userInfo.setAccountNonLocked(ACCOUNT_NON_LOCKED);
+
+	TmUserProfile userProfile = new TmUserProfile();
+	userProfile.setUserProfileId(Long.valueOf(1));
+	userProfile.setUserInfo(userInfo);
+
+	ProjectUserLanguage englishLanguage = new ProjectUserLanguage(project, userProfile, Locale.US.getCode());
+	ProjectUserLanguage germanyLanguage = new ProjectUserLanguage(project, userProfile, Locale.GERMANY.getCode());
+
+	List<ProjectUserLanguage> languages = Arrays.asList(englishLanguage, germanyLanguage);
+
+	initializeUserPolicies(userProfile, languages);
+
+	return userProfile;
+    }
+
+    private void initializeUserPolicies(TmUserProfile userProfile, List<ProjectUserLanguage> languages) {
+	Map<Long, List<Role>> roles = singletonMap(Long.valueOf(1), singletonList(createSuperUserRole()));
+	userProfile.setSystemRoles(newHashSet(createSystemSuperUserRole()));
+
+	List<FolderPolicy> folderPolicies = createFolderPolicies(), adminFolderPolicies = createAdminFolderPolicies();
+
+	userProfile.initializeOrganizationUser(roles, folderPolicies, adminFolderPolicies, languages, emptyList());
+    }
+
+    static Request createJsonRequest(String mapping, String requestContent) {
+	Request request = createRequest(mapping, null, HttpMethod.POST, APPLICATION_JSON_VALUE, null, emptyMap());
+	request.setContent(requestContent);
+	return request;
+    }
+
+    ImportTermService getImportTermService() {
+	return _importTermService;
+    }
+
+    LocalConnector getLocalConnector() {
+	return _localConnector;
+    }
+
+    ProjectService getProjectService() {
+	return _projectService;
+    }
+
+    String getSecurityTicket() {
+	return _securityTicket;
+    }
+
+    SessionService getSessionService() {
+	return _sessionService;
+    }
+
+    TermEntryService getTermEntyService() {
+	return _termEntyService;
+    }
+
+    UserProfileService getUserProfileService() {
+	return _userProfileService;
+    }
+
+    boolean isLoginRequired() {
+	return true;
+    }
+
+    protected void loginBeforeTest() throws IOException {
+	OrganizationInfo organizationInfo = new OrganizationInfo();
+	TmOrganization tmOrganization = new TmOrganization();
+	tmOrganization.setOrganizationId(Long.valueOf(1));
+	tmOrganization.setOrganizationInfo(organizationInfo);
+
+	TmProject project = new TmProject();
+	project.setProjectId(Long.valueOf(1));
+	project.setOrganization(tmOrganization);
+	project.setProjectDetail(new ProjectDetail());
+	ProjectInfo projectInfo = new ProjectInfo();
+	projectInfo.setEnabled(true);
+	project.setProjectInfo(projectInfo);
+
+	TmUserProfile userProfile = initializeUser(project);
+
+	when(getUserProfileService().loadUserByUsername(DEFAULT_USERNAME))
+		.thenReturn(new DefaultUserDetails<AbstractUserProfile>(userProfile));
+	when(getUserProfileService().loadUserProfileByUsername(DEFAULT_USERNAME)).thenReturn(userProfile);
+
+	LoginCommand loginCommand = new LoginCommand();
+	loginCommand.setUsername(DEFAULT_USERNAME);
+	loginCommand.setPassword(DEFAULT_PASSWORD);
+
+	String jsonCommand = OBJECT_MAPPER.writeValueAsString(loginCommand);
+
+	Request request = createJsonRequest(LoginControllerTest.LOGIN_URL, jsonCommand);
+	Response responce = sendRecieve(getLocalConnector(), request);
+
+	String responseContent = responce.getContent();
+
+	JsonNode modelMapResponce = OBJECT_MAPPER.readTree(responseContent);
+
+	setSecurityTicket(modelMapResponce.get(SECURITY_TICKET_KEY).asText());
+    }
+
+    void setSecurityTicket(String securityTicket) {
+	_securityTicket = securityTicket;
+    }
+
+    protected void setUserRoleAndType(String roleId, UserTypeEnum userType) {
+	ROLE_ID = roleId;
+	USER_TYPE_ENUM = userType;
+    }
+}

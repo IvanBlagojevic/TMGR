@@ -1,0 +1,45 @@
+{
+    "name":"projectAttributes",
+    "type":"and",
+    "rules":[
+        {
+            "type":"array"
+        },
+        {
+            "type":"length",
+            "min":0,
+            "max":10
+        }
+        
+    ]
+},
+{
+    "name":"projectAttributeTypes",
+    "type":"and",
+    "rules":[
+        {
+            "type":"array"
+        },
+        {
+            "type":"length",
+            "min":4,
+            "max":4
+        }
+    ]
+    
+},
+{
+    "name":"attributeLevels",
+    "type":"and",
+    "rules":[
+        {
+            "type":"array"
+        },
+        {
+            "type":"length",
+            "min":2,
+            "max":2
+        }
+    ]
+    
+}

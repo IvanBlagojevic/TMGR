@@ -1,0 +1,42 @@
+{
+  "projectTicket": "$projectTicket",
+  "jobMarkerId": "$jobMarkerId",
+  "submissionName": "$jobName",
+  "reviewRequired": "true",
+  "sourceLanguage": "en-US",
+  "sourceTermTickets": [
+    "$sourceTicket1",
+    "$sourceTicket2",
+    "$sourceTicket3"
+  ],
+  "translationUnits": [
+    {
+      "projectTicket": "$projectTicket",
+      "termEntryTicket": "$termEntryTicket1",
+      "updateCommands": [
+        {
+          "command": "review",
+          "markerId": "c502608e-uuid-term-002",
+          "type": "term",
+          "value": "",
+          "languageId": "de-DE",
+          "assignee": "translator"
+        }
+      ]
+    },
+    {
+      "projectTicket": "$projectTicket",
+      "termEntryTicket": "$termEntryTicket2",
+      "updateCommands": [
+        {
+          "command": "translate",
+          "markerId": "c502608e-uuid-term-002",
+          "type": "term",
+          "value": "",
+          "languageId": "de-DE",
+          "assignee": "translator"
+        }
+      ]
+    }
+  ]
+}

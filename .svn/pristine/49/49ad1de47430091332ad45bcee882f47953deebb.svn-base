@@ -1,0 +1,180 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<artifactId>gs4tr-termmanager</artifactId>
+		<groupId>org.gs4tr.termmanager</groupId>
+		<version>5.5.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.gs4tr.termmanager</groupId>
+	<artifactId>gs4tr-termmanager-resources</artifactId>
+	<name>Term Manager Resources</name>
+
+	<properties>
+		<versionPackageName>org.gs4tr.termmanager.resources</versionPackageName>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-jar</id>
+						<phase>never</phase>
+						<configuration>
+							<finalName>unwanted</finalName>
+							<classifier>unwanted</classifier>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-artifacts</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.gs4tr.termmanager</groupId>
+									<artifactId>gs4tr-termmanager-solr-plugin</artifactId>
+									<type>jar</type>
+									<outputDirectory>${project.basedir}/target/tmgr-resources/config/solrhome/lib</outputDirectory>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.gs4tr.foundation</groupId>
+									<artifactId>gs4tr-foundation3-solr</artifactId>
+									<type>jar</type>
+									<outputDirectory>${project.basedir}/target/tmgr-resources/config/solrhome/lib</outputDirectory>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.gs4tr.foundation</groupId>
+									<artifactId>gs4tr-foundation-locale</artifactId>
+									<type>jar</type>
+									<outputDirectory>${project.basedir}/target/tmgr-resources/config/solrhome/lib</outputDirectory>
+								</artifactItem>
+								<artifactItem>
+									<groupId>gs4tr.com.ibm.icu</groupId>
+									<artifactId>com.ibm.icu</artifactId>
+									<type>jar</type>
+									<outputDirectory>${project.basedir}/target/tmgr-resources/config/solrhome/lib</outputDirectory>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.lucene</groupId>
+									<artifactId>lucene-analyzers-icu</artifactId>
+									<version>5.4.1</version>
+									<type>jar</type>
+									<outputDirectory>${project.basedir}/target/tmgr-resources/config/solrhome/lib</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>resources</id>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<echo>[RESOURCES copy started ...]</echo>
+								<mkdir dir="${project.build.directory}/tmgr-resources" />
+								<copy verbose="true" overwrite="true" todir="${project.build.directory}/tmgr-resources/config">
+									<fileset file="${basedir}/src/main/resources/config/*" />
+								</copy>
+								<copy verbose="true" overwrite="true" todir="${project.build.directory}/tmgr-resources/config/messages">
+									<fileset file="${basedir}/src/main/resources/config/messages/*" />
+								</copy>
+								<copy verbose="true" overwrite="true" todir="${project.build.directory}/tmgr-resources/config/security">
+									<fileset file="${basedir}/src/main/resources/config/security/*" />
+								</copy>
+								<copy verbose="true" overwrite="true" todir="${project.build.directory}/tmgr-resources/documentation">
+									<fileset file="${basedir}/src/main/resources/documentation/*" />
+								</copy>
+								<copy verbose="true" overwrite="true" todir="${project.build.directory}/tmgr-resources/config/solrhome">
+									<fileset file="${basedir}/src/main/resources/config/solrhome/**" />
+								</copy>
+								<copy verbose="true" overwrite="true" todir="${basedir}/target/tmgr-resources/databaseScripts">
+									<fileset file="${basedir}/src/main/resources/databaseScripts/**" />
+								</copy>
+
+								<copy verbose="true" overwrite="true" todir="${basedir}/target/tmgr-resources/">
+									<fileset file="${project.build.directory}/modules.properties" />
+								</copy>
+
+
+								<echo>[RESOURCES copy ended ...]</echo>
+
+								<echo>[ZIP file started ...]</echo>
+								<zip zipfile="${project.build.directory}/tmgr-resources-${project.version}.zip">
+									<fileset dir="${project.build.directory}/tmgr-resources" />
+								</zip>
+								<echo>[ZIP file ended ...]</echo>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-resources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>${project.build.directory}/tmgr-resources-${project.version}.zip</file>
+									<type>zip</type>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>net.emisia.maven.plugins</groupId>
+				<artifactId>maven-properties-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>write-modules</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>write-project-properties</goal>
+						</goals>
+						<configuration>
+							<filterProperties>
+								<filterProperty>foundationModuleVersion</filterProperty>
+								<filterProperty>tmModuleVersion</filterProperty>
+								<filterProperty>solrModuleVersion</filterProperty>
+								<filterProperty>xliffModuleVersion</filterProperty>
+								<filterProperty>tbxModuleVersion</filterProperty>
+								<filterProperty>foundationLocaleVersion</filterProperty>
+							</filterProperties>
+							<outputFile>${project.build.directory}/modules.properties</outputFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

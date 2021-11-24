@@ -1,0 +1,30 @@
+{
+  "folder": "SUBMISSIONDETAILS",
+  "index": 0,
+  "size": 50,
+  "dateCreatedRange": {
+    
+  },
+  "dateModifiedRange": {
+    
+  },
+  "dateCompletedRange": {
+    
+  },
+  "statuses": [
+    "COMPLETED"
+  ],
+  "submissionProjectComboBox": [
+    "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q"
+  ],
+  "languageDirectionSubmission": {
+    "value1": [
+      
+    ],
+    "value2": [
+      
+    ]
+  },
+  "submissionUsers": {
+  }
+}

@@ -1,0 +1,295 @@
+package org.gs4tr.termmanager.service.impl;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ArrayUtils;
+import org.gs4tr.foundation.modules.entities.model.PagedList;
+import org.gs4tr.foundation.modules.entities.model.PagedListInfo;
+import org.gs4tr.termmanager.dao.backup.DbSubmissionTermEntryDAO;
+import org.gs4tr.termmanager.dao.backup.DbTermEntryDAO;
+import org.gs4tr.termmanager.model.ProjectLanguage;
+import org.gs4tr.termmanager.model.glossary.backup.DbBaseTerm;
+import org.gs4tr.termmanager.model.glossary.backup.regular.DbTerm;
+import org.gs4tr.termmanager.model.glossary.backup.regular.DbTermEntry;
+import org.gs4tr.termmanager.model.glossary.backup.regular.DbTermEntryHistory;
+import org.gs4tr.termmanager.model.glossary.backup.regular.DbTermHistory;
+import org.gs4tr.termmanager.model.glossary.backup.submission.DbSubmissionTerm;
+import org.gs4tr.termmanager.model.glossary.backup.submission.DbSubmissionTermEntry;
+import org.gs4tr.termmanager.model.glossary.backup.submission.DbSubmissionTermEntryHistory;
+import org.gs4tr.termmanager.model.glossary.backup.submission.DbSubmissionTermHistory;
+import org.gs4tr.termmanager.model.reindex.BackupSearchCommand;
+import org.gs4tr.termmanager.model.serializer.JsonIO;
+import org.gs4tr.termmanager.service.DbSubmissionTermEntryService;
+import org.gs4tr.termmanager.service.ProjectLanguageDetailService;
+import org.gs4tr.termmanager.service.ProjectService;
+import org.gs4tr.termmanager.service.ProjectUserLanguageService;
+import org.gs4tr.termmanager.service.RecodeTermsService;
+import org.gs4tr.termmanager.service.SubmissionService;
+import org.gs4tr.termmanager.service.solr.restore.model.RecodeOrCloneCommand;
+import org.gs4tr.termmanager.service.utils.JsonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+@Service("recodeTermsService")
+public class RecodeTermsServiceImpl implements RecodeTermsService {
+
+    @Value("${index.batchSize:500}")
+    private int _batchSize;
+
+    @Autowired
+    private DbSubmissionTermEntryDAO _dbSubmissionTermEntryDAO;
+
+    @Autowired
+    private DbSubmissionTermEntryService _dbSubmissionTermEntryService;
+
+    @Autowired
+    private DbTermEntryDAO _dbTermEntryDAO;
+
+    @Autowired
+    private ProjectLanguageDetailService _projectLanguageDetailService;
+
+    @Autowired
+    private ProjectService _projectService;
+
+    @Autowired
+    private ProjectUserLanguageService _projectUserLanguageService;
+
+    @Autowired
+    private SubmissionService _submissionService;
+
+    @Override
+    public void recodeProjectLanguage(RecodeOrCloneCommand recodeOrCloneCommand) {
+	Long projectId = recodeOrCloneCommand.getProjectId();
+
+	String localeFrom = recodeOrCloneCommand.getLocaleFrom();
+	String localeTo = recodeOrCloneCommand.getLocaleTo();
+
+	List<ProjectLanguage> projectLanguages = getProjectService().getProjectLanguagesForRecodeOrClone(projectId);
+
+	ProjectLanguage projectLanguage = projectLanguages.stream().filter(pL -> pL.getLanguage().equals(localeFrom))
+		.findFirst().get();
+	projectLanguage.setLanguage(localeTo);
+
+	getProjectService().addOrUpdateProjectLanguagesForRecodeOrClone(projectId, projectLanguages);
+    }
+
+    @Override
+    public void recodeProjectLanguageDetail(RecodeOrCloneCommand recodeOrCloneCommand) {
+	Long projectId = recodeOrCloneCommand.getProjectId();
+
+	String localeTo = recodeOrCloneCommand.getLocaleTo();
+
+	String localeFrom = recodeOrCloneCommand.getLocaleFrom();
+
+	getProjectLanguageDetailService().recodeProjectLanguageDetail(projectId, localeFrom, localeTo);
+    }
+
+    @Override
+    public void recodeProjectUserLanguage(RecodeOrCloneCommand recodeOrCloneCommand) {
+	Long projectId = recodeOrCloneCommand.getProjectId();
+
+	String localeTo = recodeOrCloneCommand.getLocaleTo();
+
+	String localeFrom = recodeOrCloneCommand.getLocaleFrom();
+
+	getProjectUserLanguageService().recodeProjectUserLanguage(projectId, localeFrom, localeTo);
+    }
+
+    @Override
+    public void recodeSubmission(RecodeOrCloneCommand command) {
+	String languageFrom = command.getLocaleFrom();
+	String languageTo = command.getLocaleTo();
+	Long projectId = command.getProjectId();
+
+	SubmissionService submissionService = getSubmissionService();
+	submissionService.updateLanguageByProjectId(languageFrom, languageTo, projectId);
+    }
+
+    @Override
+    public void recodeSubmissionLanguages(RecodeOrCloneCommand command) {
+	String languageFrom = command.getLocaleFrom();
+	String languageTo = command.getLocaleTo();
+	Long projectId = command.getProjectId();
+
+	SubmissionService submissionService = getSubmissionService();
+	submissionService.updateSubmissionLanguageByProjectId(languageFrom, languageTo, projectId);
+    }
+
+    @Override
+    public void recodeSubmissionTermEntriesHistories(RecodeOrCloneCommand command) {
+	Long projectId = command.getProjectId();
+
+	PagedListInfo info = new PagedListInfo();
+	info.setSize(getBatchSize());
+
+	BackupSearchCommand backupSearchCommand = new BackupSearchCommand(Collections.singletonList(projectId), null);
+
+	PagedList<DbSubmissionTermEntry> page = getDbSubmissionTermEntryDAO().getDbSubmissionTermEntriesForRecode(info,
+		backupSearchCommand);
+
+	DbSubmissionTermEntry[] entries = page.getElements();
+
+	while (ArrayUtils.isNotEmpty(entries)) {
+
+	    List<DbSubmissionTermEntry> dbSubmissionTermEntries = Arrays.asList(entries);
+
+	    dbSubmissionTermEntries.forEach(termEntry -> recodeSubmissionTermEntryHistory(termEntry,
+		    command.getLocaleFrom(), command.getLocaleTo()));
+
+	    getDbTermEntryDAO().updateEntitiesForRecodeOrClone(dbSubmissionTermEntries);
+
+	    info.setIndex(info.getIndex() + 1);
+	    page = getDbSubmissionTermEntryDAO().getDbSubmissionTermEntriesForRecode(info, backupSearchCommand);
+	    entries = page.getElements();
+	}
+    }
+
+    @Override
+    public void recodeSubmissionTerms(RecodeOrCloneCommand command) {
+	Long projectId = command.getProjectId();
+	String localeFrom = command.getLocaleFrom();
+	String localeTo = command.getLocaleTo();
+
+	getDbSubmissionTermEntryService().updateSubmissionTermLanguagesByProjectId(localeFrom, localeTo, projectId);
+    }
+
+    @Override
+    public void recodeTermEntriesHistories(RecodeOrCloneCommand command) {
+
+	Long projectId = command.getProjectId();
+
+	PagedListInfo info = new PagedListInfo();
+	info.setSize(getBatchSize());
+
+	BackupSearchCommand backupSearchCommand = new BackupSearchCommand(Collections.singletonList(projectId), null);
+
+	PagedList<DbTermEntry> page = getDbTermEntryDAO().getDbTermEntriesForRecode(info, backupSearchCommand);
+
+	DbTermEntry[] entries = page.getElements();
+
+	while (ArrayUtils.isNotEmpty(entries)) {
+
+	    List<DbTermEntry> dbTermEntries = Arrays.asList(entries);
+
+	    dbTermEntries.forEach(
+		    termEntry -> recodeTermEntryHistories(termEntry, command.getLocaleFrom(), command.getLocaleTo()));
+
+	    info.setIndex(info.getIndex() + 1);
+	    page = getDbTermEntryDAO().getDbTermEntriesForRecode(info, backupSearchCommand);
+	    entries = page.getElements();
+	}
+
+    }
+
+    @Override
+    public void recodeTerms(RecodeOrCloneCommand command) {
+	Long projectId = command.getProjectId();
+	String localeFrom = command.getLocaleFrom();
+	String localeTo = command.getLocaleTo();
+
+	getDbTermEntryDAO().updateTermLanguage(projectId, localeFrom, localeTo);
+    }
+
+    private int getBatchSize() {
+	return _batchSize;
+    }
+
+    private DbSubmissionTermEntryDAO getDbSubmissionTermEntryDAO() {
+	return _dbSubmissionTermEntryDAO;
+    }
+
+    private DbSubmissionTermEntryService getDbSubmissionTermEntryService() {
+	return _dbSubmissionTermEntryService;
+    }
+
+    private DbTermEntryDAO getDbTermEntryDAO() {
+	return _dbTermEntryDAO;
+    }
+
+    private ProjectLanguageDetailService getProjectLanguageDetailService() {
+	return _projectLanguageDetailService;
+    }
+
+    private ProjectService getProjectService() {
+	return _projectService;
+    }
+
+    private ProjectUserLanguageService getProjectUserLanguageService() {
+	return _projectUserLanguageService;
+    }
+
+    private SubmissionService getSubmissionService() {
+	return _submissionService;
+    }
+
+    private boolean isTermHasLanguageId(DbBaseTerm dbTerm, String language) {
+	return dbTerm.getLanguageId().equals(language);
+    }
+
+    private void recodeSubmissionTermEntryHistory(DbSubmissionTermEntry submissionTermEntry, String languageFrom,
+	    String languageTo) {
+
+	Set<DbSubmissionTermEntryHistory> submissionTermEntryHistories = submissionTermEntry.getHistory();
+
+	for (DbSubmissionTermEntryHistory submissionTermEntryHistory : submissionTermEntryHistories) {
+	    Set<DbSubmissionTermHistory> submissionTermHistories = submissionTermEntryHistory.getHistory();
+	    recodeSubmissionTermHistory(submissionTermHistories, languageFrom, languageTo);
+	}
+    }
+
+    private void recodeSubmissionTermHistory(Set<DbSubmissionTermHistory> submissionTermHistories, String languageFrom,
+	    String languageTo) {
+	for (DbSubmissionTermHistory submissionTermHistory : submissionTermHistories) {
+
+	    DbSubmissionTerm submissionTerm = JsonUtils.readValue(submissionTermHistory.getRevision(),
+		    DbSubmissionTerm.class);
+
+	    if (isTermHasLanguageId(submissionTerm, languageFrom)) {
+		submissionTerm.setLanguageId(languageTo);
+		submissionTermHistory.setRevision(JsonIO.writeValueAsBytes(submissionTerm));
+	    }
+	}
+    }
+
+    private void recodeTermEntryHistories(DbTermEntry termEntry, String languageFrom, String languageTo) {
+	Set<DbTermEntryHistory> termEntryHistories = termEntry.getHistory();
+	if (Objects.nonNull(termEntryHistories)) {
+	    termEntryHistories.forEach(teh -> recodeTermHistory(teh.getHistory(), languageFrom, languageTo));
+	}
+    }
+
+    private void recodeTermHistory(Set<DbTermHistory> termHistories, String languageFrom, String languageTo) {
+	if (Objects.isNull(termHistories)) {
+	    return;
+	}
+
+	List<DbTermHistory> recodeHistories = new ArrayList<>();
+
+	termHistories.forEach(th -> replaceTermHistoryLocale(th, languageFrom, languageTo, recodeHistories));
+
+	if (CollectionUtils.isNotEmpty(recodeHistories)) {
+	    getDbTermEntryDAO().updateEntitiesForRecodeOrClone(recodeHistories);
+	    recodeHistories.clear();
+	}
+
+    }
+
+    private void replaceTermHistoryLocale(DbTermHistory termHistory, String languageFrom, String languageTo,
+	    List<DbTermHistory> recodeHistories) {
+
+	DbTerm dbTerm = JsonUtils.readValue(termHistory.getRevision(), DbTerm.class);
+
+	if (isTermHasLanguageId(dbTerm, languageFrom)) {
+	    dbTerm.setLanguageId(languageTo);
+	    termHistory.setRevision(JsonIO.writeValueAsBytes(dbTerm));
+	    recodeHistories.add(termHistory);
+	}
+    }
+}

@@ -1,0 +1,94 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.ProjectDetailSearchController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.ProjectLanguageDetailSearchController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.SubmissionDetailSearchController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.SubmissionLanguageDetailSearchController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.OrganizationSearchController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.ProjectSearchController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.AboutController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.RoleSearchController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.UserProfileSearchController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.TaskController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.BrowseSubmissionlanguagesController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.GetProjectDefaultStatusController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.FolderViewUpdateController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.SaveCustomFilterController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.RemoveCustomFilterController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.GetUUIDController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.configuration.FolderSearchConfiguration"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.CancelExportController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.CancelDownloadExportController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.InitializeSearchBarController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.InitializeUserController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.ProjectWriteConfigurationController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.ViewMultimediaController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.DeleteResourceController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.PreferencesUpdateController"/>
+    <bean class="org.gs4tr.termmanager.webmvc.controllers.MultilingualViewSearchController"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>environment:services.properties</value>
+                <value>environment:tptOAuth.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties">
+            <props>
+                <prop key="dynamic.serverAddress">http://localhost</prop>
+                <prop key="rest.communication.username">rest</prop>
+                <prop key="rest.communication.password">password</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="rememberMeCookieName" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="test-rememberme"/>
+    </bean>
+
+    <bean id="sessionContextAttributes" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <value>privateEncryptionAesKey</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="passwordRegexHolder"
+          class="org.gs4tr.foundation.modules.usermanager.utils.PasswordRegexHolder">
+        <property name="passwordRegex" value="^(?=.*\d)(?=.*[!@#\$%\^&amp;\*\(\)]).{8,}$"/>
+    </bean>
+
+    <bean id="policyAccessDecisionManager"
+          class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg>
+            <list>
+                <ref bean="policyVoter"/>
+            </list>
+        </constructor-arg>
+        <property name="allowIfAllAbstainDecisions">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <bean id="policyVoter" class="org.springframework.security.access.vote.RoleVoter">
+        <property name="rolePrefix" value="POLICY_"/>
+    </bean>
+
+    <bean id="solrServiceConfiguration"
+          class="org.gs4tr.termmanager.service.solr.SolrServiceConfiguration">
+        <constructor-arg index="0" type="java.io.File">
+            <value>environment:solrservice.properties</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="defaultConfigurationProvider"
+          class="org.gs4tr.foundation.modules.spring.configuration.DefaultConfigurationProvider" />
+
+</beans>

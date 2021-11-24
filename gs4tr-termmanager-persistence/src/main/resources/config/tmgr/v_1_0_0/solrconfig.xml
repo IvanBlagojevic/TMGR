@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config>
+	<luceneMatchVersion>LUCENE_49</luceneMatchVersion>
+
+	<directoryFactory name="DirectoryFactory"
+		class="${solr.directoryFactory:solr.StandardDirectoryFactory}" />
+
+	<dataDir>${solr.core.data.dir:}</dataDir>
+	<codecFactory class="solr.SchemaCodecFactory" />
+	<schemaFactory class="ClassicIndexSchemaFactory" />
+	<query>
+		<enableLazyFieldLoading>true</enableLazyFieldLoading>
+	</query>
+	<updateHandler class="solr.DirectUpdateHandler2">
+		<updateLog>
+			<str name="dir">${solr.core.data.dir:}</str>
+		</updateLog>
+		<autoCommit>
+			<maxDocs>6000</maxDocs>
+			<maxTime>180000</maxTime><!-- 5 minutes -->
+			<openSearcher>false</openSearcher>
+		</autoCommit>
+	</updateHandler>
+
+
+	<updateRequestProcessorChain name="tmgrUpdateChain">
+		<processor
+			class="org.gs4tr.termmanager.persistence.solr.plugin.TmgrPreDistributeUpdateProcessorFactory" />
+		<processor class="solr.DistributedUpdateProcessorFactory" />
+		<processor
+			class="org.gs4tr.termmanager.persistence.solr.plugin.TmgrAdditionalFieldsUpdateProcessorFactory" />
+		<processor
+			class="org.gs4tr.foundation3.solr.plugin.ExtendedRunUpdateProcessorFactory" />
+	</updateRequestProcessorChain>
+
+	<requestHandler name="/replication" class="solr.ReplicationHandler"
+		startup="lazy" />
+
+	<requestDispatcher handleSelect="false">
+		<requestParsers enableRemoteStreaming="false"
+			multipartUploadLimitInKB="4048" formdataUploadLimitInKB="4048"
+			addHttpRequestToContext="true" />
+	</requestDispatcher>
+
+	<requestHandler name="/info"
+		class="org.gs4tr.foundation3.solr.plugin.CoreInfoHandler" />
+	<requestHandler name="/search" class="solr.SearchHandler">
+		<arr name="components">
+			<str>query</str>
+			<str>facet</str>
+			<str>debug</str>
+		</arr>
+	</requestHandler>
+	<requestHandler name="/get" class="solr.RealTimeGetHandler" />
+	<requestHandler name="/update" class="solr.UpdateRequestHandler" />
+	<requestHandler name="/restore"
+		class="org.gs4tr.foundation3.solr.plugin.RestoreFromBackupHandler" />
+
+	<!-- for debug only -->
+	<!-- <requestHandler name="/admin/" -->
+	<!-- class="org.apache.solr.handler.admin.AdminHandlers" /> -->
+
+
+	<queryParser name="cqp"
+		class="org.gs4tr.foundation3.solr.plugin.ConcordanceQueryPlugin" />
+	<queryParser name="tuqp"
+		class="org.gs4tr.foundation3.solr.plugin.TuSearchQueryPlugin" />
+	<queryParser name="sdqp"
+		class="org.gs4tr.foundation3.solr.plugin.SubdocumentSearchQueryPlugin" />
+
+
+	<transformer name="history"
+		class="org.gs4tr.foundation3.solr.plugin.HistoryDocTransformerFactory" />
+
+	<admin>
+		<defaultQuery>*:*</defaultQuery>
+	</admin>
+
+</config>
+

@@ -1,0 +1,320 @@
+package org.gs4tr.termmanager.service.impl;
+
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.gs4tr.eventlogging.spring.aop.EventLogger;
+import org.gs4tr.eventlogging.spring.aop.annotation.LogEvent;
+import org.gs4tr.foundation.modules.entities.model.PagedList;
+import org.gs4tr.foundation.modules.entities.model.PagedListInfo;
+import org.gs4tr.foundation.modules.entities.model.Task;
+import org.gs4tr.foundation.modules.entities.model.TaskPagedList;
+import org.gs4tr.foundation.modules.entities.model.types.EntityType;
+import org.gs4tr.foundation3.solr.model.concordance.ConcordanceType;
+import org.gs4tr.termmanager.model.EntityTypeHolder;
+import org.gs4tr.termmanager.model.MultilingualTerm;
+import org.gs4tr.termmanager.model.TermSearchRequest;
+import org.gs4tr.termmanager.model.TmUserProfile;
+import org.gs4tr.termmanager.model.dto.converter.MultilingualTermConverter;
+import org.gs4tr.termmanager.model.glossary.TermEntry;
+import org.gs4tr.termmanager.model.search.ItemFolderEnum;
+import org.gs4tr.termmanager.model.search.TypeSearchEnum;
+import org.gs4tr.termmanager.persistence.solr.query.Sort.Direction;
+import org.gs4tr.termmanager.persistence.solr.query.TextFilter;
+import org.gs4tr.termmanager.persistence.solr.query.TmgrPageRequest;
+import org.gs4tr.termmanager.persistence.solr.query.TmgrSearchFilter;
+import org.gs4tr.termmanager.service.MultilingualViewModelService;
+import org.gs4tr.termmanager.service.ProjectService;
+import org.gs4tr.termmanager.service.TermEntryService;
+import org.gs4tr.termmanager.service.logging.util.EventContextConstants;
+import org.gs4tr.termmanager.service.logging.util.TMGREventActionConstants;
+import org.gs4tr.termmanager.service.solr.SolrServiceConfiguration;
+import org.gs4tr.termmanager.service.utils.AdminTasksHolderHelper;
+import org.gs4tr.termmanager.service.utils.ServiceUtils;
+import org.gs4tr.tm3.api.DateFilter;
+import org.gs4tr.tm3.api.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+@Service("multilingualViewModelService")
+public class MultilingualViewModelServiceImpl implements MultilingualViewModelService {
+
+    @Value("${eventLoggingOptions.logFilters:false}")
+    private boolean _isLogFilterValues;
+
+    @Autowired
+    private ProjectService _projectService;
+
+    @Autowired
+    private SolrServiceConfiguration _solrConfig;
+
+    @Value("${synonym.number:5}")
+    private int _synonymNumber;
+
+    @Autowired
+    private AdminTasksHolderHelper _tasksHolderHelper;
+
+    @Autowired
+    private TermEntryService _termEntryService;
+
+    @Override
+    @LogEvent(action = TMGREventActionConstants.ACTION_TERM_SEARCH, actionCategory = TMGREventActionConstants.CATEGORY_UI_CONTROLLER)
+    public TaskPagedList<MultilingualTerm> search(TermSearchRequest command, PagedListInfo pagedListInfo) {
+	if (pagedListInfo == null) {
+	    pagedListInfo = new PagedListInfo();
+	}
+
+	if (isLogFilterValues()) {
+	    logFilters(command);
+	}
+
+	preProcessSearchRequest(command);
+
+	ServiceUtils.addProjectsToSearchRequest(command);
+
+	validateProjects(command.getProjectIds());
+
+	TmgrSearchFilter filter = createSearchFilter(command, pagedListInfo);
+
+	String collection = getCollectionByFolder(command.getFolder());
+
+	Page<TermEntry> result = getTermEntryService().searchTermEntries(filter, collection);
+
+	PagedList<MultilingualTerm> pagedList = new PagedList<>();
+	pagedList.setTotalCount((long) result.getTotalResults());
+	pagedList.setPagedListInfo(pagedListInfo);
+
+	List<TermEntry> termentries = result.getResults();
+
+	List<MultilingualTerm> multilingualTerms = MultilingualTermConverter.fromTermEntriesToMultilinguals(termentries,
+		command);
+
+	pagedList.setElements(multilingualTerms.toArray(new MultilingualTerm[multilingualTerms.size()]));
+
+	TaskPagedList<MultilingualTerm> taskPagedList = new TaskPagedList<MultilingualTerm>(pagedList);
+
+	List<Task> tasks = new ArrayList<>();
+	tasks.addAll(ServiceUtils.postProcessEntityPagedList(taskPagedList, command.getFolder(),
+		command.getProjectIds(),
+		new EntityType[] { EntityTypeHolder.TERM, EntityTypeHolder.TERMENTRY, EntityTypeHolder.SUBMISSIONTERM },
+		getTasksHolderHelper()));
+	taskPagedList.setTasks(tasks.toArray(new Task[tasks.size()]));
+
+	return taskPagedList;
+    }
+
+    private TmgrSearchFilter createSearchFilter(TermSearchRequest command, PagedListInfo pagedListInfo) {
+	TmgrSearchFilter filter = new TmgrSearchFilter();
+	filter.setProjectIds(command.getProjectIds());
+
+	Set<String> languageIds = new HashSet<String>();
+
+	handleLanguagesFilter(command, filter, languageIds);
+
+	filter.addLanguageResultField(true, getSynonymNumber(), languageIds.toArray(new String[languageIds.size()]));
+
+	if (command.isMissingTranslation()) {
+	    filter.setOnlyMissingTranslation(true);
+	}
+
+	filter.setStatuses(command.getStatuses());
+
+	DateFilter dateCreatedFilter = null;
+	if (command.getDateCreatedFrom() != null) {
+	    dateCreatedFilter = new DateFilter();
+	    dateCreatedFilter.setStartDate(command.getDateCreatedFrom());
+	    dateCreatedFilter.setStartDateInclusive(true);
+	}
+
+	if (command.getDateCreatedTo() != null) {
+	    if (dateCreatedFilter == null) {
+		dateCreatedFilter = new DateFilter();
+	    }
+	    dateCreatedFilter.setEndDate(command.getDateCreatedTo());
+	    dateCreatedFilter.setEndDateInclusive(true);
+	}
+	filter.setDateCreatedFilter(dateCreatedFilter);
+
+	DateFilter dateModifiedFilter = null;
+	if (command.getDateModifiedFrom() != null) {
+	    dateModifiedFilter = new DateFilter();
+	    dateModifiedFilter.setStartDate(command.getDateModifiedFrom());
+	    dateModifiedFilter.setStartDateInclusive(true);
+	}
+
+	if (command.getDateModifiedTo() != null) {
+	    if (dateModifiedFilter == null) {
+		dateModifiedFilter = new DateFilter();
+	    }
+	    dateModifiedFilter.setEndDate(command.getDateModifiedTo());
+	    dateModifiedFilter.setEndDateInclusive(true);
+	}
+	filter.setDateModifiedFilter(dateModifiedFilter);
+
+	DateFilter dateCompletedFilter = null;
+	if (command.getDateCompletedFrom() != null) {
+	    dateCompletedFilter = new DateFilter();
+	    dateCompletedFilter.setStartDate(command.getDateCompletedFrom());
+	    dateCompletedFilter.setStartDateInclusive(true);
+	}
+
+	if (command.getDateCompletedTo() != null) {
+	    if (dateCompletedFilter == null) {
+		dateCompletedFilter = new DateFilter();
+	    }
+	    dateCompletedFilter.setEndDate(command.getDateCompletedTo());
+	    dateCompletedFilter.setEndDateInclusive(true);
+	}
+
+	filter.setDateCompletedFilter(dateCompletedFilter);
+
+	filter.setTempTermSearch(command.isShowAutoSaved());
+
+	String searchedText = command.getTerm();
+	if (StringUtils.isNotEmpty(searchedText)) {
+	    TextFilter textFilter = new TextFilter(searchedText);
+
+	    if (StringUtils.isNotBlank(command.getSearchType())
+		    && command.getSearchType().equals(ConcordanceType.EXACT.name())) {
+		textFilter.setExactMatch(true);
+	    }
+
+	    String typeSearchName = command.getTypeSearch().name();
+	    if (TypeSearchEnum.ALL.name().equals(typeSearchName)) {
+		textFilter.setAllTextSearch(true);
+	    } else if (TypeSearchEnum.ATTRIBUTES.name().equals(typeSearchName)) {
+		textFilter.setAttributeTextSearch(true);
+	    }
+
+	    filter.setTextFilter(textFilter);
+	}
+
+	if (command.getSearchUserLatestChanges()) {
+	    filter.setUserLatestChange(TmUserProfile.getCurrentUserProfile().getUserProfileId());
+	}
+
+	List<String> usersCreated = command.getCreationUsers();
+	if (isNotEmpty(usersCreated)) {
+	    filter.addUsersCreatedFilter(usersCreated.toArray(new String[usersCreated.size()]));
+	}
+
+	List<String> usersmodified = command.getModificationUsers();
+	if (isNotEmpty(usersmodified)) {
+	    filter.addUsersModifiedFilter(usersmodified.toArray(new String[usersmodified.size()]));
+	}
+
+	if (pagedListInfo != null) {
+	    int index = pagedListInfo.getIndex();
+	    int size = pagedListInfo.getSize();
+
+	    String property = StringUtils.isEmpty(searchedText) ? pagedListInfo.getSortProperty() : null;
+	    // sort property should be empty or null if quick search is applied
+	    if (StringUtils.isEmpty(property)) {
+		filter.setPageable(new TmgrPageRequest(index, size, null));
+	    } else {
+		Direction direction = pagedListInfo.getAscending() ? Direction.ASC : Direction.DESC;
+		filter.setPageable(new TmgrPageRequest(index, size, direction, property));
+	    }
+	}
+
+	Long submissionId = command.getSubmissionId();
+	if (submissionId != null) {
+	    filter.setSubmissionId(submissionId);
+	}
+
+	return filter;
+    }
+
+    private String getCollectionByFolder(ItemFolderEnum folder) {
+	return ItemFolderEnum.SUBMISSIONTERMLIST == folder ? getSolrConfig().getSubmissionCollection()
+		: getSolrConfig().getRegularCollection();
+    }
+
+    private ProjectService getProjectService() {
+	return _projectService;
+    }
+
+    private SolrServiceConfiguration getSolrConfig() {
+	return _solrConfig;
+    }
+
+    private int getSynonymNumber() {
+	return _synonymNumber;
+    }
+
+    private AdminTasksHolderHelper getTasksHolderHelper() {
+	return _tasksHolderHelper;
+    }
+
+    private TermEntryService getTermEntryService() {
+	return _termEntryService;
+    }
+
+    private void handleLanguagesFilter(TermSearchRequest command, TmgrSearchFilter filter, Set<String> languageIds) {
+	List<String> hideBlanksLanguageIds = command.getHideBlanksLanguageIds();
+	if (isNotEmpty(hideBlanksLanguageIds)) {
+	    filter.setHideBlanksLanguages(hideBlanksLanguageIds);
+	}
+
+	String sourceLanguageId = command.getSource();
+	languageIds.add(sourceLanguageId);
+	// sourceAndTargetSearch property will be false only if it is target
+	// search
+	if (command.isSourceAndTargetSearch() || command.isMissingTranslation()) {
+	    filter.setSourceLanguage(sourceLanguageId);
+	}
+
+	List<String> targetLanguageIds = command.getTargetLanguagesList();
+	if (isNotEmpty(targetLanguageIds)) {
+	    languageIds.addAll(targetLanguageIds);
+	    if (command.isTargetTermSearch()) {
+		filter.setTargetLanguages(targetLanguageIds);
+	    }
+	}
+    }
+
+    private boolean isLogFilterValues() {
+	return _isLogFilterValues;
+    }
+
+    private void logFilters(TermSearchRequest command) {
+	EventLogger.addProperty(EventContextConstants.PROJECT_IDS, command.getProjectIds());
+	EventLogger.addProperty(EventContextConstants.SOURCE_LANGUAGE, command.getSource());
+	EventLogger.addProperty(EventContextConstants.TARGET_LANGUAGES, command.getTargetLanguagesList());
+	EventLogger.addProperty(EventContextConstants.FILTER_TERM_NAME, command.getTerm());
+	EventLogger.addProperty(EventContextConstants.FILTER_SEARCH_TYPE, command.getSearchType()); // DEFAULT|EXACT
+	EventLogger.addProperty(EventContextConstants.FILTER_TERM_ATTRIBUTE_SEARCH, command.getTypeSearch()); // TERM|ATTRIBUTE|ALL
+
+	EventLogger.addProperty(EventContextConstants.FILTER_HIDE_BLANK_LANGUAGE_IDS,
+		command.getHideBlanksLanguageIds());
+
+	EventLogger.addProperty(EventContextConstants.FILTER_TERM_STATUSES, command.getStatuses());
+
+	EventLogger.addProperty(EventContextConstants.FILTER_DATE_CREATED_FROM, command.getDateCreatedFrom());
+	EventLogger.addProperty(EventContextConstants.FILTER_DATE_CREATED_TO, command.getDateCreatedTo());
+
+	EventLogger.addProperty(EventContextConstants.FILTER_DATE_MODIFIED_FROM, command.getDateModifiedFrom());
+	EventLogger.addProperty(EventContextConstants.FILTER_DATE_MODIFIED_TO, command.getDateModifiedTo());
+
+	EventLogger.addProperty(EventContextConstants.FILTER_USERS_CREATED, command.getCreationUsers());
+	EventLogger.addProperty(EventContextConstants.FILTER_USERS_MODIFIED, command.getModificationUsers());
+    }
+
+    private void preProcessSearchRequest(TermSearchRequest command) {
+	if (ItemFolderEnum.SUBMISSIONTERMLIST == command.getFolder()) {
+	    TmUserProfile user = TmUserProfile.getCurrentUserProfile();
+	    boolean showAutoSave = ServiceUtils.isShowAutoSave(user);
+	    command.setShowAutoSaved(showAutoSave);
+	}
+    }
+
+    private void validateProjects(List<Long> projectIds) {
+	getProjectService().checkIfProjectsAreDisabled(projectIds);
+    }
+}

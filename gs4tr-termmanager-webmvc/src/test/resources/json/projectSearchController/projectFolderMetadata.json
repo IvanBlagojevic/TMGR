@@ -1,0 +1,42 @@
+{
+  "gridConfig": [
+    {
+      "sortable": true,
+      "sortProperty": "entity.projectInfo.name",
+      "dataIndex": "projectInfo.name",
+      "hidden": false,
+      "width": 334,
+      "headerKey": "name",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "organization.organizationInfo.name",
+      "dataIndex": "projectInfo.enabled",
+      "hidden": false,
+      "width": 330,
+      "headerKey": "enabled",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "organization.organizationInfo.name",
+      "dataIndex": "organizationName",
+      "hidden": false,
+      "width": 100,
+      "headerKey": "organization",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "entity.projectInfo.name",
+      "dataIndex": "defaultSortProperty",
+      "hidden": true,
+      "width": 70,
+      "headerKey": "defaultSortProperty",
+      "systemHidden": true
+    }
+  ],
+  "sortProperty": "entity.projectInfo.name",
+  "ascending": false
+}

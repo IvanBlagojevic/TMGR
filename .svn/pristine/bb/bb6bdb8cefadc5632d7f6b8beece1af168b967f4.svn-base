@@ -1,0 +1,7 @@
+{
+	"action": "remove",
+	"folder": "$folder",
+	"fileNames": [
+		"$fileName"
+	]
+}

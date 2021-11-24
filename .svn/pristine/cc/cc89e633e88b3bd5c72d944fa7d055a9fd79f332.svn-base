@@ -1,0 +1,26 @@
+<ehcache>
+	<diskStore path="java.io.tmpdir" />
+	<defaultCache maxElementsInMemory="10" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="600" overflowToDisk="true" />
+
+	<!-- web service cache -->
+	<cache name="activeUserSessionsCache" overflowToDisk="false"
+		maxElementsInMemory="100" eternal="false" timeToIdleSeconds="1200" />
+
+	<cache name="exportingDocumentCache" overflowToDisk="false"
+		maxElementsInMemory="5" eternal="false" timeToIdleSeconds="1200" />
+
+	<cache name="org.gs4tr.termmanager.model.TmProject"
+		overflowToDisk="false" maxElementsInMemory="200" eternal="false"
+		timeToIdleSeconds="1800" diskPersistent="false" />
+
+	<!-- remove from cache after idle longer that 30 mins -->
+	<cache name="org.gs4tr.foundation.modules.entities.model.WorkflowDefinition"
+		overflowToDisk="false" maxElementsInMemory="2000" eternal="false"
+		timeToIdleSeconds="1800" diskPersistent="false" />
+
+	<!-- remove from cache after idle longer that 30 mins -->
+	<cache name="org.gs4tr.termmanager.model.TmUserProfile"
+		overflowToDisk="false" maxElementsInMemory="800" eternal="false"
+		timeToIdleSeconds="1800" diskPersistent="false" />
+</ehcache>

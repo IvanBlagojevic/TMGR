@@ -1,0 +1,237 @@
+package org.gs4tr.termmanager.tests.webservices.rest;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.gs4tr.termmanager.tests.webservices.ConnectionDetails;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+public class RestClient {
+
+    private static final RestTemplate REST_TEMPLATE = new RestTemplate();
+
+    private static String findProjectByShortcode(ConnectionDetails connectionDetails, String securityTicket,
+	    String fetchlanguages) {
+
+	String projectShortcodeURL = connectionDetails.getBaseURL().concat(
+		"/projectByShortcode?projectShortcode={projectShortcode}&userId={userId}&fetchlanguages={fetchlanguages}");
+
+	Map<String, String> params = new HashMap<>();
+	params.put("projectShortcode", connectionDetails.getProjectShortcode());
+	params.put("userId", securityTicket);
+	params.put("fetchlanguages", fetchlanguages);
+
+	ResponseEntity<String> projectByShortcode = REST_TEMPLATE.getForEntity(projectShortcodeURL, String.class,
+		params);
+
+	if (projectByShortcode.getBody().equals("<null/>")) {
+	    return null;
+	}
+
+	return projectByShortcode.getBody().substring(projectByShortcode.getBody().indexOf("<ticket>") + 8,
+		projectByShortcode.getBody().indexOf("</ticket>"));
+    }
+
+    private static String login(ConnectionDetails connectionDetails) throws Exception {
+
+	String loginURL = connectionDetails.getBaseURL().concat("/login?username={username}&password={password}");
+
+	Map<String, String> params = new HashMap<>();
+	params.put("username", connectionDetails.getUsername());
+	params.put("password", connectionDetails.getPassword());
+
+	ResponseEntity<String> loginResponse = null;
+
+	try {
+
+	    loginResponse = REST_TEMPLATE.getForEntity(loginURL, String.class, params);
+
+	} catch (Exception e) {
+	    throw new RuntimeException(e.getMessage(), e);
+	}
+
+	return loginResponse.getBody();
+
+    }
+
+    private static String logout(String userId, ConnectionDetails connectionDetails) {
+
+	String logoutURL = connectionDetails.getBaseURL().concat("/logout?userId={userId}");
+	Map<String, String> params = new HashMap<>();
+	params.put("userId", userId);
+
+	ResponseEntity<String> logoutResponse = REST_TEMPLATE.getForEntity(logoutURL, String.class, params);
+
+	if (StringUtils.isNotEmpty(logoutResponse.getBody())) {
+	    return "Logout success";
+	} else
+	    return "Logout failed";
+
+    }
+
+    protected static String addTerm(ConnectionDetails connectionDetails, RestTerm sourceTerm, RestTerm targetTerm) {
+
+	try {
+
+	    String userId = login(connectionDetails);
+	    String projectTicket = findProjectByShortcode(connectionDetails, userId, "true");
+	    String addTermURL = connectionDetails.getBaseURL().concat("/addTerm");
+
+	    HttpHeaders header = new HttpHeaders();
+	    header.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+	    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(addTermURL)
+		    .queryParam("sourceTerm", sourceTerm.getTermName())
+		    .queryParam("sourceDescription", sourceTerm.getTermDescription())
+		    .queryParam("targetTerm", targetTerm.getTermName())
+		    .queryParam("targetDescription", targetTerm.getTermDescription())
+		    .queryParam("sourceLocale", sourceTerm.getLanguageId())
+		    .queryParam("targetLocale", targetTerm.getLanguageId()).queryParam("projectTicket", projectTicket)
+		    .queryParam("userId", userId);
+
+	    HttpEntity<String> request = new HttpEntity<>(header);
+
+	    ResponseEntity<String> addTermResponse = REST_TEMPLATE.postForEntity(builder.toUriString(), request,
+		    String.class);
+
+	    String logoutResponse = logout(userId, connectionDetails);
+	    return addTermResponse.getBody() + "\n" + logoutResponse;
+
+	} catch (Exception e) {
+	    throw new RuntimeException(e.getMessage(), e);
+	}
+
+    }
+
+    protected static String detailedExportDocument(ConnectionDetails connectionDetails,
+	    RestExportSearchRequest request) {
+
+	try {
+
+	    String userId = login(connectionDetails);
+	    String projectTicket = findProjectByShortcode(connectionDetails, userId, "true");
+
+	    String detailedExportURL = connectionDetails.getBaseURL().concat("/detailedExport");
+
+	    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(detailedExportURL)
+		    .queryParam("afterDate", request.getAfterDate()).queryParam("projectTicket", projectTicket)
+		    .queryParam("sourceLocale", request.getSourceLocale())
+		    .queryParam("targetLocale", request.getTargetLocale())
+		    .queryParam("exportFormat", request.getExportFormat())
+		    .queryParam("exportForbiddenTerms", request.getExportForbiddenTerms())
+		    .queryParam("exportAllDescriptions", request.getExportAllDescriptions())
+		    .queryParam("blacklistTermsCount", request.getBlacklistTermsCount()).queryParam("userId", userId);
+
+	    ResponseEntity<String> detailedExportResponse = REST_TEMPLATE.getForEntity(builder.toUriString(),
+		    String.class);
+
+	    String logoutResponse = logout(userId, connectionDetails);
+
+	    return detailedExportResponse.getBody() + "\n" + logoutResponse;
+
+	} catch (Exception e) {
+	    throw new RuntimeException(e.getMessage(), e);
+	}
+    }
+
+    protected static String exportDocument(ConnectionDetails connectionDetails, RestExportSearchRequest request) {
+
+	try {
+
+	    String userId = login(connectionDetails);
+	    String projectTicket = findProjectByShortcode(connectionDetails, userId, "true");
+
+	    String exportDocumentURL = connectionDetails.getBaseURL().concat("/export");
+
+	    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(exportDocumentURL)
+		    .queryParam("afterDate", request.getAfterDate()).queryParam("projectTicket", projectTicket)
+		    .queryParam("sourceLocale", request.getSourceLocale())
+		    .queryParam("targetLocale", request.getTargetLocale())
+		    .queryParam("exportFormat", request.getExportFormat())
+		    .queryParam("exportForbiddenTerms", request.getExportForbiddenTerms())
+		    .queryParam("generateStatistics", request.getGenerateStatistics())
+		    .queryParam("descriptionType", request.getGenerateStatistics()).queryParam("userId", userId);
+
+	    MediaType mediaType = MediaType.APPLICATION_JSON;
+	    List<MediaType> mediaTypes = new ArrayList<>();
+	    mediaTypes.add(mediaType);
+
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setAccept(mediaTypes);
+
+	    HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+	    ResponseEntity<String> response = REST_TEMPLATE.exchange(builder.toUriString(), HttpMethod.GET,
+		    requestEntity, String.class);
+
+	    String logoutResponse = logout(userId, connectionDetails);
+	    return response.getBody() + "\n" + logoutResponse;
+
+	} catch (Exception e) {
+	    throw new RuntimeException(e.getMessage(), e);
+
+	}
+
+    }
+
+    protected static String findUserProject(ConnectionDetails connectionDetails) {
+
+	try {
+	    String userId = login(connectionDetails);
+
+	    String userProjectURL = connectionDetails.getBaseURL().concat("/userProjects?userId={userId}");
+
+	    Map<String, String> params = new HashMap<>();
+	    params.put("userId", userId);
+
+	    ResponseEntity<String> userProjectResponse = REST_TEMPLATE.getForEntity(userProjectURL, String.class,
+		    params);
+
+	    String logoutResponse = logout(userId, connectionDetails);
+	    return userProjectResponse.getBody() + "\n" + logoutResponse;
+
+	} catch (Exception e) {
+	    throw new RuntimeException(e.getMessage(), e);
+	}
+
+    }
+
+    protected static String importTBXDocument(ConnectionDetails connectionDetails, String syncLang, byte[] body) {
+
+	try {
+
+	    String userId = login(connectionDetails);
+	    String projectTicket = findProjectByShortcode(connectionDetails, userId, "true");
+	    String importTBXDocumentURL = connectionDetails.getBaseURL().concat("/import");
+
+	    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(importTBXDocumentURL)
+		    .queryParam("projectTicket", projectTicket).queryParam("syncLang", syncLang)
+		    .queryParam("userId", userId);
+
+	    HttpHeaders header = new HttpHeaders();
+	    header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+	    HttpEntity<byte[]> request = new HttpEntity<>(body, header);
+
+	    ResponseEntity<String> importTBXDocumentResponse = REST_TEMPLATE.postForEntity(builder.toUriString(),
+		    request, String.class);
+
+	    String logoutResponse = logout(userId, connectionDetails);
+	    return importTBXDocumentResponse.getBody() + "\n" + logoutResponse;
+
+	} catch (Exception e) {
+	    throw new RuntimeException(e.getMessage(), e);
+	}
+
+    }
+
+}

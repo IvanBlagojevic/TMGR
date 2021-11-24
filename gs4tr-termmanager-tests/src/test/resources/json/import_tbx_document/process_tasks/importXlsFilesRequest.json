@@ -1,0 +1,44 @@
+{
+  "preImportCheck": false,
+  "ignoreCase": true,
+  "defaultTermStatus": "PROCESSED",
+  "folder": "$folder",
+  "languageReplacements": [
+    {
+      "importLanguageCode": "en",
+      "replacement": "en-US"
+    }
+  ],
+  "attributeReplacements": [
+    {
+      "importAttributeName": "Marketing-Electrical",
+      "replacement": "Marketing-Aerospace",
+      "level": "TERM_ATTRIBUTE"
+    }
+  ],
+  "numberOfTermEntries": [
+  ],
+  "projectTicket": "4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+  "importLanguagesPerFile": [
+    {
+      "fileName": "fileName",
+      "importLanguages": [
+        "de-DE",
+        "en-US",
+        "fr-FR"
+      ]
+    }
+  ],
+  "sourceLanguage": "en-US",
+  "syncOption": "OVERWRITE",
+  "termAttributeNames": [
+    "Marketing-Vehicle",
+    "Marketing-Electrical"
+  ],
+  "termNoteNames": [
+    "Marketing-GolfPride"
+  ],
+  "termEntryAttributeNames": [
+    "definition"
+  ]
+}

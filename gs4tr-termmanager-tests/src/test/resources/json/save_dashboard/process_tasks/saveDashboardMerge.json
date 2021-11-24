@@ -1,0 +1,48 @@
+{
+    "saveDashboardCommands":[
+        {
+            "translationUnits":[
+                {
+                    "sourceTermUpdateCommands":[
+                        {
+                            "command":"add",
+                            "markerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b660",
+                            "languageId":"en-US",
+                            "type":"term",
+                            "value":"house"
+                        },
+                        {
+                            "command":"add",
+                            "parentMarkerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b660",
+                            "markerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b666",
+                            "type":"description",
+                            "subType":"context",
+                            "value":"house is moving"
+                        },
+                        {
+                            "command":"add",
+                            "parentMarkerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b660",
+                            "markerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b667",
+                            "type":"description",
+                            "subType":"context",
+                            "value":"This is some term description"
+                        }
+                    ],
+                    "targetTermUpdateCommands":[
+                        {
+                            "command":"add",
+                            "markerId":"402972d1-70a5-41fa-9c07-11f79a1d831b",
+                            "languageId":"de-DE",
+                            "type":"term",
+                            "value":"medows"
+                        }
+                    ]
+                }
+            ],
+            "projectTicket":"4YESyxwCtA1Wj8ujUmCA18npTWF1uB/q",
+            "sourceLanguage":"en-US",
+            "saveTerm":false,
+            "targetLanguage":["de-DE"]
+        }
+    ]
+}

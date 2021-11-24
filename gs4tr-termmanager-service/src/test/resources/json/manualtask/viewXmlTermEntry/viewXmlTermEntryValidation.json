@@ -1,0 +1,219 @@
+{
+  "name": "model",
+  "type": "properties",
+  "pairs": [
+    {
+      "key": "multimediaTickets",
+      "optional": false,
+      "rule": {
+        "type": "and",
+        "rules": [
+          {
+            "type": "array"
+          },
+          {
+            "type": "length",
+            "min": 0,
+            "max": 100
+          }
+        ]
+      }
+    },
+    {
+      "key": "termEntryAttributesConfigured",
+      "optional": false,
+      "rule": {
+        "type": "bool"
+      }
+    },
+    {
+      "key": "termAttributesConfigured",
+      "optional": false,
+      "rule": {
+        "type": "bool"
+      }
+    },
+    {
+      "key": "termEntryDescriptions",
+      "optional": false,
+      "type": "true"
+    },
+    {
+      "key": "notesConfigured",
+      "optional": false,
+      "rule": {
+        "type": "bool"
+      }
+    },
+    {
+      "key": "languagePreviewModels",
+      "optional": false,
+      "rule": {
+        "type": "and",
+        "rules": [
+          {
+            "type": "array"
+          },
+          {
+            "type": "length",
+            "min": 0,
+            "max": 100
+          },
+          {
+            "type": "content",
+            "rule": {
+              "type": "properties",
+              "pairs": [
+                {
+                  "key": "isRTL",
+                  "optional": false,
+                  "rule": {
+                    "type": "bool"
+                  }
+                },
+                {
+                  "key": "language",
+                  "optional": false,
+                  "rule": {
+                    "type": "properties",
+                    "pairs": [
+                      {
+                        "key": "locale",
+                        "optional": false,
+                        "rule": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "key": "value",
+                        "optional": false,
+                        "rule": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "key": "isRTL",
+                        "optional": false,
+                        "rule": {
+                          "type": "bool"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "key": "termPreviewModels",
+                  "optional": false,
+                  "rule": {
+                    "type": "and",
+                    "rules": [
+                      {
+                        "type": "array"
+                      },
+                      {
+                        "type": "length",
+                        "min": 0,
+                        "max": 100
+                      },
+                      {
+                        "type": "content",
+                        "rule": {
+                          "type": "properties",
+                          "pairs": [
+                            {
+                              "key": "blacklisted",
+                              "optional": true,
+                              "rule": {
+                                "type": "bool"
+                              }
+                            },
+                            {
+                              "key": "inTranslation",
+                              "optional": true,
+                              "rule": {
+                                "type": "bool"
+                              }
+                            },
+                            {
+                              "key": "sourceInTranslation",
+                              "optional": true,
+                              "rule": {
+                                "type": "bool"
+                              }
+                            },
+                            {
+                              "key": "descriptionPreviewModels",
+                              "optional": true,
+                              "rule": {
+                                "type": "and",
+                                "rules": [
+                                  {
+                                    "type": "array"
+                                  },
+                                  {
+                                    "type": "length",
+                                    "min": 0,
+                                    "max": 100
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "key": "name",
+                              "optional": true,
+                              "rule": {
+                                "type": "string"
+                              }
+                            },
+                            {
+                              "key": "notePreviewModels",
+                              "optional": false,
+                              "rule": {
+                                "type": "and",
+                                "rules": [
+                                  {
+                                    "type": "array"
+                                  },
+                                  {
+                                    "type": "length",
+                                    "min": 2,
+                                    "max": 100
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "key": "markerId",
+                              "optional": true,
+                              "rule": {
+                                "type": "string"
+                              }
+                            },
+                            {
+                              "key": "termStatus",
+                              "optional": true,
+                              "rule": {
+                                "type": "string"
+                              }
+                            },
+                            {
+                              "key": "ticket",
+                              "optional": true,
+                              "rule": {
+                                "type": "string"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

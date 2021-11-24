@@ -1,0 +1,139 @@
+package org.gs4tr.termmanager.service.impl;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
+import org.gs4tr.foundation.modules.entities.model.PagedList;
+import org.gs4tr.foundation.modules.entities.model.PagedListInfo;
+import org.gs4tr.foundation.modules.entities.model.Task;
+import org.gs4tr.foundation.modules.entities.model.TaskPagedList;
+import org.gs4tr.foundation.modules.entities.model.types.ItemStatusType;
+import org.gs4tr.termmanager.dao.ProjectDAO;
+import org.gs4tr.termmanager.dao.ProjectDetailDAO;
+import org.gs4tr.termmanager.dao.ProjectLanguageDetailDAO;
+import org.gs4tr.termmanager.model.ItemStatusTypeHolder;
+import org.gs4tr.termmanager.model.ProjectDetail;
+import org.gs4tr.termmanager.model.ProjectLanguageDetail;
+import org.gs4tr.termmanager.model.TmProject;
+import org.gs4tr.termmanager.model.TmUserProfile;
+import org.gs4tr.termmanager.model.search.command.ProjectLanguageDetailRequest;
+import org.gs4tr.termmanager.model.view.ProjectLanguageDetailView;
+import org.gs4tr.termmanager.service.ProjectLanguageDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service("projectLanguageDetailService")
+public class ProjectLanguageDetailServiceImpl implements ProjectLanguageDetailService {
+
+    @Autowired
+    private ProjectDAO _projectDAO;
+
+    @Autowired
+    private ProjectDetailDAO _projectDetailDAO;
+
+    @Autowired
+    private ProjectLanguageDetailDAO _projectLanguageDetailDAO;
+
+    @Override
+    @Transactional
+    public void cloneProjectLangDetail(ProjectLanguageDetail pldForClone, String languageTo, Long projectId) {
+	ProjectDetail projectDetail = getProjectDetailDAO().findByProjectId(projectId);
+
+	ItemStatusType defaultStatus = getDefaultProjectStatus(projectId);
+
+	ProjectLanguageDetail projectLanguageDetail = getProjectLanguageDetailDAO()
+		.findProjectLangDetailByLangId(projectId, languageTo);
+	/*
+	 * If there is a disabled projectLanguageDetail for languageTo in DB we have to
+	 * update that projectLanguageDetail or else we have to create a new one
+	 */
+	if (Objects.isNull(projectLanguageDetail)) {
+	    projectLanguageDetail = new ProjectLanguageDetail(languageTo, projectDetail);
+	}
+
+	long termInSubmission = pldForClone.getTermInSubmissionCount();
+
+	projectLanguageDetail.setTermEntryCount(pldForClone.getTermEntryCount());
+	projectLanguageDetail.setDateModified(pldForClone.getDateModified());
+	projectLanguageDetail.setTermCount(pldForClone.getTermCount());
+	projectLanguageDetail.setForbiddenTermCount(pldForClone.getForbiddenTermCount());
+	projectLanguageDetail.setDisabled(Boolean.FALSE);
+	projectLanguageDetail.setApprovedTermCount(pldForClone.getApprovedTermCount()
+		+ ((defaultStatus.equals(ItemStatusTypeHolder.PROCESSED) ? termInSubmission : 0)));
+	projectLanguageDetail.setPendingApprovalCount(pldForClone.getPendingApprovalCount()
+		+ ((defaultStatus.equals(ItemStatusTypeHolder.WAITING) ? termInSubmission : 0)));
+	projectLanguageDetail.setOnHoldTermCount(pldForClone.getOnHoldTermCount()
+		+ ((defaultStatus.equals(ItemStatusTypeHolder.ON_HOLD) ? termInSubmission : 0)));
+
+	getProjectLanguageDetailDAO().saveOrUpdate(projectLanguageDetail);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ProjectLanguageDetail findProjectLangDetailByLangId(Long projectId, String languageId) {
+	return getProjectLanguageDetailDAO().findProjectLangDetailByLangId(projectId, languageId);
+    }
+
+    @Override
+    @Transactional
+    public void recodeProjectLanguageDetail(Long projectId, String languageFrom, String languageTo) {
+	ProjectLanguageDetail pld = getProjectLanguageDetailDAO().findProjectLangDetailByLangId(projectId, languageTo);
+	/*
+	 * If there is a disabled projectLangDetail for languageTo in DB we have to
+	 * delete that projectLangDetail and recode projectLangDetail to languageFrom
+	 */
+	if (Objects.nonNull(pld) && pld.isDisabled()) {
+	    getProjectLanguageDetailDAO().delete(pld);
+	}
+
+	getProjectLanguageDetailDAO().recodeProjectLanguageDetail(projectId, languageFrom, languageTo);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public TaskPagedList<ProjectLanguageDetailView> search(ProjectLanguageDetailRequest command,
+	    PagedListInfo pagedListInfo) {
+	preProcessRequest(command);
+
+	PagedList<ProjectLanguageDetailView> pagedList = getProjectLanguageDetailDAO().getEntityPagedList(command,
+		pagedListInfo);
+
+	TaskPagedList<ProjectLanguageDetailView> taskPagedList = new TaskPagedList<ProjectLanguageDetailView>(
+		pagedList);
+
+	taskPagedList.setTasks(new Task[0]);
+
+	return taskPagedList;
+    }
+
+    private ItemStatusType getDefaultProjectStatus(Long projectId) {
+	TmProject project = getProjectDAO().load(projectId);
+	return project.getDefaultTermStatus();
+    }
+
+    private ProjectDAO getProjectDAO() {
+	return _projectDAO;
+    }
+
+    private ProjectDetailDAO getProjectDetailDAO() {
+	return _projectDetailDAO;
+    }
+
+    private ProjectLanguageDetailDAO getProjectLanguageDetailDAO() {
+	return _projectLanguageDetailDAO;
+    }
+
+    private void preProcessRequest(ProjectLanguageDetailRequest command) {
+	ProjectDetail projectDetail = getProjectDetailDAO().load(command.getProjectDetailId());
+	Long projectId = projectDetail.getProject().getProjectId();
+
+	TmUserProfile user = TmUserProfile.getCurrentUserProfile();
+	Map<Long, Set<String>> projectUserLanguages = user.getProjectUserLanguages();
+
+	Set<String> languageIds = projectUserLanguages.get(projectId);
+	command.setUser(user);
+	command.setLanguageIds(languageIds);
+    }
+}

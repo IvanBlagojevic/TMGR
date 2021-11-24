@@ -1,0 +1,40 @@
+package org.gs4tr.termmanager.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.gs4tr.foundation.modules.project.dao.BaseProjectDAO;
+import org.gs4tr.termmanager.model.Attribute;
+import org.gs4tr.termmanager.model.ProjectLanguage;
+import org.gs4tr.termmanager.model.ProjectMetadata;
+import org.gs4tr.termmanager.model.ProjectMetadataRequest;
+import org.gs4tr.termmanager.model.TmProject;
+
+public interface ProjectDAO extends BaseProjectDAO<TmProject> {
+
+    List findAllDisabledProjectIds();
+
+    List<Long> findAllEnabledProjectIds();
+
+    List<TmProject> findAllEnabledProjects(Class<?>... classesToFetch);
+
+    Map<Long, List<Attribute>> findAttributesByProjectIds(List<Long> projectIds);
+
+    TmProject findProjectById(Long projectId, Class<?>... classes);
+
+    List<Long> findProjectIdsByShortCodes(List<String> shortCodes);
+
+    List<ProjectLanguage> findProjectLanguagesByProjectId(Long projectId);
+
+    List<TmProject> findProjectsByIds(List<Long> projectIds);
+
+    List<Long> findProjectsByNameLike(String nameLike);
+
+    List<Attribute> getAttributesByProjectId(Long projectId);
+
+    Long getOrganizationIdByProject(Long projectId);
+
+    List<ProjectMetadata> getProjectMetadata(ProjectMetadataRequest request);
+
+    void initializeProjectLanguages(TmProject project);
+}

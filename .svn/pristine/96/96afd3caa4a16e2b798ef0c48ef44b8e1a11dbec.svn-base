@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<context:component-scan base-package="org.gs4tr.termmanager.service.solr" />
+	<context:component-scan base-package="org.gs4tr.termmanager.service.solr.backup" />
+	<context:component-scan base-package="org.gs4tr.termmanager.service.solr.restore" />
+
+	<bean id="solrServiceConfiguration"
+		class="org.gs4tr.termmanager.service.solr.SolrServiceConfiguration">
+		<constructor-arg index="0" type="java.io.File">
+			<value>environment:solrservice.properties</value>
+		</constructor-arg>
+	</bean>
+</beans>

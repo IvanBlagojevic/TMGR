@@ -1,0 +1,21 @@
+{
+  "folder": "TERM_LIST",
+  "index": 0,
+  "size": 50,
+  "searchUserLatestChanges": false,
+  "projectComboBox": [
+    "$projectTicket"
+  ],
+  "languageDirection": {
+    "value1": "en-US",
+    "value2": "de-DE"
+  },
+  "entityType": {
+    "value1": [
+      "TERM",
+      "ATTRIBUTES"
+    ]
+  },
+  "ascending": false,
+  "sortProperty": "term.dateModified"
+}

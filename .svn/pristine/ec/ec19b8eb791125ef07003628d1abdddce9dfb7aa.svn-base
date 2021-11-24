@@ -1,0 +1,10 @@
+GlossaryConnectionManager.0=Unable to load term list
+GlossaryConnectionManager.1=Contact administrator
+GlossaryConnectionManager.2=Created new connection %s
+GlossaryConnectionManager.3=Unable to load term list
+GlossaryConnectionManager.4=Contact administrator
+GlossaryConnectionManager.5=Created new connection %s
+SolrLoaderListener.0=Error occurred when trying to start application\!
+SolrServletContextInitializer.0=Bean initialized, but servlet context not ready yet
+SolrServletContextInitializer.1=Got servlet context
+SolrServletContextInitializer.2=Setting servlet context attributes

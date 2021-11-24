@@ -1,0 +1,168 @@
+{
+  "gridConfig": [
+    {
+      "sortable": true,
+      "sortProperty": "sourceSubTerm.text",
+      "dataIndex": "sourceTerm.termName",
+      "hidden": false,
+      "width": 354,
+      "headerKey": "sourceTerm",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "sourceTerm",
+      "hidden": true,
+      "width": 400,
+      "headerKey": "sourceTerm",
+      "systemHidden": true
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "sourceSynonyms",
+      "hidden": true,
+      "width": 400,
+      "headerKey": "sourceSynonyms",
+      "systemHidden": true
+    },
+    {
+      "sortable": true,
+      "sortProperty": "targetSubTerm.text",
+      "dataIndex": "targetTerm.termName",
+      "hidden": false,
+      "width": 354,
+      "headerKey": "targetTerm",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "targetTerm",
+      "hidden": true,
+      "width": 400,
+      "headerKey": "targetTerm",
+      "systemHidden": true
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "targetSynonyms",
+      "hidden": true,
+      "width": 400,
+      "headerKey": "targetSynonyms",
+      "systemHidden": true
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "targetTerm.status",
+      "hidden": false,
+      "width": 40,
+      "headerKey": "targetTermStatus",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "ticket",
+      "hidden": true,
+      "width": 40,
+      "headerKey": "id",
+      "systemHidden": true
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "targetTerm.termComments",
+      "hidden": false,
+      "width": 40,
+      "headerKey": "comments",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "targetSubTerm.dateSubmitted",
+      "dataIndex": "targetTerm.submissionDate",
+      "hidden": false,
+      "width": 115,
+      "headerKey": "submissionDate",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "targetSubTerm.dateModified",
+      "dataIndex": "targetTerm.modificationDate",
+      "hidden": false,
+      "width": 115,
+      "headerKey": "modificationDate",
+      "systemHidden": false
+    },
+    {
+      "sortable": true,
+      "sortProperty": "entityStatusPriority.dateCompleted",
+      "dataIndex": "targetTerm.completedDate",
+      "hidden": false,
+      "width": 115,
+      "headerKey": "completedDate",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "attributesAndNotes",
+      "hidden": true,
+      "width": 128,
+      "headerKey": "attributesAndNotes",
+      "systemHidden": true
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "newSourceSynonym",
+      "hidden": true,
+      "width": 128,
+      "headerKey": "newSourceSynonym",
+      "systemHidden": true
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "newTargetSynonym",
+      "hidden": true,
+      "width": 128,
+      "headerKey": "newTargetSynonym",
+      "systemHidden": true
+    },
+    {
+      "sortable": false,
+      "sortProperty": "false",
+      "dataIndex": "targetTerm.submitter",
+      "hidden": true,
+      "width": 354,
+      "headerKey": "submitter",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "",
+      "dataIndex": "targetTerm.assignee",
+      "hidden": false,
+      "width": 354,
+      "headerKey": "assignee",
+      "systemHidden": false
+    },
+    {
+      "sortable": false,
+      "sortProperty": "targetSubTerm.dateModified",
+      "dataIndex": "defaultSortProperty",
+      "hidden": true,
+      "width": 400,
+      "headerKey": "defaultSortProperty",
+      "systemHidden": true
+    }
+  ],
+  "sortProperty": "targetSubTerm.dateModified",
+  "ascending": false
+}

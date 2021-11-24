@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+    <bean id="hibernateSessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="cpDataSource"/>
+        <property name="namingStrategy" ref="tmNamingStrategy"/>
+        <property name="hibernateProperties">
+            <map>
+                <entry key="hibernate.cache.use_second_level_cache" value="false"/>
+            </map>
+        </property>
+        <property name="packagesToScan">
+            <list>
+                <value>org.gs4tr.termmanager.model</value>
+            </list>
+        </property>
+        <property name="annotatedClasses">
+            <list>
+                <value>org.gs4tr.foundation.modules.entities.model.ProjectMetadata
+                </value>
+                <value>org.gs4tr.foundation.modules.usermanager.model.UserProfileMetadata
+                </value>
+                <value>org.gs4tr.foundation.modules.security.model.Role</value>
+                <value>org.gs4tr.foundation.modules.security.model.Policy</value>
+            </list>
+        </property>
+        <property name="configLocation" value="environment:hibernate.cfg.xml"/>
+
+    </bean>
+
+    <bean id="tmNamingStrategy"
+          class="org.gs4tr.foundation.modules.dao.hibernate.namingstrategy.BaseNamingStrategy">
+        <property name="tablePrefix" value="TM_"/>
+    </bean>
+
+    <bean id="cpDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/termmanager"/>
+    </bean>
+
+</beans>

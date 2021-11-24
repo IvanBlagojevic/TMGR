@@ -1,0 +1,21 @@
+{
+  "deletePerProject": [
+    {
+      "projectTicket": "$projectTicket",
+      "termEntryTickets": [
+        "$termEntryTicket1"
+      ],
+      "termTickets": [
+        "$termTicket1"
+      ]
+    }
+  ],
+  "sourceLanguage": "$sourceLanguage",
+  "targetLanguages": [
+    "$targetLanguage1"
+  ],
+  "includeSourceSynonyms": "$includeSourceSynonyms",
+  "includeTargetSynonyms": "$includeTargetSynonyms",
+  "deleteTermEntries": "$deleteTermEntries"
+}
+

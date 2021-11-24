@@ -1,0 +1,5 @@
+{
+    "sourceTicket":"$sourceTermId",
+    "termEntryTicket": "$termEntryId",
+    "targetTicket" : "$targetTermId"
+}

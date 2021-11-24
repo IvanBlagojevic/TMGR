@@ -1,0 +1,138 @@
+<?xml version="1.0" ?>
+<schema name="tmgr" version="1.5">
+    <types>
+        <fieldType name="string" class="solr.StrField" multiValued="false"
+                   positionIncrementGap="100"/>
+        <fieldType name="long" class="solr.TrieLongField"
+                   precisionStep="0" positionIncrementGap="100" multiValued="false"/>
+        <fieldType name="int" class="solr.TrieIntField" multiValued="false"
+                   positionIncrementGap="100"/>
+        <fieldtype name="binary" class="solr.BinaryField" indexed="false"
+                   stored="true" multiValued="true"/>
+        <fieldType name="boolean" class="solr.BoolField" omitNorms="true"/>
+
+        <!-- ngram -->
+        <fieldType name="text_ngram"
+                   class="org.gs4tr.foundation3.solr.plugin.ConcordanceNgramFieldType"
+                   multiValued="false" indexed="true" stored="false" omitNorms="false"
+                   omitTermFreqAndPositions="false" offset="2"/>
+        <fieldType name="text_ngram_multi"
+                   class="org.gs4tr.foundation3.solr.plugin.ConcordanceNgramFieldType"
+                   multiValued="true" indexed="true" stored="false" omitNorms="false"
+                   omitTermFreqAndPositions="false" offset="3"/>
+
+        <!-- standard tokenization -->
+        <fieldType name="text_sub"
+                   class="org.gs4tr.foundation3.solr.plugin.LocaleSensitiveAnalyzedFieldType"
+                   multiValued="false" indexed="true" stored="false" omitNorms="false"
+                   omitTermFreqAndPositions="false" offset="2" tokenizer="STANDARD"
+                   filters="CASEFOLD">
+            <similarity
+                    class="org.gs4tr.foundation3.solr.subdocument.SubdocumentSimilarity"/>
+        </fieldType>
+        <fieldType name="text_sub-stemmed"
+                   class="org.gs4tr.foundation3.solr.plugin.LocaleSensitiveAnalyzedFieldType"
+                   multiValued="false" indexed="true" stored="false" omitNorms="false"
+                   omitTermFreqAndPositions="false" offset="3" tokenizer="STANDARD"
+                   filters="CASEFOLD,STEM,FOLD">
+            <similarity
+                    class="org.gs4tr.foundation3.solr.subdocument.SubdocumentSimilarity"/>
+        </fieldType>
+
+        <!-- store & sort -->
+        <fieldType name="string_collation_store"
+                   class="org.gs4tr.foundation3.solr.plugin.CodeEncodedCollationFieldType"
+                   multiValued="false" indexed="false" stored="true" docValues="true"
+                   offset="4" strength="tertiary" case="true"/>
+
+        <fieldtype name="uid"
+                   class="org.gs4tr.foundation3.solr.plugin.UniqueIdentifierFieldType"/>
+    </types>
+    <fields>
+
+        <!-- solr required -->
+        <field name="_id_" type="string" required="true" indexed="true"
+               stored="true"/>
+        <field name="_version_" type="long" indexed="true" stored="true"/>
+        <field name="_root_" type="string" indexed="true" stored="true"
+               multiValued="false" required="false"/>
+        <field name="_revision_" type="string" indexed="true" stored="true"/>
+        <field name="_history_" type="binary"/>
+        <field name="_session_" type="uid" indexed="true" stored="true"
+               multiValued="true"/>
+        <field name="_context_" type="string" indexed="false" stored="false"/>
+
+        <!-- fields searchable and stored basic types, usually for some filter
+            queries -->
+        <dynamicField name="*_STRING" type="string" indexed="true"
+                      stored="true"/>
+        <dynamicField name="*_LONG" type="long" indexed="true"
+                      stored="true"/>
+        <dynamicField name="*_INT" type="int" indexed="true"
+                      stored="true"/>
+
+        <!-- fields searchable basic types, usually for special queries -->
+
+        <dynamicField name="*_STRING_INDEX" type="string"
+                      indexed="true" stored="false"/>
+        <dynamicField name="*_LONG_INDEX" type="long" indexed="true"
+                      stored="false"/>
+        <dynamicField name="*_INT_INDEX" type="int" indexed="true"
+                      stored="false"/>
+        <dynamicField name="*_BOOL_INDEX" type="boolean" indexed="true"
+                      stored="false"/>
+
+        <!-- fields stored only basic types, fields that will not be searched -->
+
+        <dynamicField name="*_STRING_STORE" type="string"
+                      indexed="false" stored="true"/>
+        <dynamicField name="*_LONG_STORE" type="long" indexed="false"
+                      stored="true"/>
+        <dynamicField name="*_INT_STORE" type="int" indexed="false"
+                      stored="true"/>
+        <dynamicField name="*_BOOL_STORE" type="boolean" indexed="false"
+                      stored="true"/>
+        <!-- sort fields -->
+        <dynamicField name="*_STRING_BASIC_SORT" type="string"/>
+        <dynamicField name="*_STRING_STORE_SORT" type="string_collation_store"/>
+        <dynamicField name="*_LONG_SORT" type="long" indexed="false"
+                      stored="true" docValues="true"/>
+        <dynamicField name="*_INT_SORT" type="int" indexed="false"
+                      stored="true" docValues="true"/>
+
+        <dynamicField name="*_STRING_MULTI" type="string"
+                      indexed="true" stored="true" multiValued="true"/>
+        <dynamicField name="*_LONG_MULTI" type="long" indexed="true"
+                      stored="true" multiValued="true"/>
+        <dynamicField name="*_INT_MULTI" type="int" indexed="true"
+                      stored="true" multiValued="true"/>
+
+        <dynamicField name="*_STRING_STORE_MULTI" type="string"
+                      indexed="false" stored="true" multiValued="true"/>
+        <dynamicField name="*_STRING_INDEX_MULTI" type="string"
+                      indexed="true" stored="false" multiValued="true"/>
+
+        <!-- TODO: remove this field in favor of *_STRING_MULTI -->
+        <dynamicField name="*_STRING_STORE_INDEX_MULTI" type="string"
+                      indexed="true" stored="true" multiValued="true"/>
+
+        <!-- Special fields -->
+        <dynamicField name="*_BINARY" type="binary"/>
+        <!-- Use to push parameters through distributed update processor -->
+        <dynamicField name="*_INTERNAL" type="string" indexed="false"
+                      stored="false"/>
+
+        <!-- Text tokenization, search only. -->
+        <dynamicField name="*_NGRAM_INDEX" type="text_ngram"/>
+        <dynamicField name="*_NGRAM_INDEX_MULTI" type="text_ngram_multi"/>
+        <dynamicField name="*_SUB_INDEX" type="text_sub"/>
+        <dynamicField name="*_SUB_STEMMED_INDEX" type="text_sub-stemmed"/>
+
+    </fields>
+    <uniqueKey>_id_</uniqueKey>
+    <similarity
+            class="org.gs4tr.foundation3.solr.plugin.ExtendedSchemaSimilarityFactory"/>
+    <solrQueryParser defaultOperator="OR"/>
+
+</schema>
+

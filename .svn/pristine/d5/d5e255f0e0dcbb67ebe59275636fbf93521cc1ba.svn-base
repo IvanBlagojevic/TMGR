@@ -1,0 +1,3 @@
+AbstractPageRequest.0=Page index must not be less than zero\!
+AbstractPageRequest.1=Page size must not be less than one\!
+TextFilter.0=Parameter text can not be null or empty\!

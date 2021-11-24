@@ -1,0 +1,13 @@
+{
+	"userInfo":{
+		"firstName":"betmen",
+		"lastName":"superment",
+		"emailAddress":"adassd@adsa.com",
+		"timeZone":"Indian/Kerguelen",
+		"emailNotification":true,
+		"userName":"$userName",
+		"password":"sssss",
+		"userType":"ORGANIZATION"
+		},
+		"createLdapUser":false
+}

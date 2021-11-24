@@ -1,0 +1,27 @@
+{
+	"submissionMarkerId":"$submissionMarkerId",
+	"submissionName":"$submissionName",
+	"reviewRequired":"true",
+	"projectTicket":"$projectTicket",
+	"sourceLanguage":"en-US",
+	"sourceTermTickets":[
+		"$sourceTermTicket"
+	],
+	"translationUnits":[
+		{
+			"updateCommands":[
+				{
+					"command":"translate",
+					"markerId":"9c25d767-6d00-4dad-b0f7-634b2fa4b660",
+					"type":"term",
+					"value":"",
+					"languageId":"sr-RS",
+					"assignee":"generic1"
+				}
+			],
+			"projectTicket":"$projectTicket",
+			"termEntryTicket":"$termEntryTicket"
+		}
+		
+	]
+}

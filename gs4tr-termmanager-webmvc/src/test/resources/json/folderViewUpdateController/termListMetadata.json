@@ -1,0 +1,195 @@
+{
+    "gridConfig": [
+        {
+            "sortable": true,
+            "sortProperty": "en_termName_STRING_STORE-SORT",
+            "dataIndex": "sourceTerm.termName",
+            "hidden": false,
+            "width": 354,
+            "headerKey": "sourceTerm",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "sourceTerm",
+            "hidden": true,
+            "width": 400,
+            "headerKey": "sourceTerm",
+            "systemHidden": true
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "sourceSynonyms",
+            "hidden": true,
+            "width": 400,
+            "headerKey": "sourceSynonyms",
+            "systemHidden": true
+        },
+        {
+            "sortable": true,
+            "sortProperty": "en_status_STRING_BASIC_SORT",
+            "dataIndex": "sourceTerm.status",
+            "hidden": false,
+            "width": 241,
+            "headerKey": "sourceTermStatus",
+            "systemHidden": false
+        },
+        {
+            "sortable": true,
+            "sortProperty": "en_dateModified_LONG_SORT",
+            "dataIndex": "sourceTerm.modificationDate",
+            "hidden": false,
+            "width": 70,
+            "headerKey": "modificationDate",
+            "systemHidden": false
+        },
+        {
+            "sortable": true,
+            "sortProperty": "en_userModified_STRING_BASIC_SORT",
+            "dataIndex": "sourceTerm.userModified",
+            "hidden": false,
+            "width": 100,
+            "headerKey": "modificationUser",
+            "systemHidden": false
+        },
+        {
+            "sortable": true,
+            "sortProperty": "en-US_termName_STRING_STORE-SORT",
+            "dataIndex": "targetTerms.en_US.targetTerm.termName",
+            "hidden": false,
+            "width": 354,
+            "headerKey": "targetTerm",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "targetTerms.en_US.targetTerm",
+            "hidden": true,
+            "width": 400,
+            "headerKey": "targetTerm",
+            "systemHidden": true
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "targetTerms.en_US.targetSynonyms",
+            "hidden": true,
+            "width": 400,
+            "headerKey": "targetSynonyms",
+            "systemHidden": true
+        },
+        {
+            "sortable": true,
+            "sortProperty": "en-US_status_STRING_BASIC_SORT",
+            "dataIndex": "targetTerms.en_US.targetTerm.status",
+            "hidden": false,
+            "width": 60,
+            "headerKey": "status",
+            "systemHidden": false
+        },
+        {
+            "sortable": true,
+            "sortProperty": "en-US_dateModified_LONG_SORT",
+            "dataIndex": "targetTerms.en_US.targetTerm.modificationDate",
+            "hidden": false,
+            "width": 70,
+            "headerKey": "modificationDate",
+            "systemHidden": false
+        },
+        {
+            "sortable": true,
+            "sortProperty": "en-US_userModified_STRING_BASIC_SORT",
+            "dataIndex": "targetTerms.en_US.targetTerm.userModified",
+            "hidden": false,
+            "width": 100,
+            "headerKey": "modificationUser",
+            "systemHidden": false
+        },
+        {
+            "sortable": true,
+            "sortProperty": "dateCreated_LONG_SORT",
+            "dataIndex": "termEntryCreationDate",
+            "hidden": false,
+            "width": 100,
+            "headerKey": "creationDate",
+            "systemHidden": false
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "ticket",
+            "hidden": true,
+            "width": 40,
+            "headerKey": "id",
+            "systemHidden": true
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "attributesAndNotes",
+            "hidden": true,
+            "width": 128,
+            "headerKey": "attributesAndNotes",
+            "systemHidden": true
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "newSourceSynonym",
+            "hidden": true,
+            "width": 128,
+            "headerKey": "newSourceSynonym",
+            "systemHidden": true
+        },
+        {
+            "sortable": false,
+            "sortProperty": "",
+            "dataIndex": "newTargetSynonym",
+            "hidden": true,
+            "width": 128,
+            "headerKey": "newTargetSynonym",
+            "systemHidden": true
+        },
+        {
+            "sortable": true,
+            "sortProperty": "userCreated_STRING_BASIC_SORT",
+            "dataIndex": "userCreated",
+            "hidden": false,
+            "width": 100,
+            "headerKey": "creationUser",
+            "systemHidden": false
+        },
+        {
+            "sortable": true,
+            "sortProperty": "shortCode_STRING",
+            "dataIndex": "projectName",
+            "hidden": false,
+            "width": 128,
+            "headerKey": "projectName",
+            "systemHidden": false
+        },
+        {
+            "sortable": true,
+            "sortProperty": "projectId_LONG",
+            "dataIndex": "projectTicket",
+            "hidden": true,
+            "width": 128,
+            "headerKey": "projectTicket",
+            "systemHidden": true
+        },
+        {
+            "sortable": false,
+            "sortProperty": "termName_STRING_STORE-SORT",
+            "dataIndex": "defaultSortProperty",
+            "hidden": true,
+            "width": 70,
+            "headerKey": "defaultSortProperty",
+            "systemHidden": true
+        }
+    ],
+    "sortProperty": "en_termName_STRING_STORE-SORT",
+    "ascending": true
+}
